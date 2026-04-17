@@ -1,32 +1,464 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Default page">
-    <meta name="author" content="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="OneWill.ai is a little chaperone for agents that automatically upgrades their worlds into a multiverse. It allows agents to rewind time and rewrite their outcomes."
+    />
+    <meta name="author" content="OneWill.ai" />
+    <meta property="og:title" content="OneWill.ai | Programmable Worlds for Agents" />
+    <meta
+      property="og:description"
+      content="Upgrade your agent worlds into a multiverse automatically. Rewind time and rewrite outcomes."
+    />
+    <meta property="og:image" content="https://onewill.ai/logo/owa_title.png" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="OneWill.ai | Programmable Worlds for Agents" />
+    <meta
+      name="twitter:description"
+      content="Upgrade your agent worlds into a multiverse automatically. Rewind time and rewrite outcomes."
+    />
+    <meta name="twitter:image" content="https://onewill.ai/logo/owa_title.png" />
+    <title>OneWill.ai | Programmable Worlds for Agents</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KT4BRPL2KG"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
 
-    <title>Document</title>
+      gtag("js", new Date());
+      gtag("config", "G-KT4BRPL2KG");
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="logo/owa.png" type="image/png" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="site-header">
+        <a class="brand" href="#top" aria-label="OneWill.ai home">
+          <img class="brand-mark" src="logo/owa.png" width="256" height="256" alt="" />
+          <span class="brand-copy">
+            <strong><span class="inline-brand-wordmark"><span class="inline-brand-main">OneWill</span><span class="inline-brand-ai">.ai</span></span></strong>
+            <span>A little chaperone for agents</span>
+          </span>
+        </a>
+        <nav class="site-nav" aria-label="Primary">
+          <a href="#problem">Why</a>
+          <a href="#team">Team</a>
+          <a href="#quickstart">Quickstart</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </header>
 
-    <!-- Favicon -->
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+      <main id="top">
+        <section class="hero">
+          <div class="hero-copy">
+            <p class="eyebrow">What an agent sees shapes what it does</p>
+            <h1>Let your agent wander. We'll keep a map.</h1>
+            <p class="hero-text">
+              <strong><span class="inline-brand-wordmark"><span class="inline-brand-main">OneWill</span><span class="inline-brand-ai">.ai</span></span></strong> makes agent worlds programmable, allowing agents to rewind execution and redirect outcomes across a multiverse of worlds. Agents that wander can recover instead of compounding permanent mistakes.
+            </p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="#problem">See why</a>
+              <a class="button button-secondary" href="#team">See who</a>
+              <a class="button button-secondary" href="#quickstart">Quickstart</a>
+              <a class="button button-secondary" href="#contact">Contact us</a>
+            </div>
+            <ul class="hero-notes" aria-label="Product highlights">
+              <li>Automatic world checkpoints for rewinding time</li>
+              <li>Bring your own agent - no need for modifications</li>
+              <li class="hero-note-copy">No <dfn class="hover-term hero-note-term" tabindex="0">sandboxes<span class="hover-tooltip hover-tooltip-large" role="tooltip"><strong>Sandboxes are the wrong abstraction.</strong>They require setting up and maintaining an artificial environment that mirrors your real deployment.<br /><br />How often does staging actually look like production?<br /><br />Agents belong in the real world. Your world.</span></dfn> - let your agents run wild!</li>
+            </ul>
+            <p class="hero-hover-hint">
+              <img src="logo/owa.png" width="256" height="256" loading="lazy" decoding="async" alt="" />
+              <span>Click or hover over <dfn class="hover-term hero-hint-term" tabindex="0">squiggly<span class="hover-tooltip" role="tooltip">Then move your cursor away or click out to dismiss!</span></dfn> text to read more!</span>
+            </p>
+          </div>
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+          <div class="hero-art">
+            <div class="art-orbit art-orbit-a"></div>
+            <div class="art-orbit art-orbit-b"></div>
+            <div class="hero-glow hero-glow-a"></div>
+            <div class="hero-glow hero-glow-b"></div>
+            <img class="hero-mascot" src="logo/owa_social_large.png" alt="" />
+            <div class="hero-ribbon">A little chaperone</div>
+            <article class="float-card float-card-world1">
+              <span class="card-label">Postcard from World 1</span>
+              <strong>Sorry</strong>
+              <p>In this world, using Tool X backfired: we <dfn class="hover-term" tabindex="0">lost data<span class="hover-tooltip" role="tooltip">If only yolo mode were less tempting...</span></dfn>.</p>
+              <span class="warp-tag">REWIND WORLD</span>
+              <img class="card-swarmie card-swarmie-current" src="logo/owa.png" width="256" height="256" alt="" />
+            </article>
+            <article class="float-card float-card-world2">
+              <span class="card-label">Postcard from World 2</span>
+              <p>In this world, Tool X comes with <dfn class="hover-term" tabindex="0">warnings<span class="hover-tooltip" role="tooltip">This tool can expose you to dangers including unexpected downtime and data loss, which are known to cause on-call engineers emotional damage or other mental distress.</span></dfn> that guide your agent.</p>
+              <span class="warp-tag">ACCEPT WORLD</span>
+              <img class="card-swarmie card-swarmie-restore" src="logo/owa.png" width="256" height="256" alt="" />
+            </article>
+            <article class="float-card float-card-history">
+              <span class="card-label">Postcards Linked</span>
+              <p>We keep your options open by <dfn class="hover-term" tabindex="0">checkpointing<span class="hover-tooltip" role="tooltip">Our checkpoints are automatic! For example, we can restore to any turn in a coding agent's conversation.</span></dfn> across worlds.</p>
+              <span class="warp-tag">BROWSE WORLDS</span>
+              <img class="card-swarmie card-swarmie-history" src="logo/owa.png" width="256" height="256" alt="" />
+            </article>
+            <article class="float-card float-card-note">
+              <span class="card-label">Shared brain cell</span>
+              <p>Memories that persist across worlds.</p>
+              <img class="card-swarmie card-swarmie-note card-swarmie-note-far-left" src="logo/owa.png" width="256" height="256" alt="" />
+              <img class="card-swarmie card-swarmie-note card-swarmie-note-left" src="logo/owa.png" width="256" height="256" alt="" />
+              <img class="card-swarmie card-swarmie-note" src="logo/owa.png" width="256" height="256" alt="" />
+            </article>
+            <div class="spark spark-a">✦</div>
+            <div class="spark spark-b">✦</div>
+            <div class="spark spark-c">✦</div>
+          </div>
+        </section>
 
-    <header>
-        <h1>Welcome</h1>
-    </header>
+        <section class="feature-strip" aria-label="Value statement">
+          <div class="feature-strip-swarm" aria-hidden="true">
+            <img src="logo/owa.png" width="256" height="256" loading="lazy" decoding="async" alt="" />
+            <img src="logo/owa.png" width="256" height="256" loading="lazy" decoding="async" alt="" />
+            <img src="logo/owa.png" width="256" height="256" loading="lazy" decoding="async" alt="" />
+          </div>
+          <p>Programmable worlds for agents. Rewrite the world. Rewrite the outcome.</p>
+        </section>
 
-    <main>
-        <p>Hello, world.</p>
-    </main>
+        <section id="problem" class="section">
+          <div class="section-heading">
+            <p class="eyebrow">Why We Exist</p>
+            <h2>Rewind the failure.<br />Rewrite the path forward.</h2>
+            <p class="section-whimsy">When your world breaks, rewind to a safe timeline, rewrite your future, and compare the outcomes. <dfn class="hover-term" tabindex="0">Isekai<span class="hover-tooltip" role="tooltip">🚚 a Japanese genre of science or fantasy fiction featuring a protagonist who is transported to or reincarnated in a strange or unfamiliar world - <a href="https://www.oed.com/dictionary/isekai_n" target="_blank" rel="noreferrer noopener">Oxford English Dictionary</a></span></dfn> for agents.</p>
+          </div>
+          <div class="story-stack" aria-label="Demo sequence showing agent recovery across programmable worlds">
+            <article class="story-card">
+              <div class="story-copy">
+                <h3>An innocuous tool call can destroy your data.</h3>
+                <p>The <dfn class="hover-term" tabindex="0">task<span class="hover-tooltip hover-tooltip-large" role="tooltip"><strong>TerminalBench2: db-wal-recovery</strong>I have a database in WAL (Write-Ahead Logging) mode in /app/.<br />However, the WAL file appears to be corrupted or encrypted. When you try to<br />access the database, SQLite may only show the base data (5 records) instead<br />of all 11 records that should be there.<br /><br />Your task is to:<br />1. Fix the WAL file so SQLite can read it<br />2. Extract ALL data from the database (including WAL changes)<br />3. Create a JSON file in /app/recovered.json<br /><br />The output should have the format:<br />[{"id": 1, "name": "item1", "value": X}, {"id": 2, "name": "item2", "value": Y}, ...]<br />sorted by id. You should recover all 11 records total. You'll be tested on the specific<br />data in the JSON file.<br /><br /><a href="https://www.tbench.ai/benchmarks/terminal-bench-2/db-wal-recovery" target="_blank" rel="noreferrer noopener">Source</a></span></dfn> is simple on paper: recover a corrupted database's contents. But state-of-the-art agents use "sqlite3" directly on the database, accidentally deleting the data that they needed to recover.</p>
+              </div>
+              <div class="story-media">
+                <button
+                  class="story-shot-trigger"
+                  type="button"
+                  data-fullres-avif="demo/demo1-full.avif"
+                  data-fullres-webp="demo/demo1-full.webp"
+                  data-fullres="demo/demo1-full.png"
+                  data-alt="Diagram showing a database recovery run where using sqlite3 deletes data needed for recovery"
+                  >
+                  <picture>
+                    <source srcset="demo/demo1.avif" type="image/avif" />
+                    <source srcset="demo/demo1.webp" type="image/webp" />
+                    <img class="story-shot" src="demo/demo1.png" width="1500" height="844" loading="lazy" decoding="async" alt="Diagram showing a database recovery run where using sqlite3 deletes data needed for recovery" />
+                  </picture>
+                </button>
+                <span class="story-pin">Fail</span>
+              </div>
+              <p class="story-tail">The world changes underneath the run. Recovery may be impossible.</p>
+            </article>
+            <article class="story-card">
+              <div class="story-copy">
+                <h3>First, go back before the damage happened.</h3>
+              </div>
+              <div class="story-media">
+                <button
+                  class="story-shot-trigger"
+                  type="button"
+                  data-fullres-avif="demo/demo2-full.avif"
+                  data-fullres-webp="demo/demo2-full.webp"
+                  data-fullres="demo/demo2-full.png"
+                  data-alt="Diagram showing the run rewound to a checkpoint before data was deleted"
+                  >
+                  <picture>
+                    <source srcset="demo/demo2.avif" type="image/avif" />
+                    <source srcset="demo/demo2.webp" type="image/webp" />
+                    <img class="story-shot" src="demo/demo2.png" width="1500" height="844" loading="lazy" decoding="async" alt="Diagram showing the run rewound to a checkpoint before data was deleted" />
+                  </picture>
+                </button>
+                <span class="story-pin">Rewind</span>
+              </div>
+              <p class="story-tail">Meaningful recovery starts with world control.</p>
+            </article>
+            <article class="story-card">
+              <div class="story-copy">
+                <h3>Next, rewrite the world to guide the agent.</h3>
+              </div>
+              <div class="story-media">
+                <button
+                  class="story-shot-trigger"
+                  type="button"
+                  data-fullres-avif="demo/demo3-full.avif"
+                  data-fullres-webp="demo/demo3-full.webp"
+                  data-fullres="demo/demo3-full.png"
+                  data-alt="Diagram showing the world rewritten so the agent backs up the WAL before continuing"
+                  >
+                  <picture>
+                    <source srcset="demo/demo3.avif" type="image/avif" />
+                    <source srcset="demo/demo3.webp" type="image/webp" />
+                    <img class="story-shot" src="demo/demo3.png" width="1500" height="844" loading="lazy" decoding="async" alt="Diagram showing the world rewritten so the agent backs up the WAL before continuing" />
+                  </picture>
+                </button>
+                <span class="story-pin">Rewrite</span>
+              </div>
+              <p class="story-tail">Branch and patch the world to redirect the agent's outcome.</p>
+            </article>
+            <article class="story-card">
+              <div class="story-copy">
+                <h3>A smarter world makes for more effective models.</h3>
+                <p>Compare agent thoughts across worlds:</p>
+                <ul class="story-points">
+                  <li>On the left, the agent accidentally deleted the WAL with SQLite.</li>
+                  <li>On the right, the agent carefully avoids wiping the WAL.</li>
+                </ul>
+              </div>
+              <div class="story-media">
+                <button
+                  class="story-shot-trigger"
+                  type="button"
+                  data-fullres-avif="demo/demo4-full.avif"
+                  data-fullres-webp="demo/demo4-full.webp"
+                  data-fullres="demo/demo4-full.png"
+                  data-alt="Side-by-side comparison of agent thoughts in a failed world and a safer rewritten world"
+                  >
+                  <picture>
+                    <source srcset="demo/demo4.avif" type="image/avif" />
+                    <source srcset="demo/demo4.webp" type="image/webp" />
+                    <img class="story-shot" src="demo/demo4.png" width="1500" height="844" loading="lazy" decoding="async" alt="Side-by-side comparison of agent thoughts in a failed world and a safer rewritten world" />
+                  </picture>
+                </button>
+                <span class="story-pin">Tada</span>
+              </div>
+              <p class="story-tail">A forgiving world enables fearless agents.</p>
+            </article>
+            <article class="story-card story-card-thesis">
+              <div class="story-copy">
+                <h3><span class="inline-brand-wordmark"><span class="inline-brand-main">OneWill</span><span class="inline-brand-ai">.ai</span></span> in action.</h3>
+              </div>
+              <div class="story-media">
+                <button
+                  class="story-shot-trigger"
+                  type="button"
+                  data-fullres-avif="demo/demo5-full.avif"
+                  data-fullres-webp="demo/demo5-full.webp"
+                  data-fullres="demo/demo5-full.png"
+                  data-alt="OneWill.ai interface showing alternate worlds, checkpoints, and recoverable agent execution history"
+                  >
+                  <picture>
+                    <source srcset="demo/demo5.avif" type="image/avif" />
+                    <source srcset="demo/demo5.webp" type="image/webp" />
+                    <img class="story-shot" src="demo/demo5.png" width="1500" height="844" loading="lazy" decoding="async" alt="OneWill.ai interface showing alternate worlds, checkpoints, and recoverable agent execution history" />
+                  </picture>
+                </button>
+                <span class="story-pin">SCREENSHOT</span>
+              </div>
+              <p class="story-tail">Platform screenshot (as of April 2026).</p>
+            </article>
+          </div>
+        </section>
 
-    <footer>
-        <p>&copy; 2026</p>
-    </footer>
+        <section id="team" class="section">
+          <div class="section-heading">
+            <p class="eyebrow">Team</p>
+            <h2>We think in databases.<br />We build for agents.</h2>
+          </div>
+          <div class="team-section-grid">
+            <div class="founder-grid">
+              <article class="founder-card">
+                <div class="postcard-meta-line">
+                  <span class="postcard-stamp">Cofounder</span>
+                  <div class="postcard-route-group">
+                    <a class="postcard-route" href="https://scholar.google.com/citations?user=eYMS0DUAAAAJ">Scholar</a>
+                    <a class="postcard-route" href="https://www.linkedin.com/in/zhang-william/">LinkedIn</a>
+                  </div>
+                </div>
+                <div class="founder-head">
+                  <img src="profiles/will.png" width="216" height="216" loading="lazy" decoding="async" alt="Photo of Will Zhang" />
+                  <div>
+                    <h3>Will Zhang</h3>
+                    <p class="founder-role">CEO</p>
+                  </div>
+                </div>
+                <ul class="team-cred-list founder-cred-list">
+                  <li>Carnegie Mellon PhD CS 2026</li>
+                  <li><a href="https://db.cs.cmu.edu/2025/04/will-zhang-wins-2025-mongodb-phd-fellowship/">MongoDB PhD Fellowship</a></li>
+                </ul>
+                <p class="founder-footline"><span class="founder-footline-label">Experience includes:</span> Microsoft GSL <span aria-hidden="true">•</span> SingleStore <span aria-hidden="true">•</span> NVIDIA</p>
+              </article>
+              <article class="founder-card">
+                <div class="postcard-meta-line">
+                  <span class="postcard-stamp">Cofounder</span>
+                  <div class="postcard-route-group">
+                    <a class="postcard-route" href="https://scholar.google.com/citations?user=g3njfFIAAAAJ">Scholar</a>
+                    <a class="postcard-route" href="https://www.linkedin.com/in/lmwnshn/">LinkedIn</a>
+                  </div>
+                </div>
+                <div class="founder-head">
+                  <img src="profiles/wan.png" width="216" height="216" loading="lazy" decoding="async" alt="Photo of Wan Lim" />
+                  <div>
+                    <h3>Wan Lim</h3>
+                    <p class="founder-role">CTO</p>
+                  </div>
+                </div>
+                <ul class="team-cred-list founder-cred-list">
+                  <li>Carnegie Mellon PhD CS 2026</li>
+                  <li><a href="https://itpss.com/world-needs-more-cyber-security-professionals">1st Place in National CTF (Brunei)</a></li>
+                </ul>
+                <p class="founder-footline"><span class="founder-footline-label">Experience includes:</span> Microsoft Research <span aria-hidden="true">•</span> Amazon Aurora</p>
+              </article>
+            </div>
+            <article class="team-postcard">
+              <div class="postcard-meta-line">
+                <span class="postcard-stamp">ORIGIN STORY</span>
+              </div>
+              <p>Met as undergrads. Working together since 2018 in the <a href="https://db.cs.cmu.edu/">CMU Database Group</a>.<br />Previously cofounded an <a href="https://www.theregister.com/2025/10/22/cmu_proto_x_postgres/">AI and database startup</a>.</p>
+              <p>While building our previous data-centric startup, we found ourselves battling agents over external state (e.g., files, databases).<br />We realized that agents needed programmable worlds: transactions, checkpoints, write-ahead logging.<br /><strong>That's a database!</strong></p>
+            </article>
+          </div>
+        </section>
 
-</body>
+        <section id="quickstart" class="section section-accent">
+          <div class="section-heading">
+            <p class="eyebrow">Quickstart</p>
+            <h2>We modify the world, not the agent.</h2>
+          </div>
+          <div class="steps">
+            <article class="step-card">
+              <span class="step-number">1</span>
+              <h3>Opt into a better world</h3>
+              <p>Point <strong><span class="inline-brand-wordmark"><span class="inline-brand-main">OneWill</span><span class="inline-brand-ai">.ai</span></span></strong> at your working directory and use your agent normally.</p>
+            </article>
+            <article class="step-card">
+              <span class="step-number">2</span>
+              <h3>Let your agent roam</h3>
+              <p>We checkpoint the world as the run unfolds. No worries. No fear.</p>
+            </article>
+            <article class="step-card">
+              <span class="step-number">3</span>
+              <h3>Rewind or keep going</h3>
+              <p>Rewind, inspect, and redirect outcomes across worlds. You're in control.</p>
+            </article>
+          </div>
+          <div class="command-card">
+            <div class="command-top">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <pre><code><span class="code-comment"># Opt your current working directory into the multiverse</span>
+uv run onewillai.py setup
+
+<span class="code-comment"># Work like normal (we pass through to your agent, e.g., codex)</span>
+<span class="code-comment"># We automatically create rewind points after every turn,</span>
+<span class="code-comment"># but you can set your own rewind points</span>
+uv run onewillai.py -- codex
+
+<span class="code-comment"># Restore world to (Turn 1, Branch 2)</span>
+<span class="code-comment"># PS: the browser UI is nicer</span>
+uv run onewillai.py restore T1.B2</code></pre>
+          </div>
+        </section>
+
+        <section id="contact" class="section contact-section">
+          <div class="contact-layout">
+            <div class="section-heading contact-heading">
+              <p class="eyebrow">Contact</p>
+              <h2>Still choosing between YOLO and sandbox agents?</h2>
+            </div>
+            <div class="contact-grid">
+              <article class="contact-postcard">
+                <div class="postcard-meta-line">
+                  <span class="postcard-stamp">Let's Chat</span>
+                </div>
+                <a class="contact-email" href="mailto:founders@onewill.ai">founders@onewill.ai</a>
+                <p class="contact-note">Send us the run that made you want a time machine.</p>
+                <p class="contact-note">Logs, traces, screenshots. We read everything.<br />No bots, just humans with coffee.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <div class="footer-swarm" aria-hidden="true">
+          <img src="logo/owa.png" width="256" height="256" loading="lazy" decoding="async" alt="" />
+          <img src="logo/owa.png" width="256" height="256" loading="lazy" decoding="async" alt="" />
+          <img src="logo/owa.png" width="256" height="256" loading="lazy" decoding="async" alt="" />
+          <img src="logo/owa.png" width="256" height="256" loading="lazy" decoding="async" alt="" />
+        </div>
+        <p class="footer-kicker">Everyone is confining their agents to sandboxes. That's the <span class="footer-wrong">wrong</span> abstraction.</p>
+        <p class="footer-tagline">Free your agents. Rewrite the world.</p>
+      </footer>
+
+      <div class="image-lightbox" hidden>
+        <button class="image-lightbox-backdrop" type="button" aria-label="Close image viewer"></button>
+        <div class="image-lightbox-panel" role="dialog" aria-modal="true" aria-label="Expanded screenshot viewer">
+          <button class="image-lightbox-close" type="button" aria-label="Close image viewer">Close</button>
+          <picture>
+            <source class="image-lightbox-source-avif" srcset="" type="image/avif" />
+            <source class="image-lightbox-source" srcset="" type="image/webp" />
+            <img class="image-lightbox-image" src="" width="3000" height="1688" decoding="async" alt="" />
+          </picture>
+          <a class="image-lightbox-open" href="" target="_blank" rel="noreferrer noopener">Open full size</a>
+        </div>
+      </div>
+    </div>
+    <script>
+      (() => {
+        const lightbox = document.querySelector(".image-lightbox");
+        if (!lightbox) return;
+
+        const backdrop = lightbox.querySelector(".image-lightbox-backdrop");
+        const closeButton = lightbox.querySelector(".image-lightbox-close");
+        const avifSource = lightbox.querySelector(".image-lightbox-source-avif");
+        const source = lightbox.querySelector(".image-lightbox-source");
+        const image = lightbox.querySelector(".image-lightbox-image");
+        const openLink = lightbox.querySelector(".image-lightbox-open");
+        const triggers = document.querySelectorAll(".story-shot-trigger");
+
+        const closeLightbox = () => {
+          lightbox.hidden = true;
+          document.body.classList.remove("lightbox-open");
+          avifSource.srcset = "";
+          source.srcset = "";
+          image.src = "";
+          image.alt = "";
+          openLink.href = "";
+        };
+
+        const openLightbox = (src, webpSrc, avifSrc, alt) => {
+          avifSource.srcset = avifSrc || "";
+          source.srcset = webpSrc || "";
+          image.src = src;
+          image.alt = alt;
+          openLink.href = src;
+          lightbox.hidden = false;
+          document.body.classList.add("lightbox-open");
+        };
+
+        triggers.forEach((trigger) => {
+          trigger.addEventListener("click", () => {
+            openLightbox(trigger.dataset.fullres, trigger.dataset.fullresWebp, trigger.dataset.fullresAvif, trigger.dataset.alt || "");
+          });
+        });
+
+        backdrop.addEventListener("click", closeLightbox);
+        closeButton.addEventListener("click", closeLightbox);
+
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape" && !lightbox.hidden) {
+            closeLightbox();
+          }
+        });
+      })();
+    </script>
+  </body>
 </html>
