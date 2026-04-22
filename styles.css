@@ -1913,6 +1913,10 @@ body.lightbox-open {
     gap: 12px 16px;
   }
 
+  .hero-eyebrow span {
+    display: block;
+  }
+
   h1 {
     font-size: clamp(2.85rem, 13vw, 4.8rem);
     max-width: none;
@@ -2016,12 +2020,21 @@ body.lightbox-open {
   }
 
   .hero-note-term .hover-tooltip {
-    left: clamp(-96px, -22vw, -64px);
+    left: clamp(-76px, -18vw, -48px);
     width: min(340px, calc(100vw - 48px));
   }
 
   .hero-note-term .hover-tooltip::after {
-    left: clamp(84px, 27vw, 112px);
+    left: clamp(68px, 23vw, 96px);
+  }
+
+  .hero-hint-term .hover-tooltip {
+    left: clamp(-96px, -22vw, -52px);
+    width: min(220px, calc(100vw - 48px));
+  }
+
+  .hero-hint-term .hover-tooltip::after {
+    left: clamp(56px, 22vw, 92px);
   }
 
   .feature-card,
