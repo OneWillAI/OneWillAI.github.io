@@ -325,7 +325,7 @@
             </article>
             <article class="team-postcard advisor-card">
               <div class="postcard-meta-line">
-                <span class="postcard-stamp">ADVISORS</span>
+                <span class="postcard-stamp">ADVISOR</span>
               </div>
               <div class="advisor-head">
                 <img src="profiles/andy.jpeg" width="216" height="216" loading="lazy" decoding="async" alt="Photo of Andy Pavlo" />
@@ -386,22 +386,28 @@ uv run onewillai.py restore T1.B2</code></pre>
             <div class="contact-grid">
               <article class="contact-postcard">
                 <div class="postcard-meta-line">
-                  <span class="postcard-stamp">Let's Chat</span>
+                  <span class="postcard-stamp">WAITLIST</span>
                 </div>
-                <p class="contact-note">Send us the run that made you want a time machine.</p>
-                <p class="contact-note">Logs, traces, screenshots. We read everything.<br />No bots, just humans with coffee.</p>
+                <p class="contact-note">Join the waitlist for <strong>free</strong> early access (shipping Summer 2026!).</p>
                 <form class="contact-form" data-waitlist-form>
+                  <label class="contact-field">
+                    <span>Name</span>
+                    <input class="contact-input" type="text" name="name" autocomplete="name" placeholder="Your name" required />
+                  </label>
                   <label class="contact-field">
                     <span>Email</span>
                     <input class="contact-input" type="email" name="email" autocomplete="email" placeholder="you@company.com" required />
                   </label>
                   <label class="contact-field">
                     <span>Message (optional)</span>
-                    <textarea class="contact-textarea" name="message" rows="4" placeholder="What run made you want a time machine?"></textarea>
+                    <textarea class="contact-textarea" name="message" rows="4" placeholder="Why do you want a time machine? Tell us more!&#10;We read everything. No bots, just humans with coffee."></textarea>
+                  </label>
+                  <label class="contact-field">
+                    <span>How did you hear about us? We're in stealth! (optional)</span>
+                    <input class="contact-input" type="text" name="heardAbout" placeholder="X? A friend? Time travel?" />
                   </label>
                   <div class="contact-form-actions">
                     <button class="button button-primary" type="submit">Join the waitlist</button>
-                    <a class="contact-email" href="mailto:founders@onewill.ai">founders@onewill.ai</a>
                   </div>
                   <p class="contact-status" data-waitlist-status aria-live="polite"></p>
                 </form>
@@ -416,6 +422,7 @@ uv run onewillai.py restore T1.B2</code></pre>
                   <a href="https://github.com/onewillai" target="_blank" rel="noreferrer noopener">GitHub</a>
                   <a href="https://x.com/OneWillAI" target="_blank" rel="noreferrer noopener">X</a>
                   <a href="https://bsky.app/profile/onewillai.bsky.social" target="_blank" rel="noreferrer noopener">BSky</a>
+                  <a href="mailto:founders@onewill.ai">Email</a>
                 </div>
               </article>
             </div>
@@ -460,8 +467,16 @@ uv run onewillai.py restore T1.B2</code></pre>
           event.preventDefault();
 
           const formData = new FormData(form);
+          const name = String(formData.get("name") ?? "").trim();
           const email = String(formData.get("email") ?? "").trim();
           const message = String(formData.get("message") ?? "").trim();
+          const heardAbout = String(formData.get("heardAbout") ?? "").trim();
+
+          if (!name) {
+            status.textContent = "Add your name so we know what to call you.";
+            status.dataset.state = "error";
+            return;
+          }
 
           if (!email) {
             status.textContent = "Add an email so we know where to reach you.";
@@ -482,7 +497,7 @@ uv run onewillai.py restore T1.B2</code></pre>
               headers: {
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify({ email, message }),
+              body: JSON.stringify({ name, email, message, heardAbout }),
             });
 
             const payload = await response.json().catch(() => null);
