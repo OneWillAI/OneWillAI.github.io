@@ -1554,6 +1554,32 @@ body.lightbox-open {
   line-height: 1.62;
 }
 
+.advisor-card {
+  padding-top: 18px;
+}
+
+.advisor-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.advisor-head img {
+  width: 72px;
+  height: 72px;
+  border-radius: 20px;
+  object-fit: cover;
+  border: 1px solid rgba(56, 43, 95, 0.08);
+  box-shadow: var(--shadow-soft);
+}
+
+.advisor-head p {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
 .team-postcard a {
   color: var(--accent-dark);
   font-weight: 700;
