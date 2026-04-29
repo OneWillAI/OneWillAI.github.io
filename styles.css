@@ -1218,7 +1218,7 @@ body.lightbox-open {
 
 .feature-card,
 .step-card,
-.command-card,
+.release-note,
 .mvp-pills,
 .mvp-copy {
   border-radius: 26px;
@@ -1470,47 +1470,23 @@ body.lightbox-open {
   box-shadow: 0 10px 20px rgba(79, 72, 219, 0.14);
 }
 
-.command-card {
+.release-note {
   margin-top: 22px;
-  overflow: hidden;
-  background: #241f39;
-  color: #f5efff;
-  box-shadow: 0 18px 36px rgba(36, 31, 57, 0.18);
+  padding: 18px 22px;
+  border-radius: 24px;
+  border: 1px solid var(--line);
+  background:
+    radial-gradient(circle at top right, rgba(243, 180, 234, 0.16), transparent 22%),
+    radial-gradient(circle at 10% 86%, rgba(143, 213, 191, 0.16), transparent 20%),
+    var(--paper-strong);
 }
 
-.command-top {
-  display: flex;
-  gap: 8px;
-  padding: 14px 16px;
-  background: rgba(255, 255, 255, 0.06);
-}
-
-.command-top span {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: #ffbc73;
-}
-
-.command-top span:nth-child(2) {
-  background: #ffc9ef;
-}
-
-.command-top span:nth-child(3) {
-  background: #9fe0cb;
-}
-
-.command-card pre {
+.release-note p {
   margin: 0;
-  padding: 22px 24px 26px;
-  overflow: auto;
-  font-family: "SFMono-Regular", "Consolas", monospace;
-  font-size: 0.98rem;
-  line-height: 1.8;
-}
-
-.command-card .code-comment {
-  color: #c7c9ff;
+  color: var(--accent-dark);
+  font-weight: 800;
+  line-height: 1.6;
+  text-align: center;
 }
 
 .mvp-layout {
@@ -1802,6 +1778,17 @@ body.lightbox-open {
   background: var(--paper-strong);
 }
 
+.contact-postcard-waitlist {
+  position: relative;
+  overflow: hidden;
+  border-color: rgba(255, 255, 255, 0.06);
+  background:
+    radial-gradient(circle at top right, rgba(159, 224, 203, 0.12), transparent 22%),
+    radial-gradient(circle at 12% 88%, rgba(255, 201, 239, 0.12), transparent 26%),
+    #241f39;
+  box-shadow: 0 22px 44px rgba(36, 31, 57, 0.18);
+}
+
 .contact-email {
   display: inline-block;
   margin-top: 6px;
@@ -1828,10 +1815,34 @@ body.lightbox-open {
   line-height: 1.6;
 }
 
+.contact-postcard-waitlist .postcard-stamp {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fffaff;
+}
+
+.contact-postcard-waitlist .contact-note {
+  color: rgba(245, 239, 255, 0.9);
+  font-size: 1.02rem;
+  line-height: 1.65;
+}
+
+.contact-postcard-waitlist .contact-note strong {
+  color: #a5b4fc;
+  font-weight: 800;
+}
+
 .contact-form {
   display: grid;
   gap: 14px;
   margin-top: 18px;
+}
+
+.contact-postcard-waitlist .contact-form {
+  padding: 18px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 .contact-field {
@@ -1847,6 +1858,10 @@ body.lightbox-open {
   text-transform: uppercase;
 }
 
+.contact-postcard-waitlist .contact-field span {
+  color: #c7c9ff;
+}
+
 .contact-input,
 .contact-textarea {
   width: 100%;
@@ -1858,6 +1873,13 @@ body.lightbox-open {
   line-height: 1.5;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
   transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.contact-postcard-waitlist .contact-input,
+.contact-postcard-waitlist .contact-textarea {
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: none;
 }
 
 .contact-input {
@@ -1876,11 +1898,22 @@ body.lightbox-open {
   color: rgba(74, 76, 118, 0.64);
 }
 
+.contact-postcard-waitlist .contact-input::placeholder,
+.contact-postcard-waitlist .contact-textarea::placeholder {
+  color: rgba(55, 65, 81, 0.72);
+}
+
 .contact-input:focus,
 .contact-textarea:focus {
   outline: none;
   border-color: rgba(104, 98, 242, 0.42);
   box-shadow: 0 0 0 4px rgba(104, 98, 242, 0.1);
+}
+
+.contact-postcard-waitlist .contact-input:focus,
+.contact-postcard-waitlist .contact-textarea:focus {
+  border-color: rgba(199, 201, 255, 0.82);
+  box-shadow: 0 0 0 4px rgba(199, 201, 255, 0.12);
 }
 
 .contact-form-actions {
@@ -1893,6 +1926,10 @@ body.lightbox-open {
 .contact-form-actions .button {
   border: 0;
   cursor: pointer;
+}
+
+.contact-postcard-waitlist .contact-form-actions .button {
+  min-width: 220px;
 }
 
 .contact-form-actions .button:disabled {
@@ -1909,6 +1946,10 @@ body.lightbox-open {
 
 .contact-status[data-state="pending"] {
   color: var(--accent-dark);
+}
+
+.contact-postcard-waitlist .contact-status[data-state="pending"] {
+  color: #c7c9ff;
 }
 
 .contact-status[data-state="success"] {
@@ -2288,8 +2329,7 @@ body.lightbox-open {
   .art-orbit,
   .hero-glow,
   .spark,
-  .swarmie,
-  .command-top {
+  .swarmie {
     display: none !important;
   }
 
@@ -2307,7 +2347,7 @@ body.lightbox-open {
   .feature-card,
   .story-card,
   .step-card,
-  .command-card,
+  .release-note,
   .mvp-copy,
   .mvp-pills,
   .float-card {
@@ -2342,7 +2382,7 @@ body.lightbox-open {
   .team-postcard,
   .founder-card,
   .contact-postcard,
-  .command-card {
+  .release-note {
     break-inside: avoid-page;
     page-break-inside: avoid;
   }
@@ -2456,11 +2496,6 @@ body.lightbox-open {
   .postcard-card:nth-child(even),
   .postcard-card {
     transform: none;
-  }
-
-  .command-card pre {
-    white-space: pre-wrap;
-    word-break: break-word;
   }
 
   a,
