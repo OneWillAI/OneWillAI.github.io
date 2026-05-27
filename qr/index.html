@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <meta name="description" content="Generate OneWill.ai meetup QR codes." />
+    <meta name="author" content="OneWill.ai" />
+    <title>OneWill.ai | Meetup QR Builder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="../logo/owa.png" type="image/png" />
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+      .qr-shell {
+        min-height: 100vh;
+      }
+
+      .qr-header {
+        margin-bottom: 24px;
+      }
+
+      .qr-main {
+        display: grid;
+        grid-template-columns: minmax(0, 0.96fr) minmax(320px, 0.72fr);
+        gap: 18px;
+        align-items: start;
+      }
+
+      .qr-panel {
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        background: var(--paper);
+        box-shadow: var(--shadow-soft);
+        backdrop-filter: blur(16px);
+      }
+
+      .qr-form-panel {
+        padding: clamp(22px, 4vw, 34px);
+      }
+
+      .qr-heading {
+        display: grid;
+        gap: 10px;
+        margin-bottom: 22px;
+      }
+
+      .qr-heading h1 {
+        max-width: 12ch;
+        margin: 0;
+        font-size: clamp(2.35rem, 5vw, 4.35rem);
+        line-height: 0.96;
+      }
+
+      .qr-heading p {
+        max-width: 58ch;
+        margin: 0;
+        color: var(--text);
+        font-size: 1rem;
+        line-height: 1.6;
+      }
+
+      .qr-form {
+        display: grid;
+        gap: 16px;
+      }
+
+      .qr-fieldset {
+        min-width: 0;
+        margin: 0;
+        padding: 0;
+        border: 0;
+      }
+
+      .qr-fieldset legend,
+      .qr-field-label {
+        margin-bottom: 8px;
+        color: var(--accent-dark);
+        font-size: 0.82rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .qr-person-options {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .qr-person-options input {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .qr-person-options span {
+        display: grid;
+        min-height: 54px;
+        place-items: center;
+        border: 1px solid rgba(104, 98, 242, 0.18);
+        border-radius: 18px;
+        background: rgba(255, 251, 255, 0.86);
+        color: var(--ink);
+        font-weight: 800;
+        cursor: pointer;
+        transition: border-color 160ms ease, box-shadow 160ms ease, background 160ms ease;
+      }
+
+      .qr-person-options input:checked + span {
+        border-color: rgba(104, 98, 242, 0.5);
+        background: var(--accent-soft);
+        box-shadow: 0 0 0 4px rgba(104, 98, 242, 0.1);
+      }
+
+      .qr-person-options input:focus-visible + span {
+        outline: 3px solid rgba(104, 98, 242, 0.26);
+        outline-offset: 2px;
+      }
+
+      .qr-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .qr-field {
+        display: grid;
+        gap: 8px;
+      }
+
+      .qr-field-wide {
+        grid-column: 1 / -1;
+      }
+
+      .qr-input,
+      .qr-output {
+        width: 100%;
+        min-height: 50px;
+        border: 1px solid rgba(104, 98, 242, 0.16);
+        border-radius: 16px;
+        background: rgba(255, 251, 255, 0.96);
+        color: var(--ink);
+        font: inherit;
+        line-height: 1.5;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+        transition: border-color 160ms ease, box-shadow 160ms ease;
+      }
+
+      .qr-input {
+        padding: 0 14px;
+      }
+
+      .qr-output {
+        min-height: 92px;
+        padding: 12px 14px;
+        resize: vertical;
+      }
+
+      .qr-input:focus,
+      .qr-output:focus {
+        outline: none;
+        border-color: rgba(104, 98, 242, 0.42);
+        box-shadow: 0 0 0 4px rgba(104, 98, 242, 0.1);
+      }
+
+      .qr-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .qr-actions .button {
+        border: 0;
+        cursor: pointer;
+      }
+
+      .qr-status {
+        min-height: 1.5em;
+        margin: 0;
+        color: var(--text);
+        font-size: 0.95rem;
+        line-height: 1.5;
+      }
+
+      .qr-status[data-state="success"] {
+        color: #0f766e;
+      }
+
+      .qr-status[data-state="error"] {
+        color: #b91c1c;
+      }
+
+      .qr-preview-panel {
+        position: sticky;
+        top: 120px;
+        display: grid;
+        gap: 18px;
+        padding: clamp(18px, 3vw, 26px);
+      }
+
+      .qr-preview-card {
+        display: grid;
+        place-items: center;
+        min-height: 340px;
+        border: 1px solid rgba(104, 98, 242, 0.16);
+        border-radius: 24px;
+        background:
+          radial-gradient(circle at 18% 12%, rgba(143, 213, 191, 0.28), transparent 24%),
+          radial-gradient(circle at 88% 92%, rgba(243, 180, 234, 0.24), transparent 26%),
+          #fffaff;
+      }
+
+      .qr-preview-card canvas {
+        width: min(292px, 78vw);
+        height: min(292px, 78vw);
+      }
+
+      .qr-meta {
+        display: grid;
+        gap: 8px;
+      }
+
+      .qr-meta p {
+        margin: 0;
+        color: var(--text);
+        font-size: 0.96rem;
+        line-height: 1.55;
+      }
+
+      .qr-meta strong {
+        color: var(--ink);
+      }
+
+      .qr-path {
+        overflow-wrap: anywhere;
+        color: var(--accent-dark);
+        font-weight: 800;
+      }
+
+      @media (max-width: 860px) {
+        .qr-main {
+          grid-template-columns: 1fr;
+        }
+
+        .qr-preview-panel {
+          position: static;
+        }
+      }
+
+      @media (max-width: 560px) {
+        .qr-grid,
+        .qr-person-options {
+          grid-template-columns: 1fr;
+        }
+
+        .qr-heading h1 {
+          max-width: 9ch;
+        }
+
+        .qr-actions .button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-shell qr-shell">
+      <header class="site-header qr-header">
+        <a class="brand" href="../" aria-label="OneWill.ai home">
+          <img class="brand-mark" src="../logo/owa.png" width="256" height="256" alt="" />
+          <span class="brand-copy">
+            <strong><span class="inline-brand-wordmark"><span class="inline-brand-main">OneWill</span><span class="inline-brand-ai">.ai</span></span></strong>
+            <span>Save scumming for agents</span>
+          </span>
+        </a>
+      </header>
+
+      <main class="qr-main">
+        <section class="qr-panel qr-form-panel" aria-labelledby="qr-title">
+          <div class="qr-heading">
+            <p class="eyebrow">Meetup QR</p>
+            <h1 id="qr-title">QR Builder</h1>
+            <p>Generate badge, flyer, and table-card links for the meetup waitlist.</p>
+          </div>
+
+          <form class="qr-form" data-qr-form>
+            <fieldset class="qr-fieldset">
+              <legend>Person</legend>
+              <div class="qr-person-options">
+                <label>
+                  <input type="radio" name="person" value="wan" checked />
+                  <span>Wan</span>
+                </label>
+                <label>
+                  <input type="radio" name="person" value="will" />
+                  <span>Will</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <div class="qr-grid">
+              <label class="qr-field qr-field-wide">
+                <span class="qr-field-label">Event Slug</span>
+                <input class="qr-input" type="text" name="event" value="meetup" inputmode="url" autocomplete="off" spellcheck="false" required />
+              </label>
+              <label class="qr-field qr-field-wide">
+                <span class="qr-field-label">Event Label</span>
+                <input class="qr-input" type="text" name="event_label" value="Meetup" autocomplete="off" />
+              </label>
+              <label class="qr-field">
+                <span class="qr-field-label">UTM Source</span>
+                <input class="qr-input" type="text" name="utm_source" value="qr" autocomplete="off" spellcheck="false" />
+              </label>
+              <label class="qr-field">
+                <span class="qr-field-label">UTM Medium</span>
+                <input class="qr-input" type="text" name="utm_medium" value="badge" autocomplete="off" spellcheck="false" />
+              </label>
+              <label class="qr-field">
+                <span class="qr-field-label">UTM Campaign</span>
+                <input class="qr-input" type="text" name="utm_campaign" autocomplete="off" spellcheck="false" />
+              </label>
+              <label class="qr-field">
+                <span class="qr-field-label">Base URL</span>
+                <input class="qr-input" type="url" name="base_url" value="https://onewill.ai" autocomplete="off" spellcheck="false" required />
+              </label>
+              <label class="qr-field qr-field-wide">
+                <span class="qr-field-label">QR URL</span>
+                <textarea class="qr-output" name="qr_url" rows="3" readonly data-qr-url></textarea>
+              </label>
+            </div>
+
+            <div class="qr-actions">
+              <button class="button button-primary" type="button" data-copy-url>Copy URL</button>
+              <button class="button button-secondary" type="button" data-download-qr>Download PNG</button>
+              <a class="button button-secondary" href="#" data-open-url target="_blank" rel="noreferrer noopener">Open</a>
+            </div>
+            <p class="qr-status" data-qr-status aria-live="polite"></p>
+          </form>
+        </section>
+
+        <aside class="qr-panel qr-preview-panel" aria-label="QR preview">
+          <div class="qr-preview-card">
+            <canvas width="292" height="292" data-qr-canvas></canvas>
+          </div>
+          <div class="qr-meta">
+            <p><strong data-qr-person>Wan</strong> meetup QR</p>
+            <p class="qr-path" data-qr-path>/m/wan/</p>
+          </div>
+        </aside>
+      </main>
+    </div>
+
+    <script src="./vendor/qrcode.min.js"></script>
+    <script>
+      (() => {
+        const people = {
+          wan: { label: "Wan", path: "/m/wan/" },
+          will: { label: "Will", path: "/m/will/" },
+        };
+
+        const form = document.querySelector("[data-qr-form]");
+        const canvas = document.querySelector("[data-qr-canvas]");
+        const output = document.querySelector("[data-qr-url]");
+        const openLink = document.querySelector("[data-open-url]");
+        const copyButton = document.querySelector("[data-copy-url]");
+        const downloadButton = document.querySelector("[data-download-qr]");
+        const status = document.querySelector("[data-qr-status]");
+        const personLabel = document.querySelector("[data-qr-person]");
+        const pathLabel = document.querySelector("[data-qr-path]");
+
+        if (
+          !(form instanceof HTMLFormElement) ||
+          !(canvas instanceof HTMLCanvasElement) ||
+          !(output instanceof HTMLTextAreaElement) ||
+          !(openLink instanceof HTMLAnchorElement) ||
+          !(copyButton instanceof HTMLButtonElement) ||
+          !(downloadButton instanceof HTMLButtonElement) ||
+          !(status instanceof HTMLElement) ||
+          !(personLabel instanceof HTMLElement) ||
+          !(pathLabel instanceof HTMLElement) ||
+          !window.QRCode
+        ) {
+          return;
+        }
+
+        const slugify = (value) => String(value)
+          .trim()
+          .toLowerCase()
+          .replace(/['"]/g, "")
+          .replace(/[^a-z0-9._-]+/g, "-")
+          .replace(/^-+|-+$/g, "")
+          .slice(0, 80);
+
+        const cleanToken = (value) => String(value)
+          .trim()
+          .replace(/[^a-zA-Z0-9._~:-]/g, "-")
+          .replace(/^-+|-+$/g, "")
+          .slice(0, 80);
+
+        const getBaseUrl = (value) => {
+          try {
+            const url = new URL(value);
+            url.pathname = "/";
+            url.search = "";
+            url.hash = "";
+            return url;
+          } catch {
+            return new URL("https://onewill.ai/");
+          }
+        };
+
+        const setStatus = (message, state = "") => {
+          status.textContent = message;
+          if (state) {
+            status.dataset.state = state;
+          } else {
+            delete status.dataset.state;
+          }
+        };
+
+        const buildUrl = () => {
+          const formData = new FormData(form);
+          const personKey = String(formData.get("person") || "wan");
+          const person = people[personKey] || people.wan;
+          const baseUrl = getBaseUrl(formData.get("base_url") || "https://onewill.ai");
+          const target = new URL(person.path, baseUrl);
+          const eventSlug = slugify(formData.get("event") || "meetup") || "meetup";
+          const eventLabel = String(formData.get("event_label") || "").trim().slice(0, 80);
+          const utmSource = cleanToken(formData.get("utm_source") || "");
+          const utmMedium = cleanToken(formData.get("utm_medium") || "");
+          const utmCampaign = cleanToken(formData.get("utm_campaign") || "");
+
+          target.searchParams.set("event", eventSlug);
+          if (eventLabel) target.searchParams.set("event_label", eventLabel);
+          if (utmSource) target.searchParams.set("utm_source", utmSource);
+          if (utmMedium) target.searchParams.set("utm_medium", utmMedium);
+          if (utmCampaign) target.searchParams.set("utm_campaign", utmCampaign);
+
+          return { target, person, eventSlug };
+        };
+
+        const render = async () => {
+          const { target, person, eventSlug } = buildUrl();
+          const targetUrl = target.toString();
+          output.value = targetUrl;
+          openLink.href = targetUrl;
+          personLabel.textContent = person.label;
+          pathLabel.textContent = `${person.path}?event=${eventSlug}`;
+
+          try {
+            await window.QRCode.toCanvas(canvas, targetUrl, {
+              errorCorrectionLevel: "M",
+              margin: 2,
+              scale: 8,
+              width: 292,
+              color: {
+                dark: "#19172b",
+                light: "#fffaff",
+              },
+            });
+            setStatus("");
+          } catch (error) {
+            setStatus(error instanceof Error ? error.message : "Unable to render QR code.", "error");
+          }
+        };
+
+        form.addEventListener("input", render);
+        form.addEventListener("change", render);
+
+        copyButton.addEventListener("click", async () => {
+          await render();
+          try {
+            await navigator.clipboard.writeText(output.value);
+            setStatus("Copied.", "success");
+          } catch {
+            output.focus();
+            output.select();
+            setStatus("Select the URL and copy it manually.", "error");
+          }
+        });
+
+        downloadButton.addEventListener("click", async () => {
+          await render();
+          const { person, eventSlug } = buildUrl();
+          const link = document.createElement("a");
+          link.href = canvas.toDataURL("image/png");
+          link.download = `onewill-${person.label.toLowerCase()}-${eventSlug}-qr.png`;
+          link.click();
+          setStatus("Downloaded.", "success");
+        });
+
+        render();
+      })();
+    </script>
+  </body>
+</html>
