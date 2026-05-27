@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>OneWill.ai</title>
+    <script>
+      (() => {
+        const path = window.location.pathname;
+        const query = new URLSearchParams(window.location.search);
+        const cleanSegments = path.split("/").filter(Boolean);
+        const isMeetupPath = cleanSegments[0] === "m" && cleanSegments.length >= 2;
+        const isWanShortPath = window.location.hostname.startsWith("wan.") && cleanSegments.length === 1;
+
+        if (!isMeetupPath && !isWanShortPath) return;
+
+        const eventId = isMeetupPath ? cleanSegments[1] : cleanSegments[0];
+        query.set("event", eventId);
+        window.location.replace(`/m/?${query.toString()}`);
+      })();
+    </script>
+  </head>
+  <body>
+    <p>Page not found. <a href="/">Go to OneWill.ai</a>.</p>
+  </body>
+</html>

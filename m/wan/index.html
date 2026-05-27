@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>OneWill.ai | Wan Meetup Waitlist</title>
+    <script>
+      (() => {
+        const query = new URLSearchParams(window.location.search);
+        query.set("metName", "Wan");
+        query.set("metEmail", "wan@onewill.ai");
+        window.location.replace(`/m/?${query.toString()}`);
+      })();
+    </script>
+  </head>
+  <body>
+    <p>Redirecting to the meetup waitlist.</p>
+  </body>
+</html>

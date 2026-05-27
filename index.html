@@ -406,12 +406,16 @@
                     <input class="contact-input" type="email" name="email" autocomplete="email" placeholder="you@company.com" required />
                   </label>
                   <label class="contact-field">
-                    <span>Message (optional)</span>
-                    <textarea class="contact-textarea" name="message" rows="4" placeholder="Why do you want a time machine? Tell us more!&#10;We read everything. No bots, just humans with coffee."></textarea>
+                    <span>Company / Affiliation</span>
+                    <input class="contact-input" type="text" name="company" autocomplete="organization" placeholder="Company, school, lab, or project" />
                   </label>
                   <label class="contact-field">
-                    <span>How did you hear about us? We're in stealth! (optional)</span>
-                    <input class="contact-input" type="text" name="heardAbout" placeholder="X? A friend? Time travel?" />
+                    <span>How did you hear about us? We're in stealth! (Optional)</span>
+                    <input class="contact-input" type="text" name="selfReportedSource" placeholder="X? A friend? Time travel?" />
+                  </label>
+                  <label class="contact-field">
+                    <span>Where do agents break state for you? (Optional)</span>
+                    <textarea class="contact-textarea" name="message" rows="4" placeholder="Files, databases, terminals, browser sessions, cloud resources..."></textarea>
                   </label>
                   <div class="contact-form-actions">
                     <button class="button button-primary" type="submit">Join the waitlist</button>
@@ -469,6 +473,16 @@
 
         const submitButton = form.querySelector('button[type="submit"]');
         const endpoint = "https://api.onewill.ai/waitlist";
+        const searchParams = new URLSearchParams(window.location.search);
+
+        const collectUtm = () => {
+          const keys = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"];
+          return Object.fromEntries(
+            keys
+              .map((key) => [key, searchParams.get(key)])
+              .filter(([, value]) => value),
+          );
+        };
 
         form.addEventListener("submit", async (event) => {
           event.preventDefault();
@@ -476,8 +490,10 @@
           const formData = new FormData(form);
           const name = String(formData.get("name") ?? "").trim();
           const email = String(formData.get("email") ?? "").trim();
+          const company = String(formData.get("company") ?? "").trim();
           const message = String(formData.get("message") ?? "").trim();
-          const heardAbout = String(formData.get("heardAbout") ?? "").trim();
+          const selfReportedSource = String(formData.get("selfReportedSource") ?? "").trim();
+          const utm = collectUtm();
 
           if (!name) {
             status.textContent = "Add your name so we know what to call you.";
@@ -504,7 +520,19 @@
               headers: {
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify({ name, email, message, heardAbout }),
+              body: JSON.stringify({
+                name,
+                email,
+                company,
+                message,
+                sourcePath: window.location.pathname,
+                sourceHost: window.location.hostname,
+                utmSource: utm.utm_source || selfReportedSource,
+                utmMedium: utm.utm_medium || (selfReportedSource ? "self-reported" : ""),
+                utmCampaign: utm.utm_campaign || "",
+                utmTerm: utm.utm_term || "",
+                utmContent: utm.utm_content || "",
+              }),
             });
 
             const payload = await response.json().catch(() => null);
