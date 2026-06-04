@@ -2167,6 +2167,86 @@ body.lightbox-open {
   line-height: 1.28;
 }
 
+.wally-preview {
+  grid-area: video;
+  align-self: center;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 0;
+  padding: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(104, 98, 242, 0.16);
+  border-radius: 24px;
+  background:
+    linear-gradient(135deg, rgba(255, 250, 255, 0.94), rgba(241, 238, 255, 0.86)),
+    #fffaff;
+  box-shadow: 0 18px 40px rgba(85, 71, 137, 0.1);
+}
+
+.wally-step {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid rgba(104, 98, 242, 0.14);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.86);
+}
+
+.wally-step picture,
+.wally-step img {
+  display: block;
+}
+
+.wally-shot-trigger {
+  border-radius: 18px 18px 0 0;
+  transition: filter 160ms ease, transform 160ms ease;
+}
+
+.wally-shot-trigger:hover,
+.wally-shot-trigger:focus-visible {
+  filter: saturate(1.04);
+  transform: translateY(-1px);
+}
+
+.wally-shot-trigger:focus-visible {
+  outline: 3px solid rgba(104, 98, 242, 0.42);
+  outline-offset: 3px;
+}
+
+.wally-step picture {
+  aspect-ratio: 1280 / 736;
+  overflow: hidden;
+}
+
+.wally-step img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  border-bottom: 1px solid rgba(104, 98, 242, 0.12);
+}
+
+.wally-step p {
+  display: grid;
+  gap: 2px;
+  min-height: 72px;
+  margin: 0;
+  padding: 10px 12px 12px;
+  color: var(--ink);
+  font-size: 0.88rem;
+  font-weight: 800;
+  line-height: 1.28;
+}
+
+.wally-step span {
+  color: var(--accent-dark);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
 .meetup-proof {
   grid-area: video;
   align-self: center;
@@ -2184,6 +2264,15 @@ body.lightbox-open {
   aspect-ratio: 16 / 9;
   height: auto;
   border: 0;
+}
+
+.meetup-demo-section .section-heading h2 {
+  max-width: 18ch;
+}
+
+.meetup-demo-proof {
+  width: min(980px, 100%);
+  margin: 0 auto;
 }
 
 .meetup-form-card {
@@ -2496,6 +2585,14 @@ body.lightbox-open {
     padding: 16px 0 0;
     border-left: 0;
     border-top: 1px solid rgba(56, 43, 95, 0.14);
+  }
+
+  .wally-preview {
+    grid-template-columns: 1fr;
+  }
+
+  .wally-step p {
+    min-height: 0;
   }
 }
 

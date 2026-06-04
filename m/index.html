@@ -41,7 +41,7 @@
       rel="stylesheet"
     />
     <link rel="icon" href="../logo/owa.png" type="image/png" />
-    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../styles.css?v=wally-flow" />
   </head>
   <body class="meetup-body">
     <div class="page-shell meetup-shell">
@@ -95,26 +95,86 @@
             <p class="eyebrow">Save Scumming For Agents</p>
             <p class="meetup-lede">
               <strong><span class="inline-brand-wordmark"><span class="inline-brand-main">OneWill</span><span class="inline-brand-ai">.ai</span></span></strong>
-              makes agent worlds <dfn class="hover-term" tabindex="0">save-scummable<span class="hover-tooltip" role="tooltip">To reload the last saved game whenever the player character dies or an unfavorable outcome has been encountered. - Wiktionary</span></dfn>: automatic saves, reloads, world rewrites, and retries.
+              makes agent worlds <dfn class="hover-term" tabindex="0">save-scummable<span class="hover-tooltip" role="tooltip">To reload the last saved game whenever the player character dies or an unfavorable outcome has been encountered. - <a href="https://en.wiktionary.org/wiki/savescum" target="_blank" rel="noreferrer noopener">Wiktionary</a></span></dfn>: automatic saves, reloads, world rewrites, and retries.
             </p>
             <p class="hero-hover-hint">
               <img src="../logo/owa.png" width="256" height="256" loading="lazy" decoding="async" alt="" />
-              <span>Click or hover over <dfn class="hover-term hero-hint-term" tabindex="0">squiggly<span class="hover-tooltip" role="tooltip">Then move your cursor away or click out to dismiss!</span></dfn> text to read more.</span>
+              <span>Click or hover over <dfn class="hover-term hero-hint-term" tabindex="0">squiggly<span class="hover-tooltip" role="tooltip">Then move your cursor away or click out to dismiss!</span></dfn> text to read more.<br />Click an image to expand it.</span>
             </p>
             <ul class="meetup-points" aria-label="OneWill.ai highlights">
               <li>Autosave enabled for every agent turn</li>
               <li>Game over? Reload to a better checkpoint and retry</li>
               <li>We modify the world, not the agent - keep your existing workflows!</li>
             </ul>
-            <div class="meetup-proof">
-              <iframe
-                src="https://www.youtube.com/embed/84PI7R0ush4?rel=0&amp;playsinline=1&amp;origin=https%3A%2F%2Fonewill.ai"
-                title="OneWill.ai demo video"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin"
-                allowfullscreen
-              ></iframe>
+            <div class="wally-preview" aria-label="OneWill.ai agent control flow">
+              <article class="wally-step">
+                <button
+                  class="story-shot-trigger wally-shot-trigger"
+                  type="button"
+                  data-fullres-avif="../wally/wally1.avif"
+                  data-fullres-webp="../wally/wally1.webp"
+                  data-fullres="../wally/wally1.png"
+                  data-alt="OneWill.ai showing what an agent has read."
+                >
+                  <picture>
+                    <source srcset="../wally/wally1.avif" type="image/avif" />
+                    <source srcset="../wally/wally1.webp" type="image/webp" />
+                    <img src="../wally/wally1.png" width="1280" height="736" loading="lazy" decoding="async" alt="OneWill.ai showing what an agent has read." />
+                  </picture>
+                </button>
+                <p><span>Observe</span> See what your agents see.</p>
+              </article>
+              <article class="wally-step">
+                <button
+                  class="story-shot-trigger wally-shot-trigger"
+                  type="button"
+                  data-fullres-avif="../wally/wally2.avif"
+                  data-fullres-webp="../wally/wally2.webp"
+                  data-fullres="../wally/wally2.png"
+                  data-alt="OneWill.ai detecting an agent action that would modify external state."
+                >
+                  <picture>
+                    <source srcset="../wally/wally2.avif" type="image/avif" />
+                    <source srcset="../wally/wally2.webp" type="image/webp" />
+                    <img src="../wally/wally2.png" width="1280" height="735" loading="lazy" decoding="async" alt="OneWill.ai detecting an agent action that would modify external state." />
+                  </picture>
+                </button>
+                <p><span>Govern</span> Work like normal. We catch your agents before they change state.</p>
+              </article>
+              <article class="wally-step">
+                <button
+                  class="story-shot-trigger wally-shot-trigger"
+                  type="button"
+                  data-fullres-avif="../wally/wally3.avif"
+                  data-fullres-webp="../wally/wally3.webp"
+                  data-fullres="../wally/wally3.png"
+                  data-alt="OneWill.ai asking for permission before an agent continues."
+                >
+                  <picture>
+                    <source srcset="../wally/wally3.avif" type="image/avif" />
+                    <source srcset="../wally/wally3.webp" type="image/webp" />
+                    <img src="../wally/wally3.png" width="1280" height="724" loading="lazy" decoding="async" alt="OneWill.ai asking for permission before an agent continues." />
+                  </picture>
+                </button>
+                <p><span>Approve</span> Approve, deny, or auto-approve reversible actions.</p>
+              </article>
+              <article class="wally-step">
+                <button
+                  class="story-shot-trigger wally-shot-trigger"
+                  type="button"
+                  data-fullres-avif="../wally/wally4.avif"
+                  data-fullres-webp="../wally/wally4.webp"
+                  data-fullres="../wally/wally4.png"
+                  data-alt="OneWill.ai rollback timeline with selectable checkpoints."
+                >
+                  <picture>
+                    <source srcset="../wally/wally4.avif" type="image/avif" />
+                    <source srcset="../wally/wally4.webp" type="image/webp" />
+                    <img src="../wally/wally4.png" width="1280" height="736" loading="lazy" decoding="async" alt="OneWill.ai rollback timeline with selectable checkpoints." />
+                  </picture>
+                </button>
+                <p><span>Rollback</span> Scrub back and retry - like watching a video, but interactive!</p>
+              </article>
             </div>
           </div>
         </section>
@@ -187,7 +247,36 @@
             </article>
           </div>
         </section>
+
+        <section id="demo" class="section meetup-demo-section">
+          <div class="section-heading">
+            <p class="eyebrow">Demo</p>
+          </div>
+          <div class="meetup-proof meetup-demo-proof">
+            <iframe
+              src="https://www.youtube.com/embed/84PI7R0ush4?rel=0&amp;playsinline=1&amp;origin=https%3A%2F%2Fonewill.ai"
+              title="OneWill.ai demo video"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </section>
       </main>
+
+      <div class="image-lightbox" hidden>
+        <button class="image-lightbox-backdrop" type="button" aria-label="Close image viewer"></button>
+        <div class="image-lightbox-panel" role="dialog" aria-modal="true" aria-label="Expanded screenshot viewer">
+          <button class="image-lightbox-close" type="button" aria-label="Close image viewer">Close</button>
+          <picture>
+            <source class="image-lightbox-source-avif" srcset="" type="image/avif" />
+            <source class="image-lightbox-source" srcset="" type="image/webp" />
+            <img class="image-lightbox-image" src="" width="1280" height="736" decoding="async" alt="" />
+          </picture>
+          <a class="image-lightbox-open" href="" target="_blank" rel="noreferrer noopener">Open full size</a>
+        </div>
+      </div>
     </div>
 
     <script>
@@ -332,6 +421,55 @@
             if (submitButton instanceof HTMLButtonElement) {
               submitButton.disabled = false;
             }
+          }
+        });
+      })();
+
+      (() => {
+        const lightbox = document.querySelector(".image-lightbox");
+        if (!lightbox) return;
+
+        const backdrop = lightbox.querySelector(".image-lightbox-backdrop");
+        const closeButton = lightbox.querySelector(".image-lightbox-close");
+        const avifSource = lightbox.querySelector(".image-lightbox-source-avif");
+        const source = lightbox.querySelector(".image-lightbox-source");
+        const image = lightbox.querySelector(".image-lightbox-image");
+        const openLink = lightbox.querySelector(".image-lightbox-open");
+        const triggers = document.querySelectorAll(".wally-shot-trigger");
+
+        const closeLightbox = () => {
+          lightbox.hidden = true;
+          document.body.classList.remove("lightbox-open");
+          avifSource.srcset = "";
+          source.srcset = "";
+          image.src = "";
+          image.alt = "";
+          openLink.href = "";
+        };
+
+        const openLightbox = (src, webpSrc, avifSrc, alt) => {
+          avifSource.srcset = avifSrc || "";
+          source.srcset = webpSrc || "";
+          image.src = src;
+          image.alt = alt;
+          openLink.href = src;
+          lightbox.hidden = false;
+          document.body.classList.add("lightbox-open");
+          closeButton.focus();
+        };
+
+        triggers.forEach((trigger) => {
+          trigger.addEventListener("click", () => {
+            openLightbox(trigger.dataset.fullres, trigger.dataset.fullresWebp, trigger.dataset.fullresAvif, trigger.dataset.alt || "");
+          });
+        });
+
+        backdrop.addEventListener("click", closeLightbox);
+        closeButton.addEventListener("click", closeLightbox);
+
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape" && !lightbox.hidden) {
+            closeLightbox();
           }
         });
       })();
