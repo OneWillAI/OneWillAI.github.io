@@ -263,6 +263,12 @@
             ></iframe>
           </div>
         </section>
+
+        <section class="section meetup-share-section" aria-label="QR code for this page">
+          <div class="meetup-qr-card" aria-label="QR code for this page">
+            <canvas width="292" height="292" data-meetup-qr></canvas>
+          </div>
+        </section>
       </main>
 
       <div class="image-lightbox" hidden>
@@ -279,6 +285,7 @@
       </div>
     </div>
 
+    <script src="../qr/vendor/qrcode.min.js"></script>
     <script>
       (() => {
         const searchParams = new URLSearchParams(window.location.search);
@@ -423,6 +430,29 @@
             }
           }
         });
+      })();
+
+      (() => {
+        const canvas = document.querySelector("[data-meetup-qr]");
+
+        if (!(canvas instanceof HTMLCanvasElement)) return;
+
+        const target = new URL(window.location.href);
+        target.hash = "";
+        const targetUrl = target.toString();
+
+        if (!window.QRCode) return;
+
+        window.QRCode.toCanvas(canvas, targetUrl, {
+          errorCorrectionLevel: "M",
+          margin: 2,
+          scale: 8,
+          width: 292,
+          color: {
+            dark: "#19172b",
+            light: "#fffaff",
+          },
+        }).catch(() => {});
       })();
 
       (() => {
