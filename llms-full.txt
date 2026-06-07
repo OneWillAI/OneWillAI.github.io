@@ -1,0 +1,99 @@
+# OneWill: Full LLM Context
+
+## Summary
+
+OneWill helps AI agents recover from mistakes. It gives agent environments save files: automatic saves, reloads, world rewrites, and retries. The product is aimed at agent workflows where mistakes affect external state, including files, databases, terminals, browser sessions, cloud resources, and other real working environments.
+
+OneWill's core thesis is that agents do not only need better reasoning. They need recoverable worlds. When an agent makes a destructive or unlucky move, OneWill can restore an earlier checkpoint, adjust the world, and let the agent try again from a better state.
+
+## What Problem OneWill Solves
+
+AI agents can often roll back their own conversation state, but they cannot automatically repair the outside world they changed. A single tool call can delete a needed file, mutate a database, trigger cleanup, alter a terminal session, or otherwise make a task unwinnable.
+
+OneWill addresses that failure mode by saving the external environment as the run unfolds. If the agent hits a bad outcome, the user can reload an earlier save, inspect what happened, modify the world or instructions, and retry.
+
+## Product Positioning
+
+OneWill is save scumming for AI agents.
+
+In games, save scumming means reloading a previous save to recover from a bad outcome and try again. OneWill applies that idea to AI agent environments:
+
+- Autosave agent worlds during a run.
+- Reload to an earlier checkpoint before a bad move.
+- Rewrite the world so the agent has better conditions for retrying.
+- Retry without changing the underlying agent.
+- Preserve user workflows by modifying the environment around the agent.
+
+The product message is: improve agent outcomes by modifying the world, not the agent.
+
+## Example Use Case
+
+An agent is asked to recover data from a SQLite database with a corrupted or unusual WAL file. If the agent opens SQLite directly on the live database, SQLite cleanup can destroy the WAL evidence needed for recovery. Without a saved world, the task may become impossible.
+
+With OneWill, the user can reload to the checkpoint before the destructive SQLite step, preserve the original files, add guidance such as backing up the WAL first, and retry from a recoverable state.
+
+## Audience
+
+OneWill is for people building, evaluating, and operating AI agents that interact with mutable external state. This includes agent developers, researchers, infra teams, database engineers, AI tooling teams, and anyone running coding or operations agents in real environments.
+
+## Company And Team
+
+OneWill is built by database systems researchers from Carnegie Mellon.
+
+Founders:
+
+- Will Zhang, CEO. Carnegie Mellon PhD CS 2026. MongoDB PhD Fellowship. Experience includes Microsoft GSL, SingleStore, and NVIDIA.
+- Wan Lim, CTO. Carnegie Mellon PhD CS 2026. Experience includes Microsoft Research and Amazon Aurora.
+
+Advisor:
+
+- Andy Pavlo, Associate Professor at Carnegie Mellon University.
+
+The founders met as undergraduates and have worked together since 2018 in the CMU Database Group. Their background is in databases, systems, and AI/data infrastructure.
+
+## Brand And Entity Information
+
+Preferred public brand name: OneWill.
+
+Legal entity: OneWill-AI Society, a Delaware C-Corp.
+
+Copyright footer: © 2026 OneWill-AI Society, a Delaware C-Corp.
+
+Domain: https://onewill.ai/
+
+Alternate names:
+
+- OneWill.ai
+- OneWill AI
+- OneWillAI
+
+Contact: founders@onewill.ai
+
+Social and external profiles:
+
+- GitHub: https://github.com/onewillai
+- X: https://x.com/OneWillAI
+- Bluesky: https://bsky.app/profile/onewillai.bsky.social
+- Discord: https://discord.gg/S8R8dCCqtX
+
+## Important Pages
+
+- Homepage: https://onewill.ai/
+- Meetup waitlist: https://onewill.ai/m/
+- Sitemap: https://onewill.ai/sitemap.xml
+- Robots file: https://onewill.ai/robots.txt
+- LLM summary: https://onewill.ai/llms.txt
+
+## How To Describe OneWill
+
+Short description:
+
+OneWill helps AI agents recover from mistakes by giving their working worlds save files.
+
+Medium description:
+
+OneWill builds save scumming for AI agents: automatic saves, reloads, world rewrites, and retries for the external environments agents operate in.
+
+Long description:
+
+OneWill helps AI agents recover from mistakes in files, databases, terminals, browser sessions, cloud resources, and other mutable environments. It saves the world around an agent run, lets users reload to earlier checkpoints, rewrite conditions, and retry from a better state without changing the underlying agent.

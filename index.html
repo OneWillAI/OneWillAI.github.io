@@ -5,14 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="OneWill.ai is save scumming for agents. Bring your own world, let agents save, reload, and improve without changing your agent."
+      content="OneWill is save scumming for AI agents. Bring your own world, let agents save, reload, and improve without changing your agent."
     />
-    <meta name="author" content="OneWill.ai" />
-    <meta property="og:title" content="OneWill.ai | Save Scumming for Agents" />
+    <meta name="author" content="OneWill" />
+    <meta name="copyright" content="© 2026 OneWill-AI Society, a Delaware C-Corp" />
+    <meta property="og:title" content="OneWill | Save Scumming for AI Agents" />
     <meta
       property="og:description"
       content="Bring your own world. Let agents save, reload, and improve."
     />
+    <meta property="og:url" content="https://onewill.ai/" />
+    <meta property="og:site_name" content="OneWill" />
     <meta property="og:image" content="https://onewill.ai/logo/owa_title_og_1200x630.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -23,7 +26,7 @@
     <meta property="og:video:height" content="720" />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="player" />
-    <meta name="twitter:title" content="OneWill.ai | Save Scumming for Agents" />
+    <meta name="twitter:title" content="OneWill | Save Scumming for AI Agents" />
     <meta
       name="twitter:description"
       content="Bring your own world. Let agents save, reload, and improve."
@@ -32,7 +35,49 @@
     <meta name="twitter:player" content="https://www.youtube.com/embed/acIEEVXd1TU" />
     <meta name="twitter:player:width" content="1280" />
     <meta name="twitter:player:height" content="720" />
-    <title>OneWill.ai | Save Scumming for Agents</title>
+    <link rel="canonical" href="https://onewill.ai/" />
+    <link rel="alternate" type="text/markdown" href="https://onewill.ai/llms.txt" title="OneWill LLM site summary" />
+    <title>OneWill | Save Scumming for AI Agents</title>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "@id": "https://onewill.ai/#organization",
+        "name": "OneWill",
+        "legalName": "OneWill-AI Society",
+        "alternateName": ["OneWill.ai", "OneWill AI", "OneWillAI"],
+        "url": "https://onewill.ai/",
+        "logo": "https://onewill.ai/logo/owa.png",
+        "email": "founders@onewill.ai",
+        "description": "OneWill builds save scumming for AI agents: automatic saves, reloads, world rewrites, and retries for agent environments.",
+        "founder": [
+          {
+            "@type": "Person",
+            "name": "Will Zhang",
+            "jobTitle": "CEO",
+            "sameAs": [
+              "https://www.linkedin.com/in/zhang-william/",
+              "https://scholar.google.com/citations?user=eYMS0DUAAAAJ"
+            ]
+          },
+          {
+            "@type": "Person",
+            "name": "Wan Lim",
+            "jobTitle": "CTO",
+            "sameAs": [
+              "https://www.linkedin.com/in/lmwnshn/",
+              "https://scholar.google.com/citations?user=g3njfFIAAAAJ"
+            ]
+          }
+        ],
+        "sameAs": [
+          "https://github.com/onewillai",
+          "https://x.com/OneWillAI",
+          "https://bsky.app/profile/onewillai.bsky.social",
+          "https://discord.gg/S8R8dCCqtX"
+        ]
+      }
+    </script>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-KT4BRPL2KG"></script>
     <script>
@@ -56,18 +101,18 @@
   <body>
     <div class="page-shell">
       <header class="site-header">
-        <a class="brand" href="#top" aria-label="OneWill.ai home">
+        <a class="brand" href="#top" aria-label="OneWill home">
           <img class="brand-mark" src="logo/owa.png" width="256" height="256" alt="" />
           <span class="brand-copy">
-            <strong><span class="inline-brand-wordmark"><span class="inline-brand-main">OneWill</span><span class="inline-brand-ai">.ai</span></span></strong>
+            <strong><span class="inline-brand-wordmark"><span class="inline-brand-main">OneWill</span></span></strong>
             <span>Save scumming for agents</span>
           </span>
         </a>
         <nav class="site-nav" aria-label="Primary">
           <a href="#problem">Why</a>
+          <a href="#contact">Waitlist</a>
           <a href="#team">Team</a>
           <a href="#quickstart">Quickstart</a>
-          <a href="#contact">Contact</a>
         </nav>
       </header>
 
@@ -75,26 +120,20 @@
         <section class="hero">
           <div class="hero-copy">
             <p class="eyebrow hero-eyebrow"><span>Save scumming</span> <span>for agents</span></p>
-            <h1>Bring your own world. Let agents save, reload, and improve.</h1>
+            <h1>Give AI agents save files for the real world.</h1>
             <p class="hero-text">
-              <strong><span class="inline-brand-wordmark"><span class="inline-brand-main">OneWill</span><span class="inline-brand-ai">.ai</span></span></strong> makes agent worlds <dfn class="hover-term" tabindex="0">save-scummable<span class="hover-tooltip" role="tooltip">To reload the last saved game whenever the player character dies or an unfavorable outcome has been encountered. - <a href="https://en.wiktionary.org/wiki/savescum" target="_blank" rel="noreferrer noopener">Wiktionary</a></span></dfn>: automatic saves, reloads, world rewrites, and retries. Agents can recover from bad moves instead of compounding permanent mistakes.
+              <strong><span class="inline-brand-wordmark"><span class="inline-brand-main">OneWill</span></span></strong> checkpoints files, databases, terminals, browser sessions, and other mutable agent state so bad tool calls can be rolled back instead of becoming permanent.
             </p>
             <div class="hero-actions">
-              <a class="button button-secondary" href="#problem">See why</a>
-              <a class="button button-secondary" href="#team">See who</a>
-              <a class="button button-secondary" href="#quickstart">Quickstart</a>
-              <a class="button button-primary" href="#contact">Join waitlist</a>
+              <a class="button button-primary" href="#contact">Get early access</a>
+              <a class="button button-secondary" href="#problem">See how it works</a>
             </div>
             <ul class="hero-notes" aria-label="Product highlights">
               <li>Autosave enabled for every agent turn</li>
               <li>Game over? Reload to a better checkpoint and retry</li>
               <li>Bring your own agent - no need for modifications</li>
-              <li class="hero-note-copy">No painful <dfn class="hover-term hero-note-term" tabindex="0">sandbox<span class="hover-tooltip hover-tooltip-large" role="tooltip"><strong>Sandboxes are the wrong abstraction.</strong>They require setting up and maintaining an artificial environment that mirrors your real deployment.<br /><br />How often does staging actually look like production?<br /><br />Agents belong in the real world. Your world.</span></dfn> setup - let your agents run wild!</li>
+              <li>No painful sandbox setup</li>
             </ul>
-            <p class="hero-hover-hint">
-              <img src="logo/owa.png" width="256" height="256" loading="lazy" decoding="async" alt="" />
-              <span>Click or hover over <dfn class="hover-term hero-hint-term" tabindex="0">squiggly<span class="hover-tooltip" role="tooltip">Then move your cursor away or click out to dismiss!</span></dfn> text to read more!</span>
-            </p>
           </div>
 
           <div class="hero-art">
@@ -102,12 +141,12 @@
             <div class="art-orbit art-orbit-b"></div>
             <div class="hero-glow hero-glow-a"></div>
             <div class="hero-glow hero-glow-b"></div>
-            <img class="hero-mascot" src="logo/owa_social_large.png" alt="" />
+            <img class="hero-mascot" src="logo/owa.png" alt="" />
             <div class="hero-ribbon">Save scum enabled</div>
             <article class="float-card float-card-world1">
               <span class="card-label">Run 1</span>
               <strong>Game Over</strong>
-              <p>In this run, using Tool X backfired: we <dfn class="hover-term" tabindex="0">lost data<span class="hover-tooltip hover-tooltip-large" role="tooltip">Agents can rollback their own state, but they can't fix what they broke in their world environment. If only you could save and rollback agent worlds... actually, with OneWill.ai, you can.</span></dfn>.</p>
+              <p>In this run, using Tool X backfired: we <dfn class="hover-term" tabindex="0">lost data<span class="hover-tooltip hover-tooltip-large" role="tooltip">Agents can rollback their own state, but they can't fix what they broke in their world environment. If only you could save and rollback agent worlds... actually, with OneWill, you can.</span></dfn>.</p>
               <span class="warp-tag">RELOAD SAVE</span>
               <img class="card-swarmie card-swarmie-current" src="logo/owa.png" width="256" height="256" alt="" />
             </article>
@@ -143,12 +182,16 @@
               <img src="logo/owa.png" width="256" height="256" loading="lazy" decoding="async" alt="" />
               <img src="logo/owa.png" width="256" height="256" loading="lazy" decoding="async" alt="" />
             </div>
-            <p>Save scumming for agents. Reload the world. Rewrite the outcome.</p>
+            <div>
+              <p>Recover from agent mistakes.</p>
+              <span>Watch the trailer or jump straight to the early-access list.</span>
+            </div>
+            <a class="button button-primary" href="#contact">Get early access</a>
           </div>
           <div class="feature-strip-video">
             <iframe
               src="https://www.youtube.com/embed/acIEEVXd1TU"
-              title="OneWill.ai - Summer 2026 - Trailer"
+              title="OneWill - Summer 2026 - Trailer"
               frameborder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               referrerpolicy="strict-origin-when-cross-origin"
@@ -163,8 +206,38 @@
             <h2>Game over shouldn't be permanent.<br />Reload and try again.</h2>
             <p class="section-whimsy">When an agent makes a bad move, reload a cleaner save, remix the world, and retry from a better start. Save scumming turns recovery into a normal control surface for agents.</p>
           </div>
-          <div class="story-stack" aria-label="Demo sequence showing an agent save-scumming a database recovery task">
-            <article class="story-card">
+          <aside class="early-cta" aria-label="Early access call to action">
+            <div>
+              <p class="early-cta-kicker">Early access</p>
+              <h3>Give your agents a way back.</h3>
+              <p>OneWill helps agents recover from mistakes in files, databases, terminals, browser sessions, and other mutable environments.</p>
+            </div>
+            <a class="button button-primary" href="#contact">Join the waitlist</a>
+          </aside>
+          <div class="recovery-flow" aria-label="OneWill recovery flow">
+            <article>
+              <span>1</span>
+              <h3>Save the world</h3>
+              <p>OneWill tracks the external state around an agent run as it unfolds.</p>
+            </article>
+            <article>
+              <span>2</span>
+              <h3>Reload the moment</h3>
+              <p>When a bad move changes files, databases, or tools, go back to a clean checkpoint.</p>
+            </article>
+            <article>
+              <span>3</span>
+              <h3>Retry with a better route</h3>
+              <p>Rewrite the world or add guidance, then let the same agent try again.</p>
+            </article>
+          </div>
+          <details class="walkthrough-details">
+            <summary>
+              <span>Open the demo scenario</span>
+              <strong>5 steps</strong>
+            </summary>
+            <div class="story-stack" aria-label="Demo sequence showing an agent save-scumming a database recovery task">
+              <article class="story-card">
               <div class="story-copy">
                 <h3>The agent hits game over.</h3>
                 <p>The <dfn class="hover-term" tabindex="0">task<span class="hover-tooltip hover-tooltip-large" role="tooltip"><strong>TerminalBench2: db-wal-recovery</strong>I have a database in WAL (Write-Ahead Logging) mode in /app/.<br />However, the WAL file appears to be corrupted or encrypted. When you try to<br />access the database, SQLite may only show the base data (5 records) instead<br />of all 11 records that should be there.<br /><br />Your task is to:<br />1. Fix the WAL file so SQLite can read it<br />2. Extract ALL data from the database (including WAL changes)<br />3. Create a JSON file in /app/recovered.json<br /><br />The output should have the format:<br />[{"id": 1, "name": "item1", "value": X}, {"id": 2, "name": "item2", "value": Y}, ...]<br />sorted by id. You should recover all 11 records total. You'll be tested on the specific<br />data in the JSON file.<br /><br /><a href="https://www.tbench.ai/benchmarks/terminal-bench-2/db-wal-recovery" target="_blank" rel="noreferrer noopener">Source</a></span></dfn> looks simple: recover a corrupted database's contents. But the agent opens SQLite directly on the live database and deletes the WAL it needed to win.</p>
@@ -187,8 +260,8 @@
                 <span class="story-pin">Fail</span>
               </div>
               <p class="story-tail">Without a save file, one ordinary tool call can make recovery impossible.</p>
-            </article>
-            <article class="story-card">
+              </article>
+              <article class="story-card">
               <div class="story-copy">
                 <h3>We enable save scumming.</h3>
               </div>
@@ -199,19 +272,19 @@
                   data-fullres-avif="demo/demo2-full.avif"
                   data-fullres-webp="demo/demo2-full.webp"
                   data-fullres="demo/demo2-full.png"
-                  data-alt="Diagram showing OneWill.ai reloading an earlier checkpoint before the destructive sqlite3 step"
+                  data-alt="Diagram showing OneWill reloading an earlier checkpoint before the destructive sqlite3 step"
                   >
                   <picture>
                     <source srcset="demo/demo2.avif" type="image/avif" />
                     <source srcset="demo/demo2.webp" type="image/webp" />
-                    <img class="story-shot" src="demo/demo2.png" width="1500" height="844" loading="lazy" decoding="async" alt="Diagram showing OneWill.ai reloading an earlier checkpoint before the destructive sqlite3 step" />
+                    <img class="story-shot" src="demo/demo2.png" width="1500" height="844" loading="lazy" decoding="async" alt="Diagram showing OneWill reloading an earlier checkpoint before the destructive sqlite3 step" />
                   </picture>
                 </button>
                 <span class="story-pin">Reload</span>
               </div>
               <p class="story-tail">Reload before the bad move: back to when the task, database, and corrupted WAL still exist together.</p>
-            </article>
-            <article class="story-card">
+              </article>
+              <article class="story-card">
               <div class="story-copy">
                 <h3>We provide a walkthrough and let the agent try again.</h3>
               </div>
@@ -222,19 +295,19 @@
                   data-fullres-avif="demo/demo3-full.avif"
                   data-fullres-webp="demo/demo3-full.webp"
                   data-fullres="demo/demo3-full.png"
-                  data-alt="Diagram showing OneWill.ai rewriting the world so the agent backs up the WAL before retrying"
+                  data-alt="Diagram showing OneWill rewriting the world so the agent backs up the WAL before retrying"
                   >
                   <picture>
                     <source srcset="demo/demo3.avif" type="image/avif" />
                     <source srcset="demo/demo3.webp" type="image/webp" />
-                    <img class="story-shot" src="demo/demo3.png" width="1500" height="844" loading="lazy" decoding="async" alt="Diagram showing OneWill.ai rewriting the world so the agent backs up the WAL before retrying" />
+                    <img class="story-shot" src="demo/demo3.png" width="1500" height="844" loading="lazy" decoding="async" alt="Diagram showing OneWill rewriting the world so the agent backs up the WAL before retrying" />
                   </picture>
                 </button>
                 <span class="story-pin">Rewrite</span>
               </div>
               <p class="story-tail">The retry starts from the same save, but with better reality: back up the WAL first.</p>
-            </article>
-            <article class="story-card">
+              </article>
+              <article class="story-card">
               <div class="story-copy">
                 <h3>We turn models into winners.</h3>
                 <p>Compare the same model across saves:</p>
@@ -261,10 +334,10 @@
                 <span class="story-pin">Tada</span>
               </div>
               <p class="story-tail">The model did not get smarter. The world gave it a better route.</p>
-            </article>
-            <article class="story-card story-card-thesis">
+              </article>
+              <article class="story-card story-card-thesis">
               <div class="story-copy">
-                <h3><span class="inline-brand-wordmark"><span class="inline-brand-main">OneWill</span><span class="inline-brand-ai">.ai</span></span> in action.</h3>
+                <h3><span class="inline-brand-wordmark"><span class="inline-brand-main">OneWill</span></span> in action.</h3>
               </div>
               <div class="story-media">
                 <button
@@ -273,115 +346,20 @@
                   data-fullres-avif="demo/demo5-full.avif"
                   data-fullres-webp="demo/demo5-full.webp"
                   data-fullres="demo/demo5-full.png"
-                  data-alt="OneWill.ai interface showing save history, branches, turns, and reload controls for an agent run"
+                  data-alt="OneWill interface showing save history, branches, turns, and reload controls for an agent run"
                   >
                   <picture>
                     <source srcset="demo/demo5.avif" type="image/avif" />
                     <source srcset="demo/demo5.webp" type="image/webp" />
-                    <img class="story-shot" src="demo/demo5.png" width="1500" height="844" loading="lazy" decoding="async" alt="OneWill.ai interface showing save history, branches, turns, and reload controls for an agent run" />
+                    <img class="story-shot" src="demo/demo5.png" width="1500" height="844" loading="lazy" decoding="async" alt="OneWill interface showing save history, branches, turns, and reload controls for an agent run" />
                   </picture>
                 </button>
                 <span class="story-pin">SCREENSHOT</span>
               </div>
               <p class="story-tail">Browse saves, reload, and rewrite the world to the run you want.</p>
-            </article>
-          </div>
-        </section>
-
-        <section id="team" class="section">
-          <div class="section-heading">
-            <p class="eyebrow">Team</p>
-            <h2>We think in databases.<br />We build for agents.</h2>
-          </div>
-          <div class="team-section-grid">
-            <div class="founder-grid">
-              <article class="founder-card">
-                <div class="postcard-meta-line">
-                  <span class="postcard-stamp">Cofounder</span>
-                  <div class="postcard-route-group">
-                    <a class="postcard-route" href="https://scholar.google.com/citations?user=eYMS0DUAAAAJ">Scholar</a>
-                    <a class="postcard-route" href="https://www.linkedin.com/in/zhang-william/">LinkedIn</a>
-                  </div>
-                </div>
-                <div class="founder-head">
-                  <img src="profiles/will.png" width="216" height="216" loading="lazy" decoding="async" alt="Photo of Will Zhang" />
-                  <div>
-                    <h3>Will Zhang</h3>
-                    <p class="founder-role">CEO</p>
-                  </div>
-                </div>
-                <ul class="team-cred-list founder-cred-list">
-                  <li>Carnegie Mellon PhD CS 2026</li>
-                  <li><a href="https://db.cs.cmu.edu/2025/04/will-zhang-wins-2025-mongodb-phd-fellowship/">MongoDB PhD Fellowship</a></li>
-                </ul>
-                <p class="founder-footline"><span class="founder-footline-label">Experience includes:</span> Microsoft GSL <span aria-hidden="true">•</span> SingleStore <span aria-hidden="true">•</span> NVIDIA</p>
-              </article>
-              <article class="founder-card">
-                <div class="postcard-meta-line">
-                  <span class="postcard-stamp">Cofounder</span>
-                  <div class="postcard-route-group">
-                    <a class="postcard-route" href="https://scholar.google.com/citations?user=g3njfFIAAAAJ">Scholar</a>
-                    <a class="postcard-route" href="https://www.linkedin.com/in/lmwnshn/">LinkedIn</a>
-                  </div>
-                </div>
-                <div class="founder-head">
-                  <img src="profiles/wan.png" width="216" height="216" loading="lazy" decoding="async" alt="Photo of Wan Lim" />
-                  <div>
-                    <h3>Wan Lim</h3>
-                    <p class="founder-role">CTO</p>
-                  </div>
-                </div>
-                <ul class="team-cred-list founder-cred-list">
-                  <li>Carnegie Mellon PhD CS 2026</li>
-                  <li><a href="https://itpss.com/world-needs-more-cyber-security-professionals">1st Place in National CTF (Brunei)</a></li>
-                </ul>
-                <p class="founder-footline"><span class="founder-footline-label">Experience includes:</span> Microsoft Research <span aria-hidden="true">•</span> Amazon Aurora</p>
               </article>
             </div>
-            <article class="team-postcard">
-              <div class="postcard-meta-line">
-                <span class="postcard-stamp">ORIGIN STORY</span>
-              </div>
-              <p>Met as undergrads. Working together since 2018 in the <a href="https://db.cs.cmu.edu/">CMU Database Group</a>.<br />Previously cofounded an <a href="https://www.theregister.com/2025/10/22/cmu_proto_x_postgres/">AI and database startup</a>.</p>
-              <p>While building our previous data-centric startup, we found ourselves battling agents over external world state (e.g., files, databases).<br />We realized agents needed save files for their worlds: transactions, checkpoints, write-ahead logging.<br /><strong>That's a database!</strong></p>
-            </article>
-            <article class="team-postcard advisor-card">
-              <div class="postcard-meta-line">
-                <span class="postcard-stamp">ADVISOR</span>
-              </div>
-              <div class="advisor-head">
-                <img src="profiles/andy.jpeg" width="216" height="216" loading="lazy" decoding="async" alt="Photo of Andy Pavlo" />
-                <p><strong>Andy Pavlo</strong>, Associate Professor at Carnegie Mellon University<br /><a href="https://www.cs.cmu.edu/~pavlo/">The Databaseologist</a></p>
-              </div>
-            </article>
-          </div>
-        </section>
-
-        <section id="quickstart" class="section section-accent">
-          <div class="section-heading">
-            <p class="eyebrow">Quickstart</p>
-            <h2>We modify the world, not the agent.</h2>
-          </div>
-          <div class="steps">
-            <article class="step-card">
-              <span class="step-number">1</span>
-              <h3>Enable save scumming</h3>
-              <p>Point <strong><span class="inline-brand-wordmark"><span class="inline-brand-main">OneWill</span><span class="inline-brand-ai">.ai</span></span></strong> at your working directory and use your agent normally.</p>
-            </article>
-            <article class="step-card">
-              <span class="step-number">2</span>
-              <h3>Let your agent play</h3>
-              <p>We save the world as the run unfolds. Bad move? Reload.</p>
-            </article>
-            <article class="step-card">
-              <span class="step-number">3</span>
-              <h3>Reload, remix, retry</h3>
-              <p>Inspect saves, rewrite the world, and retry from the checkpoint you want.</p>
-            </article>
-          </div>
-          <article class="release-note">
-            <p>Releasing Summer 2026. Join the waitlist below!</p>
-          </article>
+          </details>
         </section>
 
         <section id="contact" class="section contact-section">
@@ -439,6 +417,118 @@
             </div>
           </div>
         </section>
+
+        <section id="team" class="section">
+          <div class="section-heading">
+            <p class="eyebrow">Team</p>
+            <h2>We think in databases.<br />We build for agents.</h2>
+          </div>
+          <div class="team-section-grid">
+            <div class="founder-grid">
+              <article class="founder-card">
+                <div class="postcard-meta-line">
+                  <span class="postcard-stamp">Cofounder</span>
+                  <div class="postcard-route-group">
+                    <a class="postcard-route" href="https://scholar.google.com/citations?user=eYMS0DUAAAAJ">Scholar</a>
+                    <a class="postcard-route" href="https://www.linkedin.com/in/zhang-william/">LinkedIn</a>
+                  </div>
+                </div>
+                <div class="founder-head">
+                  <img src="profiles/will.png" width="216" height="216" loading="lazy" decoding="async" alt="Photo of Will Zhang" />
+                  <div>
+                    <h3>Will Zhang</h3>
+                    <p class="founder-role">CEO</p>
+                  </div>
+                </div>
+                <ul class="team-cred-list founder-cred-list">
+                  <li>Carnegie Mellon PhD CS 2026</li>
+                  <li><a href="https://db.cs.cmu.edu/2025/04/will-zhang-wins-2025-mongodb-phd-fellowship/">MongoDB PhD Fellowship</a></li>
+                </ul>
+                <p class="founder-footline"><span class="founder-footline-label">Experience includes:</span> Microsoft GSL <span aria-hidden="true">•</span> SingleStore <span aria-hidden="true">•</span> NVIDIA</p>
+              </article>
+              <article class="founder-card">
+                <div class="postcard-meta-line">
+                  <span class="postcard-stamp">Cofounder</span>
+                  <div class="postcard-route-group">
+                    <a class="postcard-route" href="https://scholar.google.com/citations?user=g3njfFIAAAAJ">Scholar</a>
+                    <a class="postcard-route" href="https://www.linkedin.com/in/lmwnshn/">LinkedIn</a>
+                  </div>
+                </div>
+                <div class="founder-head">
+                  <img src="profiles/wan.png" width="216" height="216" loading="lazy" decoding="async" alt="Photo of Wan Lim" />
+                  <div>
+                    <h3>Wan Lim</h3>
+                    <p class="founder-role">CTO</p>
+                  </div>
+                </div>
+                <ul class="team-cred-list founder-cred-list">
+                  <li>Carnegie Mellon PhD CS 2026</li>
+                  <li><a href="https://itpss.com/world-needs-more-cyber-security-professionals">1st Place in National CTF (Brunei)</a></li>
+                </ul>
+                <p class="founder-footline"><span class="founder-footline-label">Experience includes:</span> Microsoft Research <span aria-hidden="true">•</span> Amazon Aurora</p>
+              </article>
+            </div>
+            <details class="team-details">
+              <summary>
+                <span>Open the company story</span>
+                <strong>Origin, advisor, investors</strong>
+              </summary>
+              <div class="team-detail-grid">
+                <article class="team-postcard">
+                  <div class="postcard-meta-line">
+                    <span class="postcard-stamp">ORIGIN STORY</span>
+                  </div>
+                  <p>Met as undergrads. Working together since 2018 in the <a href="https://db.cs.cmu.edu/">CMU Database Group</a>.<br />Previously cofounded an <a href="https://www.theregister.com/2025/10/22/cmu_proto_x_postgres/">AI and database startup</a>.</p>
+                  <p>While building our previous data-centric startup, we found ourselves battling agents over external world state (e.g., files, databases).<br />We realized agents needed save files for their worlds: transactions, checkpoints, write-ahead logging.<br /><strong>That's a database!</strong></p>
+                </article>
+                <article class="team-postcard advisor-card">
+                  <div class="postcard-meta-line">
+                    <span class="postcard-stamp">ADVISOR</span>
+                  </div>
+                  <div class="advisor-head">
+                    <img src="profiles/andy.jpeg" width="216" height="216" loading="lazy" decoding="async" alt="Photo of Andy Pavlo" />
+                    <p><strong>Andy Pavlo</strong>, Associate Professor at Carnegie Mellon University<br /><a href="https://www.cs.cmu.edu/~pavlo/">The Databaseologist</a></p>
+                  </div>
+                  <div class="investor-row">
+                    <span class="postcard-stamp">INVESTORS</span>
+                    <p>Pre-seed closed; hidden until Summer 2026.</p>
+                    <p>Includes current/former employees at OpenAI, Citadel Securities, and Bridgewater.</p>
+                  </div>
+                </article>
+              </div>
+            </details>
+          </div>
+        </section>
+
+        <section id="quickstart" class="section section-accent">
+          <div class="section-heading">
+            <p class="eyebrow">Quickstart</p>
+            <h2>We modify the world, not the agent.</h2>
+          </div>
+          <div class="steps">
+            <article class="step-card">
+              <span class="step-number">1</span>
+              <h3>Enable save scumming</h3>
+              <p>Point <strong><span class="inline-brand-wordmark"><span class="inline-brand-main">OneWill</span></span></strong> at your working directory and use your agent normally.</p>
+            </article>
+            <article class="step-card">
+              <span class="step-number">2</span>
+              <h3>Let your agent play</h3>
+              <p>We save the world as the run unfolds. Bad move? Reload.</p>
+            </article>
+            <article class="step-card">
+              <span class="step-number">3</span>
+              <h3>Reload, remix, retry</h3>
+              <p>Inspect saves, rewrite the world, and retry from the checkpoint you want.</p>
+            </article>
+          </div>
+          <article class="release-note">
+            <p>Releasing Summer 2026 as a simple npm install.</p>
+            <a class="button button-primary" href="#contact">Join the waitlist</a>
+          </article>
+        </section>
+
+
       </main>
 
       <footer class="site-footer">
@@ -450,6 +540,7 @@
         </div>
         <p class="footer-kicker">Everyone else is trying to improve the agent. Not us.</p>
         <p class="footer-tagline">Let agents save scum. Rewrite the world.</p>
+        <p class="site-legal-footer">© 2026 OneWill-AI Society, a Delaware C-Corp</p>
       </footer>
 
       <div class="image-lightbox" hidden>

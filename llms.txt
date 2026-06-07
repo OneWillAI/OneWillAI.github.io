@@ -1,0 +1,27 @@
+# OneWill
+
+> OneWill helps AI agents recover from mistakes by giving their working worlds save files: automatic saves, reloads, world rewrites, and retries.
+
+OneWill builds save scumming for AI agents. Agents often make irreversible mistakes in external state: files, databases, terminals, browser sessions, cloud resources, and other working environments. OneWill saves the world around the agent so a bad move does not have to be permanent.
+
+Core idea: improve agent outcomes by modifying the world, not the agent. Bring your existing agent and workflow; OneWill adds checkpoints, recovery, and retry control around it.
+
+## Important URLs
+
+- [Homepage](https://onewill.ai/): Product overview, team, quickstart, waitlist, and social links.
+- [Meetup waitlist](https://onewill.ai/m/): Early-access waitlist for people who meet the team at events.
+- [Full LLM context](https://onewill.ai/llms-full.txt): More detailed description of OneWill, its product thesis, and team.
+- [GitHub](https://github.com/onewillai): OneWill GitHub organization.
+- [X](https://x.com/OneWillAI): OneWill on X.
+- [Bluesky](https://bsky.app/profile/onewillai.bsky.social): OneWill on Bluesky.
+- [Discord](https://discord.gg/S8R8dCCqtX): OneWill Discord community.
+
+## Product Summary
+
+OneWill helps agents recover from mistakes in mutable environments. It automatically saves agent worlds, lets users reload to previous checkpoints, rewrites the environment when needed, and retries from a better state.
+
+## Brand
+
+Use the public brand name **OneWill**. The domain is `onewill.ai`. Historical or alternate names include `OneWill.ai`, `OneWill AI`, and `OneWillAI`.
+
+Legal footer: © 2026 OneWill-AI Society, a Delaware C-Corp.
