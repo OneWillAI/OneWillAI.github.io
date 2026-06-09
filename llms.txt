@@ -24,4 +24,4 @@ OneWill helps agents recover from mistakes in mutable environments. It automatic
 
 Use the public brand name **OneWill**. The domain is `onewill.ai`. Historical or alternate names include `OneWill.ai`, `OneWill AI`, and `OneWillAI`.
 
-Legal footer: © 2026 OneWill-AI Society, a Delaware C-Corp.
+Legal footer: © 2026 OneWill-AI Society d/b/a OneWill.

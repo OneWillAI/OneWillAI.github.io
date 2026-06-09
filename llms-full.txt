@@ -57,7 +57,7 @@ Preferred public brand name: OneWill.
 
 Legal entity: OneWill-AI Society, a Delaware C-Corp.
 
-Copyright footer: © 2026 OneWill-AI Society, a Delaware C-Corp.
+Copyright footer: © 2026 OneWill-AI Society d/b/a OneWill.
 
 Domain: https://onewill.ai/
 
