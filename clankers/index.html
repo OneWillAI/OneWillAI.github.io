@@ -336,6 +336,8 @@
 
       .ticker {
         display: flex;
+        width: 100%;
+        max-width: 100vw;
         min-height: var(--ticker-height);
         gap: 18px;
         overflow: hidden;
@@ -349,6 +351,7 @@
 
       .ticker-track {
         display: flex;
+        flex: 0 0 100%;
         min-width: 100%;
         align-items: center;
         gap: 18px;
@@ -726,6 +729,17 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 12px;
         padding: 0 16px 16px;
+      }
+
+      .example-grid .meme-card,
+      .example-grid .meme-card-wide {
+        min-height: 0;
+        aspect-ratio: 1500 / 844;
+      }
+
+      .example-grid .meme-card img {
+        object-fit: contain;
+        background: #000;
       }
 
       .meme-card-wide .meme-label {
@@ -1203,8 +1217,19 @@
           min-height: 300px;
         }
 
+        .meme-card-contain {
+          min-height: 0;
+          aspect-ratio: 1400 / 626;
+        }
+
         .example-grid {
           grid-template-columns: 1fr;
+        }
+
+        .example-grid .meme-card,
+        .example-grid .meme-card-wide {
+          min-height: 0;
+          aspect-ratio: 1500 / 844;
         }
 
         .lightbox-bar {
@@ -1256,7 +1281,17 @@
 
       @media (max-width: 520px) {
         .topbar {
-          padding-inline: 12px;
+          min-height: 56px;
+          padding: 7px 12px;
+        }
+
+        .brand {
+          gap: 8px;
+        }
+
+        .brand img {
+          width: 32px;
+          height: 32px;
         }
 
         .brand span {
@@ -1268,6 +1303,12 @@
 
         .button {
           width: 100%;
+          min-height: 42px;
+          padding-inline: 14px;
+        }
+
+        .nav-cta {
+          width: auto;
         }
 
         .hero-copy,
@@ -1276,24 +1317,38 @@
           width: min(100% - 24px, 1120px);
         }
 
+        .hero {
+          min-height: calc(100svh - 58px - var(--ticker-height));
+        }
+
+        .hero-copy {
+          padding: 42px 0 36px;
+        }
+
         h1 {
-          font-size: clamp(3.35rem, 16.8vw, 4.5rem);
+          font-size: clamp(2.75rem, 14vw, 3.65rem);
+          line-height: 0.84;
         }
 
         .nowrap-heading {
           font-size: clamp(2.65rem, 11.5vw, 4rem);
+          white-space: normal;
         }
 
         .hero-text {
+          margin-top: 12px;
+          font-size: clamp(1.2rem, 6vw, 1.55rem);
           white-space: normal;
         }
 
         .section-subtitle {
           font-size: clamp(1rem, 4.2vw, 1.35rem);
+          white-space: normal;
         }
 
         .tagline {
           gap: 6px;
+          margin-bottom: 12px;
         }
 
         .tagline span {
@@ -1330,6 +1385,8 @@
 
         .hero-actions {
           width: min(100%, 340px);
+          gap: 10px;
+          margin-top: 20px;
         }
 
         .signup-form .button {
@@ -1353,6 +1410,18 @@
         .team-card img {
           width: 96px;
           height: 96px;
+        }
+
+        .sticky-cta {
+          min-height: 48px;
+          gap: 8px;
+          padding: 6px 10px 6px 6px;
+          font-size: 0.95rem;
+        }
+
+        .sticky-cta img {
+          width: 32px;
+          height: 32px;
         }
       }
     </style>
