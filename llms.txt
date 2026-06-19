@@ -8,7 +8,8 @@ Core idea: improve agent outcomes by modifying the world, not the agent. Bring y
 
 ## Important URLs
 
-- [Homepage](https://onewill.ai/): Product overview, team, quickstart, waitlist, and social links.
+- [Homepage](https://onewill.ai/): Short-form OneWill the Clankers page.
+- [Serious product page](https://onewill.ai/seriously/): Product overview, team, quickstart, waitlist, and social links.
 - [Meetup waitlist](https://onewill.ai/m/): Early-access waitlist for people who meet the team at events.
 - [Full LLM context](https://onewill.ai/llms-full.txt): More detailed description of OneWill, its product thesis, and team.
 - [GitHub](https://github.com/onewillai): OneWill GitHub organization.

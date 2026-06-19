@@ -337,6 +337,10 @@ h3 {
   filter: drop-shadow(0 7px 10px rgba(79, 72, 219, 0.12));
 }
 
+.hero-secret-link {
+  cursor: pointer;
+}
+
 .hero-art {
   position: relative;
   display: grid;

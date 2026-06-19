@@ -79,6 +79,7 @@ Social and external profiles:
 ## Important Pages
 
 - Homepage: https://onewill.ai/
+- Serious product page: https://onewill.ai/seriously/
 - Meetup waitlist: https://onewill.ai/m/
 - Sitemap: https://onewill.ai/sitemap.xml
 - Robots file: https://onewill.ai/robots.txt
