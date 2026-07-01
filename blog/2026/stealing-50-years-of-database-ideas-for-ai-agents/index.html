@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Introducing OneWill, or: why write-ahead logging is better than letting agents rawdog your computer."
+    />
+    <meta name="author" content="Wan Lim and Will Zhang" />
+    <meta name="copyright" content="© 2026 OneWill-AI Society d/b/a OneWill" />
+    <meta property="og:title" content="Stealing 50 Years of Database Ideas for AI Agents | OneWill" />
+    <meta property="og:description" content="Introducing OneWill, or: why write-ahead logging is better than letting agents rawdog your computer." />
+    <meta property="og:url" content="https://onewill.ai/blog/2026/stealing-50-years-of-database-ideas-for-ai-agents/" />
+    <meta property="og:site_name" content="OneWill" />
+    <meta property="og:image" content="https://onewill.ai/blog/2026/stealing-50-years-of-database-ideas-for-ai-agents/assets/og-1200x630.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="OneWill blog post on write-ahead logging for AI agent actions." />
+    <meta property="og:type" content="article" />
+    <meta property="article:published_time" content="2026-07-01" />
+    <meta property="article:author" content="Wan Lim" />
+    <meta property="article:author" content="Will Zhang" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Stealing 50 Years of Database Ideas for AI Agents | OneWill" />
+    <meta name="twitter:description" content="Introducing OneWill, or: why write-ahead logging is better than letting agents rawdog your computer." />
+    <meta name="twitter:image" content="https://onewill.ai/blog/2026/stealing-50-years-of-database-ideas-for-ai-agents/assets/og-1200x630.png" />
+    <meta name="twitter:image:alt" content="OneWill blog post on write-ahead logging for AI agent actions." />
+    <link rel="canonical" href="https://onewill.ai/blog/2026/stealing-50-years-of-database-ideas-for-ai-agents/" />
+    <link rel="icon" href="/logo/owa.png" type="image/png" />
+    <title>Stealing 50 Years of Database Ideas for AI Agents | OneWill</title>
+    <style>
+      :root {
+        --bg: #090909;
+        --ink: #f7f4ed;
+        --muted: #b7b1a7;
+        --panel: #141414;
+        --line: rgba(247, 244, 237, 0.16);
+        --accent: #facc15;
+        --accent-ink: #050505;
+        --radius: 8px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        color: var(--ink);
+        background:
+          linear-gradient(rgba(247, 244, 237, 0.026) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(247, 244, 237, 0.026) 1px, transparent 1px),
+          var(--bg);
+        background-size: 28px 28px;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        min-height: 70px;
+        padding: 12px max(18px, calc((100vw - 1120px) / 2));
+        border-bottom: 1px solid var(--line);
+        background: rgba(9, 9, 9, 0.86);
+        backdrop-filter: blur(18px);
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 800;
+        text-decoration: none;
+      }
+
+      .brand img {
+        width: 38px;
+        height: 38px;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--muted);
+        font-size: 0.84rem;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+
+      .nav a {
+        padding: 9px 10px;
+        text-decoration: none;
+      }
+
+      .nav a:hover,
+      .nav a:focus-visible {
+        color: var(--accent);
+      }
+
+      .button {
+        display: inline-flex;
+        min-height: 52px;
+        align-items: center;
+        justify-content: center;
+        padding: 0 20px;
+        border: 1px solid var(--accent);
+        border-radius: var(--radius);
+        background: var(--accent);
+        color: var(--accent-ink);
+        font-weight: 900;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+
+      main,
+      footer {
+        width: min(1120px, calc(100% - 36px));
+        margin: 0 auto;
+      }
+
+      article {
+        width: min(900px, 100%);
+        padding: 72px 0 72px;
+      }
+
+      .eyebrow {
+        margin: 0 0 14px;
+        color: var(--accent);
+        font-size: 0.82rem;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      p,
+      ul,
+      ol,
+      pre,
+      blockquote {
+        margin: 0;
+      }
+
+      h1 {
+        max-width: 900px;
+        font-size: clamp(2.05rem, 4vw, 3.35rem);
+        font-weight: 800;
+        line-height: 1.04;
+      }
+
+      h1 .title-line {
+        display: block;
+      }
+
+      h1 .title-accent,
+      h2 {
+        color: var(--accent);
+      }
+
+      .dek {
+        max-width: 720px;
+        margin-top: 18px;
+        color: #e9e2d6;
+        font-size: clamp(1.08rem, 2.1vw, 1.35rem);
+        font-weight: 400;
+        line-height: 1.45;
+      }
+
+      .meta {
+        display: grid;
+        gap: 6px;
+        max-width: 720px;
+        margin-top: 24px;
+        color: var(--muted);
+        font-size: 0.9rem;
+        font-weight: 500;
+        line-height: 1.45;
+      }
+
+      .meta a,
+      .body a,
+      .back {
+        color: var(--accent);
+      }
+
+      .body {
+        display: grid;
+        gap: 32px;
+        width: min(720px, 100%);
+        margin-top: 56px;
+      }
+
+      .article-section {
+        display: block;
+      }
+
+      .article-section > summary {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 12px;
+        color: var(--accent);
+        cursor: pointer;
+        list-style: none;
+        outline-offset: 6px;
+      }
+
+      .article-section > summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .article-section > summary::after {
+        display: grid;
+        width: 24px;
+        height: 24px;
+        flex: 0 0 auto;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: var(--muted);
+        content: "+";
+        font-size: 1rem;
+        font-weight: 700;
+        line-height: 1;
+      }
+
+      .article-section[open] > summary::after {
+        content: "-";
+      }
+
+      .article-section > summary h2 {
+        margin: 0;
+        font-size: clamp(1.25rem, 1.85vw, 1.5rem);
+      }
+
+      .section-content {
+        display: grid;
+        gap: 16px;
+        margin-top: 16px;
+      }
+
+      .section-rule {
+        width: 100%;
+        height: 1px;
+        border: 0;
+        margin: 0;
+        background: var(--line);
+      }
+
+      .note-popover {
+        position: relative;
+        display: inline-block;
+        color: var(--ink);
+        text-decoration: underline;
+        text-decoration-color: var(--accent);
+        text-decoration-style: dotted;
+        text-underline-offset: 4px;
+        cursor: help;
+        outline-offset: 4px;
+      }
+
+      .note-bubble {
+        position: absolute;
+        left: 50%;
+        bottom: calc(100% + 10px);
+        z-index: 5;
+        width: min(320px, calc(100vw - 48px));
+        padding: 12px 14px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: #090909;
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.36);
+        color: var(--ink);
+        font-size: 0.92rem;
+        font-weight: 500;
+        line-height: 1.45;
+        opacity: 0;
+        pointer-events: none;
+        transform: translate(-50%, 6px);
+        transition: opacity 140ms ease, transform 140ms ease;
+      }
+
+      .note-popover:hover .note-bubble,
+      .note-popover:focus-visible .note-bubble {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+
+      h2 {
+        font-size: clamp(1.35rem, 2.1vw, 1.7rem);
+        font-weight: 800;
+        line-height: 1.18;
+      }
+
+      p,
+      li {
+        color: #ddd7cc;
+        font-size: 1.06rem;
+        font-weight: 400;
+        line-height: 1.78;
+      }
+
+      ul,
+      ol {
+        display: grid;
+        gap: 10px;
+        padding-left: 1.2rem;
+      }
+
+      strong {
+        color: var(--ink);
+      }
+
+      code,
+      pre {
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      }
+
+      code {
+        padding: 0.12em 0.36em;
+        border: 1px solid rgba(250, 204, 21, 0.24);
+        border-radius: 5px;
+        background: rgba(250, 204, 21, 0.12);
+        color: #fff2a8;
+        font-size: 0.94em;
+      }
+
+      pre {
+        overflow-x: auto;
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: #090909;
+        color: var(--ink);
+        font-size: 0.92rem;
+        line-height: 1.55;
+      }
+
+      pre code {
+        display: block;
+        width: max-content;
+        min-width: 100%;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        color: inherit;
+        font-size: inherit;
+      }
+
+      .video-embed {
+        overflow: hidden;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: #090909;
+      }
+
+      .video-embed iframe {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border: 0;
+      }
+
+      .article-image {
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: #090909;
+      }
+
+      .article-image picture,
+      .article-image img {
+        display: block;
+        width: 100%;
+      }
+
+      .article-image img {
+        height: auto;
+      }
+
+      blockquote {
+        position: relative;
+        display: grid;
+        gap: 10px;
+        margin: 4px 0;
+        padding: 18px 20px 18px 24px;
+        border: 1px solid var(--line);
+        border-left: 3px solid var(--accent);
+        border-radius: var(--radius);
+        background: rgba(247, 244, 237, 0.035);
+      }
+
+      blockquote p {
+        color: #e9e2d6;
+        font-style: italic;
+      }
+
+      blockquote .quote-attribution {
+        color: var(--muted);
+        font-size: 0.92rem;
+        font-style: normal;
+      }
+
+      .social-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 0;
+        list-style: none;
+      }
+
+      .social-row a {
+        display: inline-flex;
+        min-height: 38px;
+        align-items: center;
+        gap: 8px;
+        padding: 0 10px;
+        border: 1px solid rgba(247, 244, 237, 0.18);
+        border-radius: var(--radius);
+        background: var(--ink);
+        color: var(--bg);
+        font-size: 0.84rem;
+        font-weight: 800;
+        line-height: 1;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+
+      .social-row svg {
+        width: 18px;
+        height: 18px;
+        flex: 0 0 auto;
+        fill: currentColor;
+      }
+
+      .social-row a:hover,
+      .social-row a:focus-visible {
+        background: var(--accent);
+        color: var(--bg);
+      }
+
+      .back {
+        display: inline-flex;
+        margin-top: 36px;
+        color: var(--accent);
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      footer {
+        padding: 0 0 34px;
+        color: var(--muted);
+        font-size: 0.88rem;
+        font-weight: 600;
+      }
+
+      @media (max-width: 640px) {
+        .topbar {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .nav {
+          flex-wrap: wrap;
+        }
+
+        article {
+          padding-top: 48px;
+        }
+
+        .body {
+          gap: 40px;
+          margin-top: 42px;
+        }
+
+        p,
+        li {
+          font-size: 1rem;
+          line-height: 1.72;
+        }
+
+        .note-bubble {
+          position: fixed;
+          right: 18px;
+          bottom: 18px;
+          left: 18px;
+          width: auto;
+          transform: translateY(8px);
+        }
+
+        .note-popover:hover .note-bubble,
+        .note-popover:focus-visible .note-bubble {
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="OneWill home">
+        <img src="/logo/owa.png" width="256" height="256" alt="" />
+        <span>OneWill</span>
+      </a>
+      <nav class="nav" aria-label="Blog">
+        <a href="/?lang=en-US#proof">Product</a>
+        <a href="/?lang=en-US#team">Team</a>
+        <a href="/blog/">Blog</a>
+        <a class="button" href="https://demo.onewill.ai">Demo</a>
+      </nav>
+    </header>
+
+    <main>
+      <article>
+        <p class="eyebrow">Jul 1, 2026</p>
+        <h1><span class="title-line">Stealing 50 Years of</span><span class="title-line"><span class="title-accent">Database Ideas</span> for AI Agents</span></h1>
+        <p class="dek">Introducing OneWill, or: why write-ahead logging is better than letting agents rawdog your computer.</p>
+        <div class="meta">
+          <span>Authors: <a href="https://linkedin.com/in/lmwnshn" target="_blank" rel="noreferrer noopener">Wan Lim</a> and <a href="https://www.linkedin.com/in/zhang-william/" target="_blank" rel="noreferrer noopener">Will Zhang</a></span>
+          <span>Reviewed by: <a href="https://www.cs.cmu.edu/~pavlo/" target="_blank" rel="noreferrer noopener">Andy Pavlo</a>, Carnegie Mellon University's Databaseologist</span>
+          <span><em>100% organic human-written gluten-free text</em></span>
+        </div>
+
+        <div class="body">
+          <hr class="section-rule" />
+
+          <details class="article-section" open>
+            <summary><h2>TL;DR</h2></summary>
+            <div class="section-content">
+            <p>Want to give autonomous agents access to your state (e.g., files, calendar, email, shell) without blindly trusting them? Check this video out and sign up for <a href="https://demo.onewill.ai/">demo access here</a>: it's a full-featured desktop environment that lets you try everything from your browser. We're also working on open-sourcing, stay tuned!</p>
+            <div class="video-embed">
+              <iframe src="https://www.youtube.com/embed/7zeeaklngTE" title="OneWill demo video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+            <p>Behind the scenes, OneWill's technology interposes agent actions with database magic to make it so that before any action runs, it must either be reversible (details below) or explicitly approved by you. We provide you peace of mind and broaden the scope of work that you can hand off to agents.</p>
+            <ul class="social-row" aria-label="Social links">
+              <li>
+                <a href="https://onewill.ai/discord/">
+                  <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M19.54 5.34A17.3 17.3 0 0 0 15.23 4l-.2.4a14 14 0 0 1 3.74 1.88 11.9 11.9 0 0 0-11.54 0A14 14 0 0 1 10.97 4l-.2-.4a17.3 17.3 0 0 0-4.31 1.34C3.73 9.02 3 13 3.37 16.93A17.4 17.4 0 0 0 8.68 19.6l.67-.92a10.8 10.8 0 0 1-1.72-.82l.42-.33a12.4 12.4 0 0 0 7.9 0l.42.33c-.54.32-1.11.6-1.72.82l.67.92a17.4 17.4 0 0 0 5.31-2.67c.44-4.56-.76-8.5-1.09-11.59ZM9.3 14.5c-1.03 0-1.87-.95-1.87-2.12s.82-2.12 1.87-2.12 1.9.96 1.87 2.12c0 1.17-.82 2.12-1.87 2.12Zm5.4 0c-1.03 0-1.87-.95-1.87-2.12s.82-2.12 1.87-2.12 1.9.96 1.87 2.12c0 1.17-.82 2.12-1.87 2.12Z"/></svg>
+                  <span>Discord</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://onewill.ai/github/">
+                  <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.18-3.37-1.18-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.6 9.6 0 0 1 12 6.99c.85 0 1.7.11 2.5.34 1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.86v2.76c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg>
+                  <span>GitHub</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://onewill.ai/x/">
+                  <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M17.53 3h3.27l-7.15 8.17L22.06 21h-6.59l-5.16-6.76L4.4 21H1.12l7.65-8.74L.7 3h6.75l4.67 6.17L17.53 3Zm-1.15 16.27h1.81L6.46 4.64H4.52l11.86 14.63Z"/></svg>
+                  <span>X</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.linkedin.com/company/onewillai/">
+                  <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5.34 8.93H2.23V21h3.11V8.93ZM3.78 7.28A1.8 1.8 0 1 0 3.8 3.7a1.8 1.8 0 0 0-.02 3.58ZM21.77 21h-3.1v-5.87c0-1.4-.03-3.2-1.95-3.2-1.95 0-2.25 1.52-2.25 3.09V21h-3.1V8.93h2.97v1.65h.04a3.26 3.26 0 0 1 2.94-1.62c3.14 0 3.72 2.07 3.72 4.76V21h.73Z"/></svg>
+                  <span>LinkedIn</span>
+                </a>
+              </li>
+            </ul>
+            </div>
+          </details>
+
+          <hr class="section-rule" />
+
+          <details class="article-section" open>
+            <summary><h2>The agent-state pickle</h2></summary>
+            <div class="section-content">
+            <p>If you’re a systems developer, modern coding agents probably make you slightly uncomfortable, and computer-use agents even more so. Letting agents mutate real state directly is bonkers. But we’ve all ended up in a pickle:</p>
+            <ol>
+              <li>The more state you <span class="note-popover" tabindex="0" aria-describedby="note-give">give<span id="note-give" class="note-bubble" role="tooltip">You could choose to give no state (blank VM) or a staged environment (sandbox). But how often does staging actually look like production?</span></span> your agents, the more useful they are (e.g., calendar, email, shell).</li>
+              <li>Yet the more state you give your agents, the bigger the consequence of failure (say goodbye to your <a href="https://news.ycombinator.com/item?id=47911524">database</a> and <a href="https://techcrunch.com/2026/02/23/a-meta-ai-security-researcher-said-an-openclaw-agent-ran-amok-on-her-inbox/">email</a>).</li>
+            </ol>
+            <p>The worst part of this deal is that there are <span class="note-popover" tabindex="0" aria-describedby="note-essentially">essentially<span id="note-essentially" class="note-bubble" role="tooltip">Auto mode gives us trust issues. If the problem is that we don’t trust models, why is the solution to trust another model?</span></span> only two modes of agent operation: babysit it with approval-in-the-loop, or YOLO by dangerously skipping permissions. If anything goes wrong, you take the hit.</p>
+            <p>But it doesn’t have to be this way! We’re trying to protect our valuable state from flaky, crashy, and occasionally insane agents. Well, databases have long learned to deal with flaky, crashy, and insane hardware. The trick is in identifying the right semantic abstraction for making changes to the world.</p>
+            </div>
+          </details>
+
+          <details class="article-section" open>
+            <summary><h2>A crash course on crash recovery</h2></summary>
+            <div class="section-content">
+            <blockquote>
+              <p>Don’t worry about crashing. Just never lose data.</p>
+              <p class="quote-attribution">Database Company Mandate</p>
+            </blockquote>
+            <p>In life, it’s ok to make mistakes as long as you can recover from them. This applies to crashing too. A full lecture on crash recovery is outside the scope of this blog post; you can find one <a href="https://www.youtube.com/watch?v=CedEy54pe3g&amp;list=PLSE8ODhjZXjYMAgsGH-GtY5rJYZ6zjsd5&amp;index=22">here</a>. We’ll just recap the bits we need.</p>
+            <p>Crash recovery algorithms have two components: the bookkeeping you perform during normal operations to ensure recoverability, and the actual recovery procedures for picking up the pieces. There are two key primitive actions, UNDO and REDO. UNDO is pretty intuitive: it cleans up after incomplete or aborted operations. REDO backs the promises made by the system: if the system says something happened (e.g., transaction commit), it re-applies the effects of operations to make sure that reality matches.</p>
+            <p>Most modern database systems use a write-ahead log (WAL) for recovery. The basic idea is to write down enough recovery metadata about the intended operation, in a way that ensures the record survives crashes, before the operation’s effects are allowed to persist. That way, even if you crash halfway through, you have all the information required to perform the necessary UNDO and REDO actions. For example, suppose Will is using a supermarket’s grinder to turn 500g of peanuts into peanut butter. Then transaction T1 is:</p>
+            <pre><code>T1 begins
+  Action 1: Will obtains 500g of peanuts from the store’s hopper
+    Store.peanuts: before=6700g, after=6200g
+    Will.peanuts: before=0g, after=500g
+  Action 2: Will grinds the peanuts into a container
+    Will.peanuts: before=500g, after=0g
+    Will.peanut_butter: before=0g, after=500g
+  Action 3: Store charges Will $7 for the peanut butter
+    Will.cash: before=$25, after=$18
+    Store.cash: before=$1000, after=$1007
+T1 commits</code></pre>
+            <p>There are many ways that buying self-ground peanut butter can go wrong. If the hopper gets stuck, Will may only get some of the peanuts. If the grinder clogs, Will may lose his peanuts without getting peanut butter. Broadly speaking, the problem with naively modifying state directly is that the system may crash at any step. A good system records intent durably <u>before</u> allowing an action’s effects to persist.</p>
+            <p>But with a WAL, handling crashes is relatively straightforward. If the system crashes before T1 commits, recovery uses the before images to UNDO the writes: roll back the effects of any uncommitted actions to their original values. In practice, not every action can be undone cleanly: how do you turn peanut butter back into peanuts? In those cases, you can apply compensating actions, such as ordering more peanuts or setting the peanut butter aside. If it crashes after T1 commits, meaning Will has paid the store and walked away with peanut butter, but before all the updated state is persisted (e.g., the register crashes after printing the receipt), recovery uses the after images to REDO the writes. Together, UNDO and REDO make the outcome all-or-nothing and durable.</p>
+            <p>At this point, you might be thinking: isn’t this pretty straightforward? Yes! And yet somehow today’s default agent experience is rawdogging your state. The closest we’ve seen to this concept in the wild is still post-mortem; they record what the agent does, they may even define an agent by what it did, but there’s a reason WALs get into the write path.</p>
+            <p>Although WALs have many uses (e.g., replication), as a broad concept, it’s hard to innovate beyond the WAL for regular <em>data</em> management. But what if we re-imagine the WAL for <em>action</em> management instead?</p>
+            </div>
+          </details>
+
+          <details class="article-section" open>
+            <summary><h2>The agent did what?! Why?? Can you undo that?</h2></summary>
+            <div class="section-content">
+            <p>Historically speaking, action management wasn’t that big an issue because most actions were initiated by reasonable humans. We don’t make crazy assumptions like “this deletion API is <a href="https://news.ycombinator.com/item?id=47911524">probably just staging</a>” or develop periodic amnesia that leads to us <a href="https://techcrunch.com/2026/02/23/a-meta-ai-security-researcher-said-an-openclaw-agent-ran-amok-on-her-inbox/">ignoring critical instructions</a>. Even though humans make mistakes, we generally develop enough of a sense of danger to distinguish between harmless actions and risky actions, allowing us to take the appropriate precautions.</p>
+            <p>Agents operate differently. Today’s agents play a funny trick on you by asking for your permission to <code>ls</code> and <code>rm -rf</code> in the same unassuming approval flow. The burden is on you to notice that a tool call is one approval away from creating a <a href="https://news.ycombinator.com/item?id=46268222">disaster</a>. This is exacerbated by using autonomous agents for more consequential tasks that involve files outside of version control (e.g., presentations), networked API calls, and computer-use.</p>
+            <p>As people who burn a <a href="https://tkmx.odio.dev/u/will">decent</a> <a href="https://tkmx.odio.dev/u/wan">amount</a> of tokens, we’ve often found ourselves performing forensics to figure out (1) what an agent did, (2) why it did it (e.g., what input it saw), and (3) whether there was an easy way to reverse its effects. In practice, this looks a lot like crash recovery. Database systems don’t make you manually scan disk blocks after a crash because they apply actions in the right order: they record how to recover from an action before applying it. Applying this ordering to agent actions also provides a governance mechanism: before an action is executed, we either record enough information to reverse it later or require explicit approval before letting it run.</p>
+            </div>
+          </details>
+
+          <details class="article-section" open>
+            <summary><h2>Wally: adapting write-ahead logging for agent actions</h2></summary>
+            <div class="section-content">
+            <p>At OneWill, we’re in the business of re-imagining database technology for the agentic age. Our thesis is that to effectively control agent execution, we need a database-like transactional interface between speculative agent work and durable world mutations. This is especially important as agents run for <span class="note-popover" tabindex="0" aria-describedby="note-longer">longer<span id="note-longer" class="note-bubble" role="tooltip">If trajectories were short, you could probably get away with good forking technology. But we regularly run goal mode for hours or days, so it's pretty wasteful to have "blow away the entire system" as a rollback strategy.</span></span> and <span class="note-popover" tabindex="0" aria-describedby="note-interact">interact<span id="note-interact" class="note-bubble" role="tooltip">Some people default to thinking that this is simply git. But even today, a lot of useful state lives outside of version control, such as calendar and email. Now add computer-use on top of that.</span></span> with computers directly.</p>
+            <p>In short, we think that the WAL architecture is the answer to today’s agent controllability problems. It provides a principled method for structuring the chaos of numerous agents into a semantic action stream. But existing solutions in a similar reversibility and/or governance space require you to instrument your source code or modify the agent, where the burden is still on you - any problems are user error, good luck!</p>
+            <figure class="article-image">
+              <picture>
+                <source srcset="/clankers/assets/agent-retcon.avif?v=20260630" type="image/avif" />
+                <source srcset="/clankers/assets/agent-retcon.webp?v=20260630" type="image/webp" />
+                <img src="/clankers/assets/agent-retcon.png?v=20260630" width="1400" height="788" loading="lazy" decoding="async" alt="OneWill gateway filtering unsafe agent actions before they reach users" />
+              </picture>
+            </figure>
+            <p>Enter Wally, OneWill’s first release. It is based on the decades-proven database WAL architecture, now applied to agent actions. Our goal is to provide a drop-in experience that delivers precise control over agent actions. The insight here is that even without changing the agent, you can still change its behavior by modifying the world around it.</p>
+            <p>Conceptually, the most interesting part of this project is defining UNDO and REDO semantics for arbitrary agent actions. We've encountered three types of actions so far:</p>
+            <ul>
+              <li><strong>Perfectly Reversible</strong>: like a git-tracked file.</li>
+              <li><strong>Compensable</strong>: you can cancel a calendar event but you cannot unsend the invitations.</li>
+              <li><strong>Irreversible</strong>: once you send an email, you can’t take it back.</li>
+            </ul>
+            <p>Quick sketch of how this all works: WAL, FUSE, VPN, MITM, frame buffers, interposition. To limit the length of this blog post and prioritize based on reader interest, we’re deferring in-depth technical details to future posts; join our <a href="https://onewill.ai/discord/">Discord server</a> to vote on what we should write about next.</p>
+            <p>At the time of writing, you will probably encounter a series of unfortunate production events if you try vibe-coding this yourself with the frontier models (shoot us an email if that changes!). But you don’t have to build this yourself, you can use and contribute to what we made instead.</p>
+            </div>
+          </details>
+
+          <details class="article-section" open>
+            <summary><h2>Try it out, get involved</h2></summary>
+            <div class="section-content">
+            <p>Our public prototype currently demonstrates the action stream, coding agent integrations (<code>claude</code>, <code>codex</code>, <code>agy</code>), support for enforcing local AI usage, and some use cases around our technology. That includes: enhanced git diff for "what did the agent do overnight," enhanced filesystem view for "what did the agent see when it made this change," and basic rollback functionality. Here's a video:</p>
+            <div class="video-embed">
+              <iframe src="https://www.youtube.com/embed/7zeeaklngTE" title="OneWill demo video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+            <p>Try it now on the web for free: <a href="https://demo.onewill.ai/">demo access</a>. We'll provide instructions with your access code. You can actually run a beta build locally today on Ubuntu and macOS, but because we're still simplifying the macOS permissions menus, we encourage macOS users to stick with the web version for now.</p>
+            <p>We aim to open-source the core WAL and various useful primitives in the coming weeks. We'll announce on Discord when we do. Stay tuned!</p>
+            </div>
+          </details>
+
+          <details class="article-section" open>
+            <summary><h2>Employment / Partnerships</h2></summary>
+            <div class="section-content">
+            <p>We post open roles to our <a href="https://onewill.ai/discord/">Discord server</a>.</p>
+            <p>At the time of writing, our next likely hire is in engineering. We value (1) experience with agents (e.g., you should be comfortable <strong>productively</strong> burning 500M to 1B tokens a day) and (2) a background in database systems (e.g., completing the online version of <a href="https://15445.courses.cs.cmu.edu/fall2025/faq.html#q7">CMU's 15-445</a>). If this sounds like you, please reach out!</p>
+            <p>For collaborations and design partnerships, please email <a href="mailto:founders@onewill.ai">founders@onewill.ai</a>.</p>
+            <hr class="section-rule" />
+            <p><a href="https://onewill.ai/discord/">Join our Discord server</a> to vote on blog topics and get notified when new posts go live!</p>
+            <ul class="social-row" aria-label="Social links">
+              <li>
+                <a href="https://onewill.ai/discord/">
+                  <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M19.54 5.34A17.3 17.3 0 0 0 15.23 4l-.2.4a14 14 0 0 1 3.74 1.88 11.9 11.9 0 0 0-11.54 0A14 14 0 0 1 10.97 4l-.2-.4a17.3 17.3 0 0 0-4.31 1.34C3.73 9.02 3 13 3.37 16.93A17.4 17.4 0 0 0 8.68 19.6l.67-.92a10.8 10.8 0 0 1-1.72-.82l.42-.33a12.4 12.4 0 0 0 7.9 0l.42.33c-.54.32-1.11.6-1.72.82l.67.92a17.4 17.4 0 0 0 5.31-2.67c.44-4.56-.76-8.5-1.09-11.59ZM9.3 14.5c-1.03 0-1.87-.95-1.87-2.12s.82-2.12 1.87-2.12 1.9.96 1.87 2.12c0 1.17-.82 2.12-1.87 2.12Zm5.4 0c-1.03 0-1.87-.95-1.87-2.12s.82-2.12 1.87-2.12 1.9.96 1.87 2.12c0 1.17-.82 2.12-1.87 2.12Z"/></svg>
+                  <span>Discord</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://onewill.ai/github/">
+                  <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.18-3.37-1.18-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.6 9.6 0 0 1 12 6.99c.85 0 1.7.11 2.5.34 1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.86v2.76c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg>
+                  <span>GitHub</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://onewill.ai/x/">
+                  <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M17.53 3h3.27l-7.15 8.17L22.06 21h-6.59l-5.16-6.76L4.4 21H1.12l7.65-8.74L.7 3h6.75l4.67 6.17L17.53 3Zm-1.15 16.27h1.81L6.46 4.64H4.52l11.86 14.63Z"/></svg>
+                  <span>X</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.linkedin.com/company/onewillai/">
+                  <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5.34 8.93H2.23V21h3.11V8.93ZM3.78 7.28A1.8 1.8 0 1 0 3.8 3.7a1.8 1.8 0 0 0-.02 3.58ZM21.77 21h-3.1v-5.87c0-1.4-.03-3.2-1.95-3.2-1.95 0-2.25 1.52-2.25 3.09V21h-3.1V8.93h2.97v1.65h.04a3.26 3.26 0 0 1 2.94-1.62c3.14 0 3.72 2.07 3.72 4.76V21h.73Z"/></svg>
+                  <span>LinkedIn</span>
+                </a>
+              </li>
+            </ul>
+            </div>
+          </details>
+        </div>
+
+        <a class="back" href="/blog/">Back to blog</a>
+      </article>
+    </main>
+
+    <footer>
+      <p>© 2026 OneWill-AI Society d/b/a OneWill.</p>
+    </footer>
+  </body>
+</html>

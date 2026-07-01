@@ -1,28 +1,33 @@
 # OneWill
 
-> OneWill helps AI agents recover from mistakes by giving their working worlds save files: automatic saves, reloads, world rewrites, and retries.
+> OneWill lets users observe, control, handoff, and retcon agent actions through a gaming-inspired overlay for regular coding agents.
 
-OneWill builds save scumming for AI agents. Agents often make irreversible mistakes in external state: files, databases, terminals, browser sessions, cloud resources, and other working environments. OneWill saves the world around the agent so a bad move does not have to be permanent.
+OneWill applies database-inspired reliability ideas to AI agent execution. It interposes agent actions so that before an action runs, it must either be reversible or explicitly approved by the user.
 
-Core idea: improve agent outcomes by modifying the world, not the agent. Bring your existing agent and workflow; OneWill adds checkpoints, recovery, and retry control around it.
+Core idea: improve agent controllability by modifying the world around the agent, not by requiring source code changes or agent modifications. Use the same native coding agent; launch through OneWill to get action streams, autosaves, rewinds, retcons, and handoffs.
 
 ## Important URLs
 
-- [Homepage](https://onewill.ai/): Short-form OneWill the Clankers page.
-- [Serious product page](https://onewill.ai/seriously/): Product overview, team, quickstart, waitlist, and social links.
-- [Meetup waitlist](https://onewill.ai/m/): Early-access waitlist for people who meet the team at events.
+- [Homepage](https://onewill.ai/): Unified OneWill site with language modes `en-US` and `en-GENZ`.
+- [Blog](https://onewill.ai/blog/): OneWill blog archive.
+- [Launch blog post](https://onewill.ai/blog/2026/stealing-50-years-of-database-ideas-for-ai-agents/): "Stealing 50 Years of Database Ideas for AI Agents".
+- [Demo access](https://demo.onewill.ai/): Browser-based demo environment.
 - [Full LLM context](https://onewill.ai/llms-full.txt): More detailed description of OneWill, its product thesis, and team.
-- [GitHub](https://github.com/onewillai): OneWill GitHub organization.
-- [X](https://x.com/OneWillAI): OneWill on X.
-- [Bluesky](https://bsky.app/profile/onewillai.bsky.social): OneWill on Bluesky.
-- [Discord](https://discord.gg/S8R8dCCqtX): OneWill Discord community.
+- [Discord](https://onewill.ai/discord/): OneWill Discord community.
+- [GitHub](https://onewill.ai/github/): OneWill GitHub.
+- [X](https://onewill.ai/x/): OneWill on X.
+- [LinkedIn](https://www.linkedin.com/company/onewillai/): OneWill on LinkedIn.
 
 ## Product Summary
 
-OneWill helps agents recover from mistakes in mutable environments. It automatically saves agent worlds, lets users reload to previous checkpoints, rewrites the environment when needed, and retries from a better state.
+OneWill helps users run agents against real mutable state with more confidence. It records and controls agent actions, supports recovery through autosaves and rewinds, enables retcons from earlier points in a run, and allows handoff with preserved context.
+
+## Team
+
+OneWill is built by two Carnegie Mellon CS PhDs in ML for databases. The founders met as undergraduates in the CMU Database Group and have worked together since 2018.
 
 ## Brand
 
-Use the public brand name **OneWill**. The domain is `onewill.ai`. Historical or alternate names include `OneWill.ai`, `OneWill AI`, and `OneWillAI`.
+Use the public brand name **OneWill**. The domain is `onewill.ai`. The product language is "Agent Retcons" and "retcon agent actions."
 
 Legal footer: © 2026 OneWill-AI Society d/b/a OneWill.
