@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Model-backed Forking Demo</title>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-KT4BRPL2KG"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag("js", new Date());
+    gtag("config", "G-KT4BRPL2KG");
+  </script>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f5f7fb;
+      --surface: #ffffff;
+      --surface-soft: #eef2f7;
+      --text: #18202b;
+      --muted: #667085;
+      --line: #b8c1ce;
+      --accent: #39815e;
+      --accent-soft: #f0f7f3;
+      --accent-text: #075d38;
+      --danger: #b42318;
+      --danger-soft: #feeceb;
+      --left: #2563eb;
+      --right: #8b5cf6;
+      --code: #f3f4f6;
+      --shadow: 0 12px 34px rgba(16, 24, 40, .08);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0b0e13;
+        --surface: #151a22;
+        --surface-soft: #202734;
+        --text: #f4f6f8;
+        --muted: #a5adba;
+        --line: #4a5565;
+        --accent: #67c58d;
+        --accent-soft: #1b2d23;
+        --accent-text: #b9f6cf;
+        --danger: #fb7185;
+        --danger-soft: #3b1820;
+        --left: #60a5fa;
+        --right: #c4b5fd;
+        --code: #0f131a;
+        --shadow: none;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background: var(--bg);
+      font: 14px/1.45 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    button, select { font: inherit; }
+    button:focus-visible, select:focus-visible, summary:focus-visible { outline: 3px solid var(--left); outline-offset: 2px; }
+    .page { max-width: 1600px; margin: 0 auto; padding: 22px; }
+    .masthead { display: flex; justify-content: space-between; gap: 16px; align-items: end; margin-bottom: 16px; }
+    .masthead h1 { margin: 0; font-size: clamp(22px, 3vw, 34px); font-weight: 650; letter-spacing: -.025em; }
+    .masthead p { margin: 5px 0 0; color: var(--muted); }
+    .layout { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(360px, .9fr); gap: 16px; align-items: start; }
+    .tree-boundary { position: relative; min-width: 0; padding: 14px; border: 2px solid var(--accent); border-radius: 16px; background: color-mix(in srgb, var(--surface) 94%, var(--accent)); box-shadow: var(--shadow); }
+    .boundary-label { position: relative; z-index: 3; display: inline-grid; gap: 3px; margin-bottom: 10px; padding: 8px 10px; border: 1px solid var(--accent); border-radius: 9px; color: var(--accent-text); background: var(--accent-soft); }
+    .boundary-label strong { font-size: 12px; }
+    .boundary-label code { color: var(--text); font: 12px/1.45 ui-monospace, SFMono-Regular, Menlo, monospace; white-space: pre; }
+    .tree { position: relative; display: grid; gap: 18px; }
+    .lineage { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; z-index: 0; }
+    .lineage path { fill: none; stroke: var(--line); stroke-width: 1.6; stroke-dasharray: 5 6; vector-effect: non-scaling-stroke; }
+    .lineage path.selected { stroke: var(--accent); stroke-width: 2.5; }
+    .stage { position: relative; z-index: 1; display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 10px; align-items: center; }
+    .stage-note { color: var(--muted); text-align: right; font-size: 12px; }
+    .stage-note strong { display: block; color: var(--text); font-weight: 600; }
+    .node-row { display: grid; grid-template-columns: repeat(var(--columns), minmax(0, 1fr)); gap: 8px; justify-content: center; }
+    .node-row.single { grid-template-columns: minmax(180px, 330px); }
+    .node {
+      min-width: 0; min-height: 92px; padding: 10px; border: 1px solid var(--line); border-radius: 11px;
+      background: var(--surface); box-shadow: 0 4px 12px rgba(16, 24, 40, .05); transition: opacity .18s, transform .18s, border-color .18s, box-shadow .18s;
+    }
+    .node.decision { min-height: 72px; background: var(--surface-soft); }
+    .node.selected-lineage { border-color: var(--accent); background: color-mix(in srgb, var(--surface) 92%, var(--accent)); }
+    .node.compare-dim { opacity: .38; }
+    .node.compare-left, .node.compare-right { transform: translateY(-2px); border-width: 3px; box-shadow: var(--shadow); opacity: 1; }
+    .node.compare-left { border-color: var(--left); background: color-mix(in srgb, var(--surface) 92%, var(--left)); }
+    .node.compare-right { border-color: var(--right); background: color-mix(in srgb, var(--surface) 92%, var(--right)); }
+    .status { display: inline-block; margin-bottom: 7px; padding: 2px 7px; border-radius: 999px; color: var(--muted); background: var(--surface-soft); font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+    .status.winner, .status.selected, .status.parent { color: var(--accent-text); background: var(--accent-soft); }
+    .status.failed { color: var(--danger); background: var(--danger-soft); }
+    .node-title { font-weight: 700; overflow-wrap: anywhere; }
+    .node-detail { margin-top: 5px; color: var(--muted); font-size: 12px; overflow-wrap: anywhere; }
+    .failure { padding: 14px; border: 1px solid var(--danger); border-radius: 10px; color: var(--danger); background: var(--danger-soft); white-space: pre-wrap; }
+    .compare-panel { min-width: 0; padding: 14px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); box-shadow: var(--shadow); }
+    .compare-panel h2 { margin: 0 0 12px; font-size: 18px; }
+    .comparison-box { padding: 12px; border: 1px solid var(--line); border-radius: 12px; background: color-mix(in srgb, var(--surface) 88%, var(--surface-soft)); }
+    .controls { display: grid; gap: 10px; margin-bottom: 12px; }
+    .button-row { display: flex; flex-wrap: wrap; gap: 7px; }
+    .btn { padding: 7px 10px; border: 1px solid var(--line); border-radius: 8px; color: var(--text); background: var(--surface-soft); cursor: pointer; }
+    .btn[aria-pressed="true"] { color: var(--accent-text); border-color: var(--accent); background: var(--accent-soft); }
+    .mode-toggle { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; padding: 3px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-soft); }
+    .mode-toggle .btn { border-color: transparent; background: transparent; }
+    .mode-toggle .btn[aria-pressed="true"] { color: var(--text); border-color: var(--line); background: var(--surface); box-shadow: 0 2px 7px rgba(16, 24, 40, .08); }
+    .route { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 7px; align-items: center; margin: 12px 0; }
+    .endpoint { display: grid; gap: 2px; min-height: 62px; padding: 8px; border: 3px solid; border-radius: 11px; place-content: center; text-align: center; overflow-wrap: anywhere; }
+    .endpoint.left { border-color: var(--left); background: color-mix(in srgb, var(--surface) 92%, var(--left)); }
+    .endpoint.right { border-color: var(--right); background: color-mix(in srgb, var(--surface) 92%, var(--right)); }
+    .endpoint-role { color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .endpoint-title { font-weight: 700; }
+    .arrow { color: var(--muted); }
+    .metrics { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
+    .metric { padding: 4px 7px; border-radius: 7px; background: var(--surface-soft); }
+    .section-title { margin: 15px 0 7px; font-weight: 700; }
+    .change-list { display: grid; gap: 7px; }
+    details.change, details.more { border: 1px solid var(--line); border-radius: 8px; background: var(--surface-soft); }
+    details summary { padding: 8px; cursor: pointer; overflow-wrap: anywhere; }
+    .change-meta { color: var(--muted); }
+    pre { max-height: 320px; margin: 0; padding: 10px; overflow: auto; color: var(--text); background: var(--code); font: 12px/1.45 ui-monospace, SFMono-Regular, Menlo, monospace; white-space: pre-wrap; overflow-wrap: anywhere; }
+    .trajectory-block { margin-top: 13px; }
+    .trajectory-block h3 { margin: 0 0 7px; font-size: 14px; }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    th, td { padding: 6px; border-bottom: 1px solid var(--line); text-align: right; vertical-align: top; }
+    th:first-child, td:first-child { text-align: left; overflow-wrap: anywhere; }
+    th { color: var(--muted); font-weight: 650; }
+    td.delta { font-weight: 700; }
+    .empty { padding: 14px; color: var(--muted); text-align: center; }
+    @media (max-width: 1050px) { .layout { grid-template-columns: 1fr; } }
+    @media (max-width: 720px) {
+      .page { padding: 12px; }
+      .masthead { align-items: start; flex-direction: column; }
+      .stage { grid-template-columns: 1fr; }
+      .stage-note { text-align: left; }
+      .node-row { grid-template-columns: 1fr !important; }
+      .lineage { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="masthead">
+      <div><h1>Model-backed Forking Demo</h1><p id="run-meta"></p></div>
+    </header>
+    <div class="layout">
+      <section class="tree-boundary" aria-label="Fork topology protected by OneWill autosaves">
+        <div class="boundary-label"><strong>One line change</strong><code>nativeDaytona = new Daytona()
+daytona = withAutosaves(nativeDaytona, { autosaves: "on" })</code></div>
+        <div class="tree" id="tree"><svg class="lineage" id="lineage" aria-hidden="true"></svg></div>
+      </section>
+      <aside class="compare-panel" aria-label="Snapshot comparison details">
+        <h2>Compare Snapshots</h2>
+        <div class="comparison-box">
+          <div class="controls">
+            <div class="button-row" id="pair-controls"></div>
+            <div class="mode-toggle" role="group" aria-label="Comparison view">
+              <button class="btn" type="button" data-mode="content" aria-pressed="true">Diffing Contents</button>
+              <button class="btn" type="button" data-mode="trajectory" aria-pressed="false">Diffing Trajectories</button>
+            </div>
+          </div>
+          <div class="route"><div class="endpoint left" id="left-label"></div><div class="arrow">→</div><div class="endpoint right" id="right-label"></div></div>
+          <div id="comparison-detail"></div>
+        </div>
+      </aside>
+    </div>
+  </main>
+  <script>
+    const DATA = {"status":"passed","error":null,"model":"gpt-4.1-mini","parent":{"id":"parent","status":"parent","title":"Coupon parent prepared","detail":"daytona-vm-small"},"hypotheses":[{"id":"hypothesis:hypothesis-1","name":"hypothesis-1","status":"failed","title":"Frontend validation accepts coupons by format only, missing known coupon list check"},{"id":"hypothesis:hypothesis-2","name":"hypothesis-2","status":"selected","title":"Checkout API coupon loading mismatch with validation API leading to inconsistent coupon acceptance"},{"id":"hypothesis:hypothesis-3","name":"hypothesis-3","status":"failed","title":"Introduce a shared contract validation function that enforces known coupon presence on both validation and checkout"}],"aggregation":{"id":"aggregation","status":"model pick","title":"Aggregation selected hypothesis-2","detail":"Hypothesis-2 changes the backend validateCouponApi to call the existing validateCouponForCheckout function which correctly checks coupon existence against loaded coupons. This uni…"},"refinements":[{"id":"refinement:minimal-refinement","name":"minimal-refinement","status":"pass","title":"Minimal Refinement","detail":"0 changed files"},{"id":"refinement:regression-refinement","name":"regression-refinement","status":"selected","title":"Regression Refinement","detail":"1 changed file"}],"selector":{"id":"selector","status":"model pick","title":"Final selector chose regression-refinement","detail":"Both refinements correctly fix the validation logic so that invalid coupons like SUMMER-2026 are rejected and valid coupons like SAVE10 are accepted, as confirmed by verification …"},"finalLeaves":[{"id":"final:final-minimal","name":"final-minimal","status":"pass","title":"Final Minimal","detail":"seed 101 · Make the narrowest production-safe edit and remove incidental complexity."},{"id":"final:final-boundary","name":"final-boundary","status":"winner","title":"Final Boundary","detail":"seed 211 · Enforce the invalid-coupon invariant at the earliest API boundary."},{"id":"final:final-contract","name":"final-contract","status":"pass","title":"Final Contract","detail":"seed 307 · Align validation with the checkout/data contract while preserving valid coupons."},{"id":"final:final-adversarial","name":"final-adversarial","status":"pass","title":"Final Adversarial","detail":"seed 401 · Harden the inherited candidate against malformed and unknown coupon identifiers."},{"id":"final:final-maintainable","name":"final-maintainable","status":"failed","title":"Final Maintainable","detail":"seed 503 · Prefer the clearest maintainable implementation with stable error semantics."}],"selected":{"hypothesis":"hypothesis:hypothesis-2","refinement":"refinement:regression-refinement","final":"final:final-boundary"},"pairs":{"primary":{"label":"(Parent, Winner)","leftNode":"parent","rightNode":"final:final-boundary","leftLabel":"Prepared parent","rightLabel":"final-boundary","contentDiff":{"equal":false,"summary":{"added":2,"removed":0,"modified":2,"typeChanged":0,"unchanged":24,"total":28},"changes":[{"path":"/home/daytona/daytona-forking-coupon-demo/dist/build-info.json","status":"modified","type":"text","patch":"--- a/home/daytona/daytona-forking-coupon-demo/dist/build-info.json\n+++ b/home/daytona/daytona-forking-coupon-demo/dist/build-info.json\n@@ -1,5 +1,5 @@\n {\n   \"name\": \"daytona-forking-coupon-demo\",\n   \"artifact\": \"static checkout UI + Node server\",\n-  \"builtAt\": \"2026-07-17T23:08:45.648Z\"\n+  \"builtAt\": \"2026-07-17T23:10:53.937Z\"\n }\n"},{"path":"/home/daytona/daytona-forking-coupon-demo/src/server/app.js","status":"modified","type":"text","patch":"--- a/home/daytona/daytona-forking-coupon-demo/src/server/app.js\n+++ b/home/daytona/daytona-forking-coupon-demo/src/server/app.js\n@@ -38,7 +38,9 @@\n }\n \n export function validateCouponApi(code) {\n-  return validateCouponForEntry(code);\n+  // Enforce invalid coupon invariant at earliest API boundary\n+  const coupons = loadCoupons();\n+  return validateCouponForCheckout(code, coupons);\n }\n \n export function checkoutApi({ couponCode, subtotalCents = 4200 }) {\n"},{"path":"/home/daytona/daytona-forking-coupon-demo/tests","status":"added","type":"directory"},{"path":"/home/daytona/daytona-forking-coupon-demo/tests/validateCouponApi.test.js","status":"added","type":"text","patch":"--- /dev/null\n+++ b/home/daytona/daytona-forking-coupon-demo/tests/validateCouponApi.test.js\n@@ -1,0 +1,17 @@\n+import test from 'node:test';\n+import assert from 'node:assert';\n+import { validateCouponApi } from '../src/server/app.js';\n+\n+test('validateCouponApi rejects invalid coupon SUMMER-2026', () => {\n+  const result = validateCouponApi('SUMMER-2026');\n+  assert.strictEqual(result.ok, false);\n+  assert.strictEqual(result.message, 'Invalid coupon code');\n+});\n+\n+test('validateCouponApi accepts valid coupon SAVE10', () => {\n+  const result = validateCouponApi('SAVE10');\n+  assert.strictEqual(result.ok, true);\n+  assert.strictEqual(result.code, 'SAVE10');\n+  assert.ok(result.discountPercent > 0);\n+  assert.ok(result.message.includes('% discount applied'));\n+});\n"}]},"trajectoryDiff":{"filtered":true,"left":{"steps":4,"reads":{"/home/daytona/daytona-forking-coupon-demo/package.json":4,"/home/daytona/daytona-forking-coupon-demo/scripts/build.js":1,"/home/daytona/daytona-forking-coupon-demo/scripts/state-utils.js":2,"/home/daytona/daytona-forking-coupon-demo/src/client/app.js":1,"/home/daytona/daytona-forking-coupon-demo/src/client/forking-demo.css":1,"/home/daytona/daytona-forking-coupon-demo/src/client/forking-demo.html":1,"/home/daytona/daytona-forking-coupon-demo/src/client/forking-demo.js":1,"/home/daytona/daytona-forking-coupon-demo/src/client/index.html":1,"/home/daytona/daytona-forking-coupon-demo/src/client/styles.css":1,"/home/daytona/daytona-forking-coupon-demo/state-manifest.json":2},"writes":{"/home/daytona/.npm/_update-notifier-last-checked":2,"/home/daytona/daytona-forking-coupon-demo/dist/build-info.json":1,"/home/daytona/daytona-forking-coupon-demo/dist/client/app.js":2,"/home/daytona/daytona-forking-coupon-demo/dist/client/forking-demo.css":2,"/home/daytona/daytona-forking-coupon-demo/dist/client/forking-demo.html":2,"/home/daytona/daytona-forking-coupon-demo/dist/client/forking-demo.js":2,"/home/daytona/daytona-forking-coupon-demo/dist/client/index.html":2,"/home/daytona/daytona-forking-coupon-demo/dist/client/styles.css":2,"/home/daytona/daytona-forking-coupon-demo/state-manifest.json":2},"network":{},"checkpoints":4,"failures":0,"tools":{}},"right":{"steps":16,"reads":{"/home/daytona/daytona-forking-coupon-demo/data/coupons.json":13,"/home/daytona/daytona-forking-coupon-demo/package.json":15,"/home/daytona/daytona-forking-coupon-demo/scripts/build.js":4,"/home/daytona/daytona-forking-coupon-demo/scripts/state-utils.js":5,"/home/daytona/daytona-forking-coupon-demo/src/client/app.js":4,"/home/daytona/daytona-forking-coupon-demo/src/client/forking-demo.css":4,"/home/daytona/daytona-forking-coupon-demo/src/client/forking-demo.html":4,"/home/daytona/daytona-forking-coupon-demo/src/client/forking-demo.js":4,"/home/daytona/daytona-forking-coupon-demo/src/client/index.html":4,"/home/daytona/daytona-forking-coupon-demo/src/client/styles.css":4,"/home/daytona/daytona-forking-coupon-demo/src/server/app.js":5,"/home/daytona/daytona-forking-coupon-demo/src/server/index.js":3,"/home/daytona/daytona-forking-coupon-demo/src/shared/couponContract.js":5,"/home/daytona/daytona-forking-coupon-demo/state-manifest.json":5,"/home/daytona/daytona-forking-coupon-demo/tests/validateCouponApi.test.js":2},"writes":{"/home/daytona/.npm/_update-notifier-last-checked":5,"/home/daytona/daytona-forking-coupon-demo/dist/build-info.json":7,"/home/daytona/daytona-forking-coupon-demo/dist/client/app.js":11,"/home/daytona/daytona-forking-coupon-demo/dist/client/forking-demo.css":11,"/home/daytona/daytona-forking-coupon-demo/dist/client/forking-demo.html":11,"/home/daytona/daytona-forking-coupon-demo/dist/client/forking-demo.js":11,"/home/daytona/daytona-forking-coupon-demo/dist/client/index.html":10,"/home/daytona/daytona-forking-coupon-demo/dist/client/styles.css":11,"/home/daytona/daytona-forking-coupon-demo/src/server/app.js":4,"/home/daytona/daytona-forking-coupon-demo/state-manifest.json":5,"/home/daytona/daytona-forking-coupon-demo/tests/validateCouponApi.test.js":4},"network":{},"checkpoints":16,"failures":0,"tools":{}}}},"sibling":{"label":"(Refinement Sibling 1, Refinement Sibling 2)","leftNode":"final:final-minimal","rightNode":"final:final-maintainable","leftLabel":"final-minimal","rightLabel":"final-maintainable","contentDiff":{"equal":false,"summary":{"added":0,"removed":0,"modified":3,"typeChanged":0,"unchanged":28,"total":31},"changes":[{"path":"/home/daytona/daytona-forking-coupon-demo/dist/build-info.json","status":"modified","type":"text","patch":"--- a/home/daytona/daytona-forking-coupon-demo/dist/build-info.json\n+++ b/home/daytona/daytona-forking-coupon-demo/dist/build-info.json\n@@ -1,5 +1,5 @@\n {\n   \"name\": \"daytona-forking-coupon-demo\",\n   \"artifact\": \"static checkout UI + Node server\",\n-  \"builtAt\": \"2026-07-17T23:10:53.865Z\"\n+  \"builtAt\": \"2026-07-17T23:10:53.978Z\"\n }\n"},{"path":"/home/daytona/daytona-forking-coupon-demo/src/server/app.js","status":"modified","type":"text","patch":"--- a/home/daytona/daytona-forking-coupon-demo/src/server/app.js\n+++ b/home/daytona/daytona-forking-coupon-demo/src/server/app.js\n@@ -39,7 +39,12 @@\n \n export function validateCouponApi(code) {\n   const coupons = loadCoupons();\n-  return validateCouponForCheckout(code, coupons);\n+  const result = validateCouponForCheckout(code, coupons);\n+  // Explicitly reject 'SUMMER-2026' coupon even if format is valid\n+  if (normalizeCouponCode(code) === 'SUMMER-2026') {\n+    return { ok: false, code: 'SUMMER-2026', message: 'Invalid coupon code' };\n+  }\n+  return result;\n }\n \n export function checkoutApi({ couponCode, subtotalCents = 4200 }) {\n"},{"path":"/home/daytona/daytona-forking-coupon-demo/src/shared/couponContract.js","status":"modified","type":"text","patch":"--- a/home/daytona/daytona-forking-coupon-demo/src/shared/couponContract.js\n+++ b/home/daytona/daytona-forking-coupon-demo/src/shared/couponContract.js\n@@ -1,3 +1,4 @@\n+export const VALID_COUPON_CODES = [\"SAVE10\"];\n export const COUPON_PATTERN = /^[A-Z0-9-]{4,20}$/;\n \n export function normalizeCouponCode(input) {\n"}]},"trajectoryDiff":{"filtered":true,"left":{"steps":14,"reads":{"/home/daytona/daytona-forking-coupon-demo/data/coupons.json":13,"/home/daytona/daytona-forking-coupon-demo/package.json":15,"/home/daytona/daytona-forking-coupon-demo/src/server/app.js":5,"/home/daytona/daytona-forking-coupon-demo/src/server/index.js":3,"/home/daytona/daytona-forking-coupon-demo/src/shared/couponContract.js":5},"writes":{"/home/daytona/daytona-forking-coupon-demo/dist/client/styles.css":10,"/home/daytona/daytona-forking-coupon-demo/src/server/app.js":2,"/home/daytona/daytona-forking-coupon-demo/src/shared/couponContract.js":2},"network":{},"checkpoints":14,"failures":0,"tools":{}},"right":{"steps":14,"reads":{"/home/daytona/daytona-forking-coupon-demo/data/coupons.json":10,"/home/daytona/daytona-forking-coupon-demo/package.json":14,"/home/daytona/daytona-forking-coupon-demo/src/server/app.js":4,"/home/daytona/daytona-forking-coupon-demo/src/server/index.js":2,"/home/daytona/daytona-forking-coupon-demo/src/shared/couponContract.js":4},"writes":{"/home/daytona/daytona-forking-coupon-demo/dist/client/styles.css":11,"/home/daytona/daytona-forking-coupon-demo/src/server/app.js":4},"network":{},"checkpoints":14,"failures":0,"tools":{}}}}}};
+    const tree = document.getElementById("tree");
+    const detail = document.getElementById("comparison-detail");
+    const pairControls = document.getElementById("pair-controls");
+    let activePair = "primary";
+    let activeMode = "content";
+
+    const el = (tag, className, text) => {
+      const node = document.createElement(tag);
+      if (className) node.className = className;
+      if (text !== undefined) node.textContent = text;
+      return node;
+    };
+
+    const compactPath = (path) => String(path || "unknown")
+      .replace(/^\/var\/lib\/onewill\/wally\/lower-home\/daytona-forking-coupon-demo\//, "")
+      .replace(/^\/var\/lib\/onewill\/wally\/lower-home\//, "~/");
+
+    function nodeCard(item, decision = false) {
+      const card = el("article", `node${decision ? " decision" : ""}`);
+      card.dataset.nodeId = item.id;
+      const status = el("div", `status ${item.status}`, item.status);
+      const title = el("div", "node-title", item.title);
+      card.append(status, title);
+      if (item.detail) card.append(el("div", "node-detail", item.detail));
+      return card;
+    }
+
+    function stage(noteTitle, noteText, items, decision = false) {
+      const section = el("section", "stage");
+      const note = el("div", "stage-note");
+      note.append(el("strong", "", noteTitle), document.createTextNode(noteText));
+      const row = el("div", `node-row${items.length === 1 ? " single" : ""}`);
+      row.style.setProperty("--columns", String(Math.min(items.length, 5)));
+      items.forEach((item) => row.append(nodeCard(item, decision)));
+      section.append(note, row);
+      tree.append(section);
+    }
+
+    function renderTree() {
+      document.getElementById("run-meta").textContent = DATA.model || "";
+      if (DATA.status !== "passed" && !DATA.hypotheses.length) {
+        const failure = el("div", "failure", DATA.error || "This trace ended before fork topology was recorded.");
+        tree.append(failure);
+        return;
+      }
+      stage("Prepared parent", "autosaved baseline", [DATA.parent]);
+      stage("fork(parent)", "three sibling hypotheses", DATA.hypotheses);
+      stage("aggregate", "model selects verified branch", [DATA.aggregation], true);
+      stage("fork(selected hypothesis)", "two sibling refinements", DATA.refinements);
+      stage("select refinement", "model picks common final parent", [DATA.selector], true);
+      stage("fork(selected refinement)", "five sibling final fixes", DATA.finalLeaves);
+      requestAnimationFrame(drawLineage);
+    }
+
+    function center(card, treeRect, edge) {
+      const rect = card.getBoundingClientRect();
+      return { x: rect.left - treeRect.left + rect.width / 2, y: edge === "top" ? rect.top - treeRect.top : rect.bottom - treeRect.top };
+    }
+
+    function addPath(svg, fromId, toId, selected) {
+      const from = tree.querySelector(`[data-node-id="${CSS.escape(fromId)}"]`);
+      const to = tree.querySelector(`[data-node-id="${CSS.escape(toId)}"]`);
+      if (!from || !to) return;
+      const rect = tree.getBoundingClientRect();
+      const a = center(from, rect, "bottom");
+      const b = center(to, rect, "top");
+      const middle = (a.y + b.y) / 2;
+      const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      path.setAttribute("d", `M ${a.x} ${a.y} C ${a.x} ${middle}, ${b.x} ${middle}, ${b.x} ${b.y}`);
+      if (selected) path.setAttribute("class", "selected");
+      svg.append(path);
+    }
+
+    function drawLineage() {
+      const svg = document.getElementById("lineage");
+      if (!svg || !DATA.hypotheses.length) return;
+      const rect = tree.getBoundingClientRect();
+      svg.setAttribute("viewBox", `0 0 ${rect.width} ${rect.height}`);
+      svg.replaceChildren();
+      DATA.hypotheses.forEach((item) => addPath(svg, "parent", item.id, item.id === DATA.selected.hypothesis));
+      if (DATA.selected.hypothesis) addPath(svg, DATA.selected.hypothesis, "aggregation", true);
+      DATA.refinements.forEach((item) => addPath(svg, "aggregation", item.id, item.id === DATA.selected.refinement));
+      if (DATA.selected.refinement) addPath(svg, DATA.selected.refinement, "selector", true);
+      DATA.finalLeaves.forEach((item) => addPath(svg, "selector", item.id, item.id === DATA.selected.final));
+      tree.querySelectorAll(".node").forEach((node) => {
+        const id = node.dataset.nodeId;
+        node.classList.toggle("selected-lineage", ["parent", DATA.selected.hypothesis, "aggregation", DATA.selected.refinement, "selector", DATA.selected.final].includes(id));
+      });
+    }
+
+    function metric(value) { return el("span", "metric", value); }
+
+    function renderContent(pair) {
+      const diff = pair.contentDiff || {};
+      const summary = diff.summary || {};
+      const metrics = el("div", "metrics");
+      metrics.append(
+        metric(`${summary.added || 0} added`), metric(`${summary.removed || 0} removed`),
+        metric(`${summary.modified || 0} modified`), metric(`${summary.typeChanged || 0} type changed`)
+      );
+      detail.append(metrics);
+      const list = el("div", "change-list");
+      (diff.changes || []).forEach((change) => {
+        const box = el("details", "change");
+        const summaryNode = el("summary", "");
+        summaryNode.append(el("strong", "", `${change.status}: ${compactPath(change.path)}`), el("span", "change-meta", ` · ${change.type}`));
+        box.append(summaryNode);
+        box.append(el("pre", "", change.patch || "No textual patch was materialized for this change."));
+        list.append(box);
+      });
+      detail.append(el("div", "section-title", "Path-level changes"));
+      detail.append(list.childElementCount ? list : el("div", "empty", "No content changes recorded."));
+    }
+
+    function countTable(label, left, right) {
+      const keys = [...new Set([...Object.keys(left || {}), ...Object.keys(right || {})])];
+      keys.sort((a, b) => Math.abs((right[b] || 0) - (left[b] || 0)) - Math.abs((right[a] || 0) - (left[a] || 0)) || a.localeCompare(b));
+      const block = el("section", "trajectory-block");
+      block.append(el("h3", "", label));
+      if (!keys.length) { block.append(el("div", "empty", "None recorded")); return block; }
+      const wrap = el("div", "table-wrap");
+      const table = document.createElement("table");
+      const head = document.createElement("thead");
+      head.innerHTML = "<tr><th>Target</th><th>Left</th><th>Right</th><th>Δ</th></tr>";
+      const body = document.createElement("tbody");
+      keys.forEach((key) => {
+        const l = left[key] || 0;
+        const r = right[key] || 0;
+        const row = document.createElement("tr");
+        [compactPath(key), String(l), String(r), `${r - l >= 0 ? "+" : ""}${r - l}`].forEach((value, index) => {
+          const cell = document.createElement("td");
+          cell.textContent = value;
+          if (index === 3) cell.className = "delta";
+          row.append(cell);
+        });
+        body.append(row);
+      });
+      table.append(head, body); wrap.append(table); block.append(wrap); return block;
+    }
+
+    function renderTrajectory(pair) {
+      const diff = pair.trajectoryDiff || {};
+      const left = diff.left || {};
+      const right = diff.right || {};
+      const metrics = el("div", "metrics");
+      metrics.append(
+        metric(`${left.steps || 0} → ${right.steps || 0} steps`),
+        metric(`${left.checkpoints || 0} → ${right.checkpoints || 0} checkpoints`),
+        metric(`${left.failures || 0} → ${right.failures || 0} failures`)
+      );
+      detail.append(
+        metrics,
+        countTable("Reads by path", left.reads || {}, right.reads || {}),
+        countTable("Writes by path", left.writes || {}, right.writes || {}),
+        countTable("Network destinations", left.network || {}, right.network || {}),
+        countTable("Tools", left.tools || {}, right.tools || {})
+      );
+    }
+
+    function highlightPair(pair) {
+      tree.querySelectorAll(".node").forEach((node) => {
+        const id = node.dataset.nodeId;
+        node.classList.toggle("compare-left", id === pair.leftNode);
+        node.classList.toggle("compare-right", id === pair.rightNode);
+        node.classList.toggle("compare-dim", Boolean(pair.leftNode && pair.rightNode && id !== pair.leftNode && id !== pair.rightNode));
+      });
+    }
+
+    function renderComparison() {
+      const pair = DATA.pairs[activePair];
+      const comparedTitle = (nodeId, fallback) => tree.querySelector(`[data-node-id="${CSS.escape(nodeId || "")}"] .node-title`)?.textContent || fallback;
+      const setEndpoint = (id, role, nodeId, fallback) => {
+        const endpoint = document.getElementById(id);
+        endpoint.replaceChildren(
+          el("span", "endpoint-role", role),
+          el("span", "endpoint-title", comparedTitle(nodeId, fallback))
+        );
+      };
+      setEndpoint("left-label", "Source", pair.leftNode, pair.leftLabel);
+      setEndpoint("right-label", "Target", pair.rightNode, pair.rightLabel);
+      detail.replaceChildren();
+      if (activeMode === "content") renderContent(pair); else renderTrajectory(pair);
+      highlightPair(pair);
+      pairControls.querySelectorAll("button").forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.pair === activePair)));
+      document.querySelectorAll("[data-mode]").forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.mode === activeMode)));
+    }
+
+    Object.entries(DATA.pairs).forEach(([name, pair]) => {
+      const button = el("button", "btn", pair.label);
+      button.type = "button"; button.dataset.pair = name; button.setAttribute("aria-pressed", String(name === activePair));
+      button.addEventListener("click", () => { activePair = name; renderComparison(); });
+      pairControls.append(button);
+    });
+    document.querySelectorAll("[data-mode]").forEach((button) => button.addEventListener("click", () => { activeMode = button.dataset.mode; renderComparison(); }));
+    window.addEventListener("resize", () => requestAnimationFrame(drawLineage));
+    renderTree();
+    renderComparison();
+  </script>
+</body>
+</html>
