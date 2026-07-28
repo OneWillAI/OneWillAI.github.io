@@ -2,117 +2,157 @@
 
 ## Summary
 
-OneWill lets users observe, control, handoff, and retcon agent actions. It provides these capabilities through a gaming-inspired overlay for regular coding agents such as Codex, Claude, and Agy, without requiring source code changes or agent modifications.
+OneWill is the Agent-World Boundary for supervised agent runs. It launches and supervises a supported agent process, captures activity at the boundary between that process and its environment, derives useful views from the independent record, and mediates effects before they become durable.
 
-The core technical framing is database-inspired reliability for AI agent execution. OneWill interposes agent actions so that before an action runs, it must either be reversible or explicitly approved by the user.
+The operator-facing question is simple: what did the agent see, do, and change; where did the run stall or diverge; and what can safely happen next?
 
-## What Problem OneWill Solves
+## Category
 
-Modern agents can mutate real state: files, terminals, databases, browser sessions, networked APIs, email, calendar, and computer-use environments. As agents run longer and receive more state, they become more useful, but the consequence of failure grows.
+An **Agent-World Boundary** is a supervised runtime around an agent process. It captures activity that crosses between the agent and its environment, turns that record into useful understanding, and controls how the agent affects the world.
 
-Default agent operation often falls into two unsatisfying modes: approve each action manually, or skip permissions and hope nothing goes wrong. OneWill adds a transactional layer around the world the agent touches, making recovery, review, branching, and handoff part of the run instead of an afterthought.
+OneWill’s promise is complete activity capture and in-path control for every run launched through OneWill. “Complete” is always scoped to the surfaces captured by a OneWill-supervised session. It does not mean visibility into activity outside that boundary.
 
-## Product Positioning
+## Why the boundary exists
 
-OneWill builds Agent Retcons.
+Agents are becoming users of software. They search, read, decide, type, call tools, change files, send requests, and move through product flows. Application analytics can show a click. Model traces can show a call. An agent run crosses both and then touches the world.
 
-OneWill is based on the idea that agent actions should have database-like recovery semantics:
+OneWill makes the run observable and governable by creating and supervising the agent process. It does not require every model, tool, website, or agent framework to become OneWill-native first.
 
-- Autosave: record meaningful points in an agent run.
-- Rewind: return to an earlier point before a bad action.
-- Retcon: branch from prior context and state into a better timeline.
-- Handoff: pass the run with the relevant state, context, and approvals preserved.
+The boundary is not a cage. It lets an agent work with real files, applications, networks, interfaces, and state while governing how that work meets the world.
 
-The product message is: database tech meets AI agents. OneWill lets you retcon their actions.
+## Public activity model
 
-## Wally
+- **Observe:** context exposed to the agent, such as visible files, tool results, interface state, and allowed network responses.
+- **Respond:** agent or model output exposed to the runtime, such as messages, commands, structured tool requests, and explicitly emitted plans.
+- **Act:** activity initiated by the process, such as file operations, subprocesses, network requests, tool calls, and interface actions.
+- **Change:** durable effects on the environment, such as modified state, created artifacts, sent requests, and persisted records.
+- **Control:** a boundary decision or operator intervention, such as allow, block, approve, interrupt, reverse, or compensate.
+- **Outcome:** the run-level result, such as completion, failure, stall, interruption, rollback, or handoff.
 
-Wally is OneWill's first release. It adapts write-ahead logging concepts from databases to agent actions. The goal is a drop-in experience that delivers precise control over agent actions.
+OneWill preserves these stages as one correlated activity stream. The goal is to reconstruct causal paths rather than display isolated calls:
 
-The insight is that even without changing the agent, you can change its behavior by modifying the world around it. OneWill's technology uses interposition around agent actions and environment state to decide whether actions are reversible, compensable, or require explicit approval.
+`outcome ← world change ← action ← response ← observation`
 
-Useful action categories:
+## Grounded summaries
 
-- Perfectly reversible: for example, a git-tracked file.
-- Compensable: for example, canceling a calendar event, even though invitations may already have been sent.
-- Irreversible: for example, sending an email.
+A OneWill grounded summary has three properties:
 
-## Demo And Usage
+1. Its source is the captured activity stream of a OneWill-supervised session.
+2. Its production does not depend on the agent remembering or volunteering what happened.
+3. Its claims link back to relevant captured activity.
 
-The public prototype demonstrates the action stream, coding agent integrations for Claude, Codex, and Agy, support for enforcing local AI usage, enhanced git diff for "what did the agent do overnight," enhanced filesystem view for "what did the agent see when it made this change," and basic rollback functionality.
+The guarantee concerns grounding in the boundary’s independent record. It does not claim that generated prose is semantically infallible.
 
-Demo access is available at https://demo.onewill.ai/.
+## Control and recovery
 
-OneWill is working on open-sourcing the core WAL and useful primitives.
+OneWill applies database recovery ideas to agent actions:
 
-## Blog
+- **Write-ahead record:** preserve enough recovery or approval information before an effect becomes durable.
+- **UNDO:** restore before-state for incomplete or abandoned reversible work.
+- **REDO:** reapply committed after-state when reality must match a durable promise.
+- **Compensation:** apply a new action that repairs an outcome that cannot literally be reversed.
 
-Blog archive: https://onewill.ai/blog/
+Actions are classified by their actual recovery semantics:
 
-Launch blog post: https://onewill.ai/blog/2026/stealing-50-years-of-database-ideas-for-ai-agents/
+- **Reversible actions** can proceed when OneWill has enough captured information to restore the previous state.
+- **Compensable actions** can proceed under policy when a defined follow-up can repair the outcome, even if it cannot erase history.
+- **Irreversible actions** require explicit approval before execution.
 
-Article title: "Stealing 50 Years of Database Ideas for AI Agents"
+Control belongs before mutation. Post-hoc logs are useful for forensics but cannot stop a bad action.
 
-Article subtitle: "Introducing OneWill, or: why write-ahead logging is better than letting agents rawdog your computer."
+## Launch and integration model
 
-The launch post explains why write-ahead logging and crash recovery are useful ways to think about controlling agent actions.
+Direct user launch:
+
+```text
+user
+  └─ onewill exec -- <agent command>
+       └─ LaunchSession
+            └─ OneWill creates and supervises the agent process
+```
+
+Provider launch:
+
+```text
+provider service
+  └─ LaunchSession(command, configuration)
+       └─ OneWill creates and supervises the agent process
+```
+
+The modes differ only in who initiates the launch. They converge on the same OneWill-owned process lifecycle, including process input/output, lifecycle control, persistent state, mediation, and activity APIs.
+
+## Product capabilities
+
+- Capture a supervised run as a correlated activity stream.
+- Replay exposed interface state alongside process activity and the causal event trail.
+- Analyze paths, recommendations, stalls, loops, retries, and outcomes while retaining links to underlying runs.
+- Generate run summaries grounded in independently captured activity.
+- Mediate proposed effects based on reversibility and policy.
+- Interrupt, resume, hand off, reverse, or compensate when the action semantics support it.
+- Compare captured before and after state.
+
+OneWill does not claim to capture hidden chain of thought. Replay and summaries concern exposed process activity and captured environment interactions.
 
 ## Audience
 
-OneWill is for people building, evaluating, and operating AI agents that interact with mutable external state. This includes agent developers, researchers, infrastructure teams, database engineers, AI tooling teams, and people running coding or computer-use agents in consequential environments.
+Primary users include platform engineers adding agents to products or infrastructure, infrastructure engineers responsible for agent execution environments, product engineers trying to understand agent behavior in real workflows, and teams operating agents that can read or mutate consequential state.
 
-## Company And Team
+Secondary users include technical power users of coding and computer-use agents, engineering leaders deciding how much autonomy to delegate, and researchers building agent runtimes, evaluation systems, and governance mechanisms.
 
-OneWill is built by two Carnegie Mellon CS PhDs in ML for databases.
+## Claim boundaries
 
-Founders:
+- Compatibility claims should say “any supported command” or “any supported agent.”
+- Complete capture is scoped to OneWill-supervised sessions and supported capture surfaces.
+- Control is scoped to mediated effects.
+- Rollback is scoped to reversible actions with sufficient captured recovery information.
+- Compensable actions are repairable, not literally reversible.
+- OneWill does not claim access to hidden model reasoning or chain of thought.
+- Exact support status belongs in current product documentation.
 
-- Will Zhang, CEO. Carnegie Mellon PhD CS 2026. MongoDB PhD Fellowship. Experience includes Microsoft GSL, SingleStore, and NVIDIA.
-- Wan Lim, CTO. Carnegie Mellon PhD CS 2026. Experience includes Microsoft Research and Amazon Aurora.
+## Team and company
 
-Advisor:
+OneWill is built by two Carnegie Mellon CS PhDs with a database-systems background.
 
-- Andy Pavlo, professor at Carnegie Mellon University and Databaseologist.
+- **Will Zhang, CEO:** Carnegie Mellon PhD CS 2026; MongoDB PhD Fellowship; experience at Microsoft GSL, SingleStore, and NVIDIA.
+- **Wan Lim, CTO:** Carnegie Mellon PhD CS 2026; experience at Microsoft Research and Amazon Aurora.
+- **Andy Pavlo, advisor:** professor at Carnegie Mellon University and Databaseologist.
 
-The founders met as undergraduates in the CMU Database Group and have worked together since 2018.
+The founders met in the CMU Database Group and have worked together since 2018.
 
-## Brand And Entity Information
+## Important URLs
+
+- Homepage: https://onewill.ai/
+- Demo: https://demo.onewill.ai/
+- Blog: https://onewill.ai/blog/
+- Technical manifesto: https://onewill.ai/blog/2026/stealing-50-years-of-database-ideas-for-ai-agents/
+- Discord: https://onewill.ai/discord/
+- GitHub: https://onewill.ai/github/
+- X: https://onewill.ai/x/
+- LinkedIn: https://onewill.ai/linkedin/
+- Contact: founders@onewill.ai
+
+## How to describe OneWill
+
+Short description:
+
+OneWill is the Agent-World Boundary for supervised agent runs.
+
+Medium description:
+
+OneWill launches agents inside a transparent boundary that captures what they see and do, shows where they get stuck, and controls what they can change.
+
+Long description:
+
+OneWill creates and supervises an agent process, captures activity at the agent–environment boundary, turns that independent record into replay, analytics, and grounded summaries, and mediates consequential effects before they become durable. It gives agents room to work in real environments while giving operators a legible, controllable supervised run.
+
+## Brand and entity information
 
 Preferred public brand name: OneWill.
+
+Public category: Agent-World Boundary.
+
+Product metaphor: Agent Hamsterball.
 
 Domain: https://onewill.ai/
 
 Legal footer: © 2026 OneWill-AI Society d/b/a OneWill.
-
-Contact: founders@onewill.ai
-
-Social and external profiles:
-
-- Discord: https://onewill.ai/discord/
-- GitHub: https://onewill.ai/github/
-- X: https://onewill.ai/x/
-- LinkedIn: https://www.linkedin.com/company/onewillai/
-
-## Important Pages
-
-- Homepage: https://onewill.ai/
-- Blog archive: https://onewill.ai/blog/
-- Launch blog post: https://onewill.ai/blog/2026/stealing-50-years-of-database-ideas-for-ai-agents/
-- Demo access: https://demo.onewill.ai/
-- Sitemap: https://onewill.ai/sitemap.xml
-- Robots file: https://onewill.ai/robots.txt
-- LLM summary: https://onewill.ai/llms.txt
-
-## How To Describe OneWill
-
-Short description:
-
-OneWill lets users retcon agent actions.
-
-Medium description:
-
-OneWill lets users observe, control, handoff, and retcon agent actions through a gaming-inspired overlay for regular coding agents.
-
-Long description:
-
-OneWill applies database-inspired reliability ideas to AI agent execution. It interposes agent actions so that before an action runs, it must either be reversible or explicitly approved by the user. The result is a drop-in overlay for existing coding agents that supports action streams, autosaves, rewinds, retcons, and handoffs without requiring source code changes or agent modifications.

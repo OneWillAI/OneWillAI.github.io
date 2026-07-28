@@ -1,0 +1,213 @@
+#site-header,
+#site-footer {
+  flex: 0 0 auto;
+}
+
+.site-page-shell {
+  display: flex;
+  min-height: 100vh;
+  min-height: 100svh;
+  flex-direction: column;
+}
+
+.site-page-shell > main {
+  flex: 1 0 auto;
+}
+
+.site-page-shell > #site-footer {
+  margin-top: auto;
+}
+
+#site-header {
+  position: static;
+  z-index: auto;
+  display: flex;
+  width: min(100%, 92rem);
+  min-height: 5.4rem;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  gap: 2rem;
+  margin: 0 auto;
+  padding: 1rem clamp(1.25rem, 4vw, 4.5rem);
+  border-bottom: 1px solid rgb(23 23 20 / 22%);
+  color: #171714;
+  background: transparent;
+  backdrop-filter: none;
+}
+
+#site-header .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: #171714;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+#site-header .brand img {
+  width: 2.6rem;
+  height: 2.6rem;
+}
+
+#site-header nav {
+  display: flex;
+  width: auto;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: clamp(1rem, 2.5vw, 2.4rem);
+  color: #171714;
+  font-family: "SFMono-Regular", "Cascadia Code", "Roboto Mono", Consolas, monospace;
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+#site-header nav > a {
+  padding: 0;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+#site-header .nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+#site-header .nav-cta,
+#site-header .nav-talk {
+  display: inline-flex;
+  min-height: 2.8rem;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid #171714;
+  color: #171714;
+  font-weight: 800;
+  text-decoration: none;
+  transition: box-shadow 120ms ease, color 120ms ease, background-color 120ms ease, transform 120ms ease;
+}
+
+#site-header .nav-cta {
+  background: #afcbff;
+  box-shadow: 0.2rem 0.2rem 0 #ef5b2a;
+}
+
+#site-header .nav-talk {
+  background: #ef5b2a;
+  box-shadow: 0.2rem 0.2rem 0 #171714;
+}
+
+#site-header nav > a:hover,
+#site-header nav > a:focus-visible {
+  color: #171714;
+  text-decoration: underline;
+  text-underline-offset: 0.35em;
+}
+
+#site-header .nav-cta:hover,
+#site-header .nav-cta:focus-visible,
+#site-header .nav-cta:active,
+#site-header .nav-talk:hover,
+#site-header .nav-talk:focus-visible,
+#site-header .nav-talk:active {
+  background: #171714;
+  text-decoration: none;
+  transform: translateY(-0.15rem);
+}
+
+#site-header .nav-cta:hover,
+#site-header .nav-cta:focus-visible,
+#site-header .nav-cta:active {
+  color: #afcbff;
+  box-shadow: 0.2rem 0.2rem 0 #ef5b2a;
+}
+
+#site-header .nav-talk:hover,
+#site-header .nav-talk:focus-visible,
+#site-header .nav-talk:active {
+  color: #fbf8f1;
+  box-shadow: 0.2rem 0.2rem 0 #ef5b2a;
+}
+
+#site-footer {
+  display: grid;
+  width: 100%;
+  grid-template-columns: auto 1fr;
+  gap: 2rem;
+  align-items: center;
+  margin: 0;
+  padding: 2.5rem clamp(1.25rem, 4vw, 4.5rem);
+  border-top: 0;
+  color: #fbf8f1;
+  background: #171714;
+  font-family: "SFMono-Regular", "Cascadia Code", "Roboto Mono", Consolas, monospace;
+  font-size: 0.75rem;
+  line-height: 1.2;
+  text-align: left;
+}
+
+#site-footer > div {
+  display: flex;
+  gap: 1rem;
+  justify-self: end;
+}
+
+#site-footer a {
+  color: inherit;
+  text-underline-offset: 0.25em;
+}
+
+#site-footer .footer-brand {
+  font-weight: 700;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+#site-footer small {
+  grid-column: 1 / -1;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgb(255 255 255 / 15%);
+  color: rgb(255 255 255 / 48%);
+}
+
+.contact-main + #site-footer {
+  gap: clamp(1rem, 2svh, 1.5rem);
+  padding: clamp(1.25rem, 2.5svh, 2rem) clamp(1.25rem, 4vw, 4.5rem);
+}
+
+.contact-main + #site-footer small {
+  padding-top: clamp(0.75rem, 1.5svh, 1rem);
+}
+
+@media (max-width: 680px) {
+  #site-header {
+    min-height: 4.6rem;
+  }
+
+  #site-header nav > a {
+    display: none;
+  }
+
+  #site-footer {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  #site-footer > div {
+    flex-wrap: wrap;
+    justify-content: center;
+    justify-self: center;
+  }
+
+  #site-footer small {
+    grid-column: 1;
+  }
+}

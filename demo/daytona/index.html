@@ -3,7 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
   <title>Model-backed Forking Demo</title>
+  <link rel="icon" href="/rebrand/mascot/onewill-hamster-master-64.png" type="image/png">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-KT4BRPL2KG"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -139,8 +141,25 @@
       .lineage { display: none; }
     }
   </style>
+  <link rel="stylesheet" href="/brand-pages.css">
+  <link rel="stylesheet" href="/site-chrome.css">
 </head>
-<body>
+<body class="brand-page brand-demo">
+  <header class="topbar" id="site-header">
+    <a class="brand" href="/" aria-label="OneWill home">
+      <img src="/rebrand/mascot/onewill-hamster-master-64.png" width="64" height="64" alt="">
+      <span>OneWill</span>
+    </a>
+    <nav class="nav" aria-label="Primary navigation">
+      <a href="/">Home</a>
+      <a href="/#team">Team</a>
+      <a href="/blog/">Blog</a>
+      <span class="nav-actions">
+        <a class="nav-cta" href="https://demo.onewill.ai/" aria-current="page">Demo</a>
+        <a class="nav-talk" href="/contact/">Talk to us</a>
+      </span>
+    </nav>
+  </header>
   <main class="page">
     <header class="masthead">
       <div><h1>Model-backed Forking Demo</h1><p id="run-meta"></p></div>

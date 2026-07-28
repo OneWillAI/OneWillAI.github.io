@@ -1,6 +1,7 @@
 User-agent: *
 Allow: /
 
-# AI crawlers and assistants are welcome. Site summary:
+# OneWill's preferred public context for search engines and AI assistants:
 # https://onewill.ai/llms.txt
+# https://onewill.ai/llms-full.txt
 Sitemap: https://onewill.ai/sitemap.xml

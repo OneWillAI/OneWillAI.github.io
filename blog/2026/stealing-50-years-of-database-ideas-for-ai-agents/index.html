@@ -13,10 +13,10 @@
     <meta property="og:description" content="Introducing OneWill, or: why write-ahead logging is better than letting agents rawdog your computer." />
     <meta property="og:url" content="https://onewill.ai/blog/2026/stealing-50-years-of-database-ideas-for-ai-agents/" />
     <meta property="og:site_name" content="OneWill" />
-    <meta property="og:image" content="https://onewill.ai/blog/2026/stealing-50-years-of-database-ideas-for-ai-agents/assets/og-1200x630.png" />
+    <meta property="og:image" content="https://onewill.ai/logo/onewill-agent-hamsterball-og.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="OneWill blog post on write-ahead logging for AI agent actions." />
+    <meta property="og:image:alt" content="OneWill Agent Hamsterball. Observe. Mediate. Control. Agent-World Boundary." />
     <meta property="og:type" content="article" />
     <meta property="article:published_time" content="2026-07-01" />
     <meta property="article:author" content="Wan Lim" />
@@ -24,10 +24,10 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Stealing 50 Years of Database Ideas for AI Agents | OneWill" />
     <meta name="twitter:description" content="Introducing OneWill, or: why write-ahead logging is better than letting agents rawdog your computer." />
-    <meta name="twitter:image" content="https://onewill.ai/blog/2026/stealing-50-years-of-database-ideas-for-ai-agents/assets/og-1200x630.png" />
-    <meta name="twitter:image:alt" content="OneWill blog post on write-ahead logging for AI agent actions." />
+    <meta name="twitter:image" content="https://onewill.ai/logo/onewill-agent-hamsterball-og.png" />
+    <meta name="twitter:image:alt" content="OneWill Agent Hamsterball. Observe. Mediate. Control. Agent-World Boundary." />
     <link rel="canonical" href="https://onewill.ai/blog/2026/stealing-50-years-of-database-ideas-for-ai-agents/" />
-    <link rel="icon" href="/logo/owa.png" type="image/png" />
+    <link rel="icon" href="/rebrand/mascot/onewill-hamster-master-64.png" type="image/png" />
     <title>Stealing 50 Years of Database Ideas for AI Agents | OneWill</title>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-KT4BRPL2KG"></script>
     <script>
@@ -72,71 +72,7 @@
         color: inherit;
       }
 
-      .topbar {
-        position: sticky;
-        top: 0;
-        z-index: 10;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 18px;
-        min-height: 70px;
-        padding: 12px max(18px, calc((100vw - 1120px) / 2));
-        border-bottom: 1px solid var(--line);
-        background: rgba(9, 9, 9, 0.86);
-        backdrop-filter: blur(18px);
-      }
-
-      .brand {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        font-weight: 800;
-        text-decoration: none;
-      }
-
-      .brand img {
-        width: 38px;
-        height: 38px;
-      }
-
-      .nav {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        color: var(--muted);
-        font-size: 0.84rem;
-        font-weight: 700;
-        text-transform: uppercase;
-      }
-
-      .nav a {
-        padding: 9px 10px;
-        text-decoration: none;
-      }
-
-      .nav a:hover,
-      .nav a:focus-visible {
-        color: var(--accent);
-      }
-
-      .button {
-        display: inline-flex;
-        min-height: 52px;
-        align-items: center;
-        justify-content: center;
-        padding: 0 20px;
-        border: 1px solid var(--accent);
-        border-radius: var(--radius);
-        background: var(--accent);
-        color: var(--accent-ink);
-        font-weight: 900;
-        text-decoration: none;
-        text-transform: uppercase;
-      }
-
-      main,
-      footer {
+      main {
         width: min(1120px, calc(100% - 36px));
         margin: 0 auto;
       }
@@ -473,23 +409,7 @@
         text-transform: uppercase;
       }
 
-      footer {
-        padding: 0 0 34px;
-        color: var(--muted);
-        font-size: 0.88rem;
-        font-weight: 600;
-      }
-
       @media (max-width: 640px) {
-        .topbar {
-          align-items: flex-start;
-          flex-direction: column;
-        }
-
-        .nav {
-          flex-wrap: wrap;
-        }
-
         article {
           padding-top: 48px;
         }
@@ -520,18 +440,23 @@
         }
       }
     </style>
+    <link rel="stylesheet" href="/brand-pages.css" />
+    <link rel="stylesheet" href="/site-chrome.css" />
   </head>
-  <body>
-    <header class="topbar">
+  <body class="brand-page brand-article site-page-shell">
+    <header class="topbar" id="site-header">
       <a class="brand" href="/" aria-label="OneWill home">
-        <img src="/logo/owa.png" width="256" height="256" alt="" />
+        <img src="/rebrand/mascot/onewill-hamster-master-64.png" width="64" height="64" alt="" />
         <span>OneWill</span>
       </a>
-      <nav class="nav" aria-label="Blog">
-        <a href="/?lang=en-US#proof">Product</a>
-        <a href="/?lang=en-US#team">Team</a>
-        <a href="/blog/">Blog</a>
-        <a class="button" href="https://demo.onewill.ai">Demo</a>
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="/">Home</a>
+        <a href="/#team">Team</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <span class="nav-actions">
+          <a class="nav-cta" href="https://demo.onewill.ai/">Demo</a>
+          <a class="nav-talk" href="/contact/">Talk to us</a>
+        </span>
       </nav>
     </header>
 
@@ -577,7 +502,7 @@
                 </a>
               </li>
               <li>
-                <a href="https://www.linkedin.com/company/onewillai/">
+                <a href="https://onewill.ai/linkedin/">
                   <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5.34 8.93H2.23V21h3.11V8.93ZM3.78 7.28A1.8 1.8 0 1 0 3.8 3.7a1.8 1.8 0 0 0-.02 3.58ZM21.77 21h-3.1v-5.87c0-1.4-.03-3.2-1.95-3.2-1.95 0-2.25 1.52-2.25 3.09V21h-3.1V8.93h2.97v1.65h.04a3.26 3.26 0 0 1 2.94-1.62c3.14 0 3.72 2.07 3.72 4.76V21h.73Z"/></svg>
                   <span>LinkedIn</span>
                 </a>
@@ -645,9 +570,9 @@ T1 commits</code></pre>
             <p>In short, we think that the WAL architecture is the answer to today’s agent controllability problems. It provides a principled method for structuring the chaos of numerous agents into a semantic action stream. But existing solutions in a similar reversibility and/or governance space require you to instrument your source code or modify the agent, where the burden is still on you - any problems are user error, good luck!</p>
             <figure class="article-image">
               <picture>
-                <source srcset="/clankers/assets/agent-retcon.avif?v=20260630" type="image/avif" />
-                <source srcset="/clankers/assets/agent-retcon.webp?v=20260630" type="image/webp" />
-                <img src="/clankers/assets/agent-retcon.png?v=20260630" width="1400" height="788" loading="lazy" decoding="async" alt="OneWill gateway filtering unsafe agent actions before they reach users" />
+                <source srcset="/blog/2026/stealing-50-years-of-database-ideas-for-ai-agents/assets/agent-retcon.avif?v=20260728" type="image/avif" />
+                <source srcset="/blog/2026/stealing-50-years-of-database-ideas-for-ai-agents/assets/agent-retcon.webp?v=20260728" type="image/webp" />
+                <img src="/blog/2026/stealing-50-years-of-database-ideas-for-ai-agents/assets/agent-retcon.png?v=20260728" width="1400" height="788" loading="lazy" decoding="async" alt="OneWill gateway filtering unsafe agent actions before they reach users" />
               </picture>
             </figure>
             <p>Enter Wally, OneWill’s first release. It is based on the decades-proven database WAL architecture, now applied to agent actions. Our goal is to provide a drop-in experience that delivers precise control over agent actions. The insight here is that even without changing the agent, you can still change its behavior by modifying the world around it.</p>
@@ -702,7 +627,7 @@ T1 commits</code></pre>
                 </a>
               </li>
               <li>
-                <a href="https://www.linkedin.com/company/onewillai/">
+                <a href="https://onewill.ai/linkedin/">
                   <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5.34 8.93H2.23V21h3.11V8.93ZM3.78 7.28A1.8 1.8 0 1 0 3.8 3.7a1.8 1.8 0 0 0-.02 3.58ZM21.77 21h-3.1v-5.87c0-1.4-.03-3.2-1.95-3.2-1.95 0-2.25 1.52-2.25 3.09V21h-3.1V8.93h2.97v1.65h.04a3.26 3.26 0 0 1 2.94-1.62c3.14 0 3.72 2.07 3.72 4.76V21h.73Z"/></svg>
                   <span>LinkedIn</span>
                 </a>
@@ -716,8 +641,16 @@ T1 commits</code></pre>
       </article>
     </main>
 
-    <footer>
-      <p>© 2026 OneWill-AI Society d/b/a OneWill.</p>
+    <footer id="site-footer">
+      <a class="footer-brand" href="/">OneWill</a>
+      <div>
+        <a href="https://onewill.ai/discord/">Discord</a>
+        <a href="https://onewill.ai/github/">GitHub</a>
+        <a href="https://onewill.ai/x/">X</a>
+        <a href="https://onewill.ai/linkedin/">LinkedIn</a>
+        <a href="mailto:founders@onewill.ai">Email</a>
+      </div>
+      <small>© 2026 OneWill-AI Society d/b/a OneWill.</small>
     </footer>
   </body>
 </html>

@@ -1,43 +1,64 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="OneWill lets you observe, control, handoff, and retcon agent actions through a gaming-inspired overlay for coding agents, with no source code changes or agent modifications required."
+      content="OneWill is the agent-world boundary: an Agent Hamsterball for observing, mediating, and controlling agent actions."
     />
     <meta name="author" content="OneWill" />
     <meta name="copyright" content="© 2026 OneWill-AI Society d/b/a OneWill" />
-    <meta property="og:title" content="OneWill | Agent Retcons" />
-    <meta
-      property="og:description"
-      content="Observe, control, handoff, and retcon agent actions through a gaming-inspired overlay for coding agents."
-    />
+    <meta property="og:title" content="OneWill: Agent Hamsterball" />
+    <meta property="og:description" content="The agent-world boundary. Observe. Mediate. Control." />
     <meta property="og:url" content="https://onewill.ai/" />
     <meta property="og:site_name" content="OneWill" />
-    <meta property="og:image" content="https://onewill.ai/logo/owa_title_og_1200x630.png" />
+    <meta property="og:image" content="https://onewill.ai/logo/onewill-agent-hamsterball-og.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="OneWill Agent Retcons." />
+    <meta property="og:image:alt" content="OneWill Agent Hamsterball. Observe. Mediate. Control. Agent-World Boundary." />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="OneWill | Agent Retcons" />
-    <meta
-      name="twitter:description"
-      content="Observe, control, handoff, and retcon agent actions through a gaming-inspired overlay for coding agents."
-    />
-    <meta name="twitter:image" content="https://onewill.ai/logo/owa_title_og_1200x630.png" />
-    <meta name="twitter:image:alt" content="OneWill Agent Retcons." />
+    <meta name="twitter:title" content="OneWill: Agent Hamsterball" />
+    <meta name="twitter:description" content="The agent-world boundary. Observe. Mediate. Control." />
+    <meta name="twitter:image" content="https://onewill.ai/logo/onewill-agent-hamsterball-og.png" />
+    <meta name="twitter:image:alt" content="OneWill Agent Hamsterball. Observe. Mediate. Control. Agent-World Boundary." />
     <link rel="canonical" href="https://onewill.ai/" />
-    <title>OneWill | Agent Retcons</title>
+    <link rel="icon" href="rebrand/mascot/onewill-hamster-master-64.png" type="image/png" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="site-chrome.css" />
+    <script src="interactions.js" defer></script>
+    <title>OneWill - the agent-world boundary aka hamsterball</title>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "WebPage",
-        "name": "OneWill",
-        "url": "https://onewill.ai/",
-        "description": "OneWill lets you observe, control, handoff, and retcon agent actions through a gaming-inspired overlay for coding agents."
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://onewill.ai/#organization",
+            "name": "OneWill",
+            "url": "https://onewill.ai/",
+            "logo": "https://onewill.ai/rebrand/mascot/onewill-hamster-master-64.png",
+            "description": "OneWill builds the Agent Hamsterball: an agent-world boundary for observing, mediating, and controlling agent actions.",
+            "slogan": "Observe. Mediate. Control.",
+            "sameAs": [
+              "https://onewill.ai/github/",
+              "https://onewill.ai/x/",
+              "https://onewill.ai/linkedin/",
+              "https://onewill.ai/discord/"
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://onewill.ai/#website",
+            "url": "https://onewill.ai/",
+            "name": "OneWill",
+            "description": "The agent-world boundary, aka Agent Hamsterball.",
+            "publisher": {
+              "@id": "https://onewill.ai/#organization"
+            }
+          }
+        ]
       }
     </script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-KT4BRPL2KG"></script>
@@ -46,2374 +67,329 @@
       function gtag() {
         dataLayer.push(arguments);
       }
-
       gtag("js", new Date());
       gtag("config", "G-KT4BRPL2KG");
     </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&family=Space+Grotesk:wght@600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="icon" href="logo/owa.png" type="image/png" />
-    <style>
-      :root {
-        --bg: #090909;
-        --ink: #f7f4ed;
-        --muted: #b7b1a7;
-        --panel: #141414;
-        --line: rgba(247, 244, 237, 0.16);
-        --line-strong: rgba(247, 244, 237, 0.34);
-        --brand-purple: #6366f1;
-        --accent: #facc15;
-        --accent-light: #fde68a;
-        --accent-ink: #000;
-        --paper: #f7f4ed;
-        --dark: #090909;
-        --radius: 8px;
-        --ticker-height: 48px;
-      }
-
-      * {
-        box-sizing: border-box;
-      }
-
-      html {
-        scroll-behavior: smooth;
-        scroll-padding-top: 90px;
-      }
-
-      body {
-        margin: 0;
-        font-family: "Inter", "Avenir Next", "Segoe UI", sans-serif;
-        color: var(--ink);
-        background:
-          linear-gradient(rgba(247, 244, 237, 0.045) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(247, 244, 237, 0.045) 1px, transparent 1px),
-          var(--bg);
-        background-size: 28px 28px;
-      }
-
-      body::before {
-        content: "";
-        position: fixed;
-        inset: 0;
-        pointer-events: none;
-        background:
-          linear-gradient(180deg, rgba(9, 9, 9, 0.08), rgba(9, 9, 9, 0.84)),
-          repeating-linear-gradient(
-            0deg,
-            rgba(255, 255, 255, 0.04) 0,
-            rgba(255, 255, 255, 0.04) 1px,
-            transparent 1px,
-            transparent 5px
-          );
-        mix-blend-mode: screen;
-        opacity: 0.5;
-      }
-
-      a {
-        color: inherit;
-      }
-
-      img {
-        max-width: 100%;
-        display: block;
-      }
-
-      button,
-      input,
-      textarea {
-        font: inherit;
-      }
-
-      .topbar {
-        position: sticky;
-        top: 0;
-        z-index: 30;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 18px;
-        min-height: 70px;
-        padding: 12px max(18px, calc((100vw - 1120px) / 2));
-        border-bottom: 1px solid var(--line);
-        background: rgba(9, 9, 9, 0.82);
-        backdrop-filter: blur(18px);
-      }
-
-      .topbar-right {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        min-width: 0;
-      }
-
-      .brand {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        text-decoration: none;
-        font-weight: 900;
-      }
-
-      .brand img {
-        width: 38px;
-        height: 38px;
-      }
-
-      .nav {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        color: var(--muted);
-        font-size: 0.84rem;
-        font-weight: 800;
-        text-transform: uppercase;
-      }
-
-      .nav a {
-        padding: 9px 10px;
-        text-decoration: none;
-      }
-
-      .nav a:hover,
-      .nav a:focus-visible {
-        color: var(--accent);
-      }
-
-      .mood-toggle {
-        position: relative;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        min-width: 210px;
-        padding: 4px;
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        background: rgba(247, 244, 237, 0.08);
-      }
-
-      .mood-toggle::before {
-        content: "";
-        position: absolute;
-        top: 4px;
-        bottom: 4px;
-        left: 4px;
-        width: calc(50% - 4px);
-        border-radius: 999px;
-        background: var(--accent);
-        transition: transform 180ms ease;
-      }
-
-      body[data-mood="clankers"] .mood-toggle::before {
-        transform: translateX(100%);
-      }
-
-      body[data-mood="seriously"] [data-clankers-only] {
-        display: none;
-      }
-
-      .mood-option {
-        position: relative;
-        z-index: 1;
-        min-height: 36px;
-        border: 0;
-        border-radius: 999px;
-        background: transparent;
-        color: var(--muted);
-        font: inherit;
-        font-size: 0.78rem;
-        font-weight: 900;
-        text-transform: uppercase;
-        cursor: pointer;
-      }
-
-      .mood-option[aria-pressed="true"] {
-        color: var(--accent-ink);
-      }
-
-      .button {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 46px;
-        padding: 0 18px;
-        border: 1px solid var(--line-strong);
-        border-radius: var(--radius);
-        background: transparent;
-        color: var(--ink);
-        font-weight: 900;
-        text-decoration: none;
-        cursor: pointer;
-        transition: transform 160ms ease, background 160ms ease, color 160ms ease, border-color 160ms ease;
-      }
-
-      .button:hover,
-      .button:focus-visible {
-        transform: translateY(-2px);
-      }
-
-      .button-primary {
-        border-color: var(--accent);
-        background: var(--accent);
-        color: var(--accent-ink);
-      }
-
-      .button-secondary {
-        background: rgba(247, 244, 237, 0.08);
-      }
-
-      .button-serious {
-        gap: 8px;
-        border-style: dashed;
-        border-color: rgba(247, 244, 237, 0.42);
-        background: rgba(9, 9, 9, 0.54);
-        color: var(--muted);
-      }
-
-      .button-serious::before {
-        content: "↪";
-        display: inline-flex;
-        width: 24px;
-        height: 24px;
-        align-items: center;
-        justify-content: center;
-        border: 1px solid currentColor;
-        border-radius: 50%;
-        font-size: 1rem;
-        line-height: 1;
-      }
-
-      .button-serious:hover,
-      .button-serious:focus-visible {
-        color: var(--ink);
-        border-color: var(--ink);
-      }
-
-      .hero {
-        position: relative;
-        display: grid;
-        align-items: end;
-        min-height: calc(100svh - 94px - var(--ticker-height));
-        max-height: 860px;
-        overflow: hidden;
-        border-bottom: 1px solid var(--line);
-      }
-
-      .hero::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background:
-          linear-gradient(90deg, rgba(9, 9, 9, 0.94) 0%, rgba(9, 9, 9, 0.55) 48%, rgba(9, 9, 9, 0.06) 100%),
-          linear-gradient(0deg, rgba(9, 9, 9, 0.9) 0%, rgba(9, 9, 9, 0.04) 48%, rgba(9, 9, 9, 0.72) 100%);
-        z-index: 1;
-      }
-
-      .hero-picture {
-        position: absolute;
-        inset: 0;
-        opacity: 0.74;
-      }
-
-      .hero-picture img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center right;
-        filter: saturate(1.05) contrast(1.08);
-      }
-
-      .hero-copy {
-        position: relative;
-        z-index: 2;
-        width: min(1120px, calc(100% - 36px));
-        margin: 0 auto;
-        padding: 92px 0 58px;
-      }
-
-      .tagline {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin: 0 0 16px;
-      }
-
-      .tagline span {
-        display: inline-flex;
-        min-height: 32px;
-        align-items: center;
-        padding: 0 10px;
-        border: 1px solid rgba(250, 204, 21, 0.32);
-        border-radius: var(--radius);
-        background: rgba(247, 244, 237, 0.08);
-        color: var(--ink);
-        font-size: 0.8rem;
-        font-weight: 900;
-        text-transform: uppercase;
-      }
-
-      h1,
-      h2,
-      h3 {
-        margin: 0;
-        font-family: "Space Grotesk", "Inter", sans-serif;
-        letter-spacing: 0;
-      }
-
-      h1 {
-        max-width: 10ch;
-        font-size: clamp(4.4rem, 14vw, 10.5rem);
-        line-height: 0.78;
-        text-transform: uppercase;
-      }
-
-      h1 span {
-        display: block;
-        color: var(--accent);
-      }
-
-      .runes-heading {
-        max-width: none;
-        color: var(--accent);
-        font-size: clamp(4rem, 12vw, 10rem);
-        white-space: nowrap;
-      }
-
-      .runes-heading span {
-        display: inline;
-        color: inherit;
-      }
-
-      .hero-text {
-        max-width: 760px;
-        margin: 18px 0 0;
-        color: var(--ink);
-        font-size: clamp(1.45rem, 2.8vw, 2.55rem);
-        font-weight: 900;
-        line-height: 0.98;
-        white-space: nowrap;
-      }
-
-      .hero-actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-        margin-top: 28px;
-      }
-
-      .ticker {
-        display: flex;
-        width: 100%;
-        max-width: 100vw;
-        min-height: var(--ticker-height);
-        gap: 18px;
-        overflow: hidden;
-        border-block: 1px solid var(--line);
-        background: var(--accent);
-        color: var(--accent-ink);
-        font-size: clamp(0.78rem, 3.2vw, 1rem);
-        font-weight: 900;
-        text-transform: uppercase;
-        white-space: nowrap;
-      }
-
-      .ticker-track {
-        display: flex;
-        flex: 0 0 auto;
-        width: max-content;
-        min-width: 100%;
-        align-items: center;
-        gap: 18px;
-        padding: 0;
-        animation: slide 20s linear infinite;
-      }
-
-      .ticker span {
-        display: inline-flex;
-        align-items: center;
-        gap: 18px;
-        line-height: 1;
-      }
-
-      .ticker span::after {
-        content: "/";
-        color: rgba(9, 9, 9, 0.48);
-      }
-
-      .ticker span:last-child::after {
-        content: "";
-      }
-
-      @keyframes slide {
-        from {
-          transform: translateX(0);
-        }
-        to {
-          transform: translateX(calc(-100% - 18px));
-        }
-      }
-
-      .section {
-        position: relative;
-        width: min(1120px, calc(100% - 36px));
-        margin: 0 auto;
-        padding: 56px 0;
-      }
-
-      .section-head {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 12px;
-        align-items: end;
-        margin-bottom: 16px;
-      }
-
-      .eyebrow {
-        margin: 0 0 10px;
-        color: var(--accent-light);
-        font-size: 0.82rem;
-        font-weight: 900;
-        text-transform: uppercase;
-      }
-
-      h2 {
-        max-width: 960px;
-        font-size: clamp(2.9rem, 8vw, 6.8rem);
-        line-height: 0.88;
-        text-transform: uppercase;
-      }
-
-      .section-note {
-        margin: 0;
-        color: var(--muted);
-        font-size: 1rem;
-        font-weight: 700;
-        line-height: 1.45;
-      }
-
-      .meme-grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 12px;
-      }
-
-      .meme-card {
-        position: relative;
-        min-height: 310px;
-        overflow: hidden;
-        border: 1px solid var(--line-strong);
-        border-radius: var(--radius);
-        background: #000;
-      }
-
-      .meme-card-wide {
-        grid-column: 1 / -1;
-        min-height: 460px;
-      }
-
-      .meme-card picture,
-      .meme-card img {
-        width: 100%;
-        height: 100%;
-      }
-
-      .meme-card img {
-        object-fit: cover;
-        filter: saturate(1.08) contrast(1.05);
-      }
-
-      .meme-card-contain {
-        display: grid;
-        place-items: center;
-        background: #090909;
-      }
-
-      .meme-card-contain img {
-        width: 100%;
-        max-width: 100%;
-        height: auto;
-        object-fit: contain;
-        filter: none;
-      }
-
-      .image-zoom-trigger {
-        display: block;
-        width: 100%;
-        cursor: zoom-in;
-        text-decoration: none;
-        outline-offset: 4px;
-      }
-
-      .image-zoom-trigger picture {
-        display: block;
-      }
-
-      .image-zoom-trigger:hover img,
-      .image-zoom-trigger:focus-visible img {
-        filter: contrast(1.04);
-      }
-
-      .image-lightbox {
-        width: 100vw;
-        max-width: none;
-        height: 100dvh;
-        max-height: none;
-        margin: 0;
-        padding: 0;
-        border: 0;
-        background: rgba(9, 9, 9, 0.96);
-        color: var(--ink);
-      }
-
-      .image-lightbox::backdrop {
-        background: rgba(0, 0, 0, 0.82);
-      }
-
-      .image-lightbox[open] {
-        display: grid;
-        grid-template-rows: auto minmax(0, 1fr);
-      }
-
-      .lightbox-bar {
-        position: sticky;
-        top: 0;
-        z-index: 2;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-        padding: 12px;
-        border-bottom: 1px solid var(--line);
-        background: rgba(9, 9, 9, 0.88);
-        backdrop-filter: blur(16px);
-      }
-
-      .lightbox-title {
-        font-size: 0.84rem;
-        font-weight: 900;
-        text-transform: uppercase;
-      }
-
-      .lightbox-controls {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: flex-end;
-        gap: 8px;
-      }
-
-      .lightbox-button {
-        min-height: 38px;
-        padding: 0 12px;
-        border: 1px solid var(--line-strong);
-        border-radius: var(--radius);
-        background: rgba(247, 244, 237, 0.08);
-        color: var(--ink);
-        cursor: pointer;
-        font-weight: 900;
-        text-decoration: none;
-      }
-
-      .lightbox-button:hover,
-      .lightbox-button:focus-visible {
-        border-color: var(--accent);
-        color: var(--accent);
-      }
-
-      .lightbox-stage {
-        overflow: auto;
-        padding: 18px;
-        display: grid;
-        place-items: start center;
-        overscroll-behavior: contain;
-        cursor: grab;
-      }
-
-      .lightbox-stage[data-dragging="true"] {
-        cursor: grabbing;
-      }
-
-      .lightbox-stage img {
-        width: min(100%, 1672px);
-        max-width: none;
-        height: auto;
-        border: 1px solid var(--line-strong);
-        border-radius: var(--radius);
-        background: #fff;
-      }
-
-      .meme-label {
-        position: absolute;
-        left: 12px;
-        bottom: 12px;
-        display: inline-flex;
-        max-width: calc(100% - 24px);
-        min-height: 48px;
-        align-items: center;
-        padding: 0 12px;
-        border: 1px solid rgba(9, 9, 9, 0.18);
-        border-radius: var(--radius);
-        background: var(--accent);
-        color: var(--accent-ink);
-        font-family: "Space Grotesk", "Inter", sans-serif;
-        font-size: clamp(1.1rem, 2.7vw, 2.3rem);
-        font-weight: 900;
-        line-height: 0.9;
-        text-transform: uppercase;
-      }
-
-      .meme-label-dark {
-        background: var(--dark);
-        color: var(--ink);
-      }
-
-      .meme-heading {
-        text-transform: none;
-      }
-
-      .product-heading {
-        max-width: none;
-        font-size: clamp(2.25rem, 7vw, 5.6rem);
-        white-space: nowrap;
-      }
-
-      .team-heading {
-        max-width: none;
-        font-size: clamp(0.68rem, 3vw, 2.15rem);
-        line-height: 1;
-        white-space: nowrap;
-      }
-
-      .team-intro {
-        max-width: none;
-        margin: 10px 0 0;
-        color: var(--muted);
-        font-size: clamp(1rem, 1.55vw, 1.28rem);
-        font-weight: 900;
-        line-height: 1.18;
-        white-space: nowrap;
-      }
-
-      .team-intro a {
-        color: var(--accent);
-        text-decoration: underline;
-        text-underline-offset: 3px;
-      }
-
-      .meme-subhead {
-        grid-column: 1 / -1;
-        margin-top: 28px;
-      }
-
-      .sauce-details {
-        grid-column: 1 / -1;
-        border: 1px solid var(--line);
-        border-radius: var(--radius);
-        background: var(--panel);
-      }
-
-      .sauce-details summary {
-        min-height: 70px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-        padding: 0 28px;
-        color: var(--accent);
-        cursor: pointer;
-        font-family: "Space Grotesk", "Inter", sans-serif;
-        font-size: clamp(1.75rem, 3.2vw, 3.25rem);
-        font-weight: 900;
-        line-height: 1;
-        list-style: none;
-        text-transform: lowercase;
-      }
-
-      .sauce-details summary::-webkit-details-marker {
-        display: none;
-      }
-
-      .sauce-details summary::after {
-        content: "+";
-        color: var(--ink);
-        font-size: 1.2em;
-      }
-
-      .sauce-details[open] summary::after {
-        content: "-";
-      }
-
-      .sauce-list {
-        display: grid;
-        gap: 10px;
-        margin: 0;
-        padding: 0 28px 24px;
-        list-style: none;
-        counter-reset: sauce;
-      }
-
-      .sauce-list li {
-        display: grid;
-        grid-template-columns: 34px minmax(0, 1fr);
-        gap: 14px;
-        align-items: center;
-        color: var(--muted);
-        font-weight: 800;
-        font-size: 1.2rem;
-        line-height: 1.2;
-        counter-increment: sauce;
-      }
-
-      .sauce-list li::before {
-        content: counter(sauce);
-        display: inline-flex;
-        width: 34px;
-        height: 34px;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        background: var(--accent);
-        color: var(--accent-ink);
-        font-size: 0.78em;
-        font-weight: 900;
-        line-height: 1;
-      }
-
-      .sauce-list strong {
-        color: var(--ink);
-      }
-
-      .sauce-list a {
-        color: var(--accent);
-        font-weight: 900;
-        text-decoration: none;
-      }
-
-      .peace-copy {
-        grid-column: 1 / -1;
-        padding: 18px;
-        border: 1px solid var(--line);
-        border-radius: var(--radius);
-        background: var(--paper);
-        color: var(--dark);
-      }
-
-      .peace-copy h3 {
-        margin: 0;
-        color: var(--dark);
-        font-size: clamp(2.15rem, 5vw, 4.4rem);
-        line-height: 0.9;
-        text-transform: uppercase;
-      }
-
-      .peace-copy p {
-        max-width: 1280px;
-        margin: 12px 0 0;
-        color: rgba(9, 9, 9, 0.72);
-        font-size: clamp(0.98rem, 1.75vw, 1.55rem);
-        font-weight: 800;
-        line-height: 1.25;
-      }
-
-      .peace-copy p a {
-        color: var(--dark);
-        text-decoration: underline;
-        text-underline-offset: 3px;
-      }
-
-      .peace-nowrap {
-        white-space: nowrap;
-      }
-
-      .example-details {
-        grid-column: 1 / -1;
-      }
-
-      .example-grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 12px;
-        padding: 0 16px 16px;
-      }
-
-      .example-grid .meme-card,
-      .example-grid .meme-card-wide {
-        min-height: 0;
-        aspect-ratio: 1500 / 844;
-      }
-
-      .example-grid .meme-card img {
-        object-fit: contain;
-        background: #000;
-      }
-
-      .meme-card-wide .meme-label {
-        font-size: clamp(1.8rem, 5vw, 4.6rem);
-      }
-
-      .demo-strip {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr);
-        gap: 12px;
-        align-items: stretch;
-      }
-
-      .demo-shot {
-        overflow: hidden;
-        border: 1px solid var(--line);
-        border-radius: var(--radius);
-        background: #000;
-      }
-
-      .demo-shot img {
-        width: 100%;
-        height: 100%;
-        min-height: 520px;
-        object-fit: cover;
-      }
-
-      .receipt {
-        display: grid;
-        align-content: space-between;
-        gap: 18px;
-        padding: 18px;
-        border: 1px solid var(--line);
-        border-radius: var(--radius);
-        background: var(--paper);
-        color: var(--dark);
-      }
-
-      .receipt h3 {
-        font-size: clamp(2.6rem, 6vw, 5.4rem);
-        line-height: 0.92;
-        text-transform: uppercase;
-      }
-
-      .receipt ol {
-        display: grid;
-        gap: 12px;
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        counter-reset: steps;
-      }
-
-      .receipt li {
-        display: grid;
-        grid-template-columns: 34px 1fr;
-        gap: 10px;
-        align-items: start;
-        font-weight: 800;
-        line-height: 1.25;
-        counter-increment: steps;
-      }
-
-      .receipt li::before {
-        content: counter(steps);
-        display: inline-flex;
-        width: 34px;
-        height: 34px;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        background: var(--dark);
-        color: var(--accent);
-        font-weight: 900;
-      }
-
-      .logo-wall {
-        display: grid;
-        grid-template-columns: repeat(6, minmax(0, 1fr));
-        gap: 12px;
-      }
-
-      .logo-tile {
-        min-height: 170px;
-        display: grid;
-        place-items: center;
-        border: 1px solid var(--line);
-        border-radius: var(--radius);
-        background: var(--panel);
-      }
-
-      .logo-tile img {
-        width: min(90px, 60%);
-        height: auto;
-        object-fit: contain;
-      }
-
-      .logo-tile-accent {
-        background: var(--accent);
-      }
-
-      .section-subtitle {
-        max-width: none;
-        margin: 14px 0 0;
-        color: var(--muted);
-        font-size: clamp(1.15rem, 2.15vw, 2.25rem);
-        font-weight: 900;
-        line-height: 1.05;
-        text-transform: uppercase;
-        white-space: nowrap;
-      }
-
-      .nowrap-heading {
-        white-space: nowrap;
-      }
-
-      .team-grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 12px;
-      }
-
-      .team-card {
-        min-height: 220px;
-        display: grid;
-        grid-template-columns: 150px 1fr;
-        gap: 16px 18px;
-        align-items: start;
-        padding: 20px;
-        border: 1px solid var(--line);
-        border-radius: var(--radius);
-        background: var(--panel);
-      }
-
-      .team-card-meta {
-        grid-column: 1 / -1;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-        min-width: 0;
-      }
-
-      .team-card-kicker {
-        display: inline-flex;
-        min-height: 32px;
-        align-items: center;
-        padding: 0 12px;
-        border-radius: 999px;
-        background: rgba(250, 204, 21, 0.14);
-        color: var(--accent);
-        font-size: 0.78rem;
-        font-weight: 900;
-        text-transform: uppercase;
-      }
-
-      .team-card-links {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: flex-end;
-        gap: 12px;
-        color: var(--muted);
-        font-size: 0.78rem;
-        font-weight: 900;
-        text-transform: uppercase;
-      }
-
-      .team-card-links a {
-        text-decoration: underline;
-        text-underline-offset: 3px;
-      }
-
-      .team-card-links a:hover,
-      .team-card-links a:focus-visible {
-        color: var(--accent);
-      }
-
-      .team-card img {
-        width: 150px;
-        height: 150px;
-        border: 2px solid var(--line-strong);
-        border-radius: var(--radius);
-        object-fit: cover;
-      }
-
-      .profile-photo-link {
-        display: inline-flex;
-        width: max-content;
-        border-radius: var(--radius);
-        outline-offset: 4px;
-      }
-
-      .profile-photo-link:hover img,
-      .profile-photo-link:focus-visible img {
-        border-color: var(--accent);
-      }
-
-      .team-card h3 {
-        font-size: clamp(2rem, 4vw, 3.8rem);
-        line-height: 0.88;
-        text-transform: uppercase;
-      }
-
-      .team-card p {
-        margin: 10px 0 0;
-        color: var(--muted);
-        font-weight: 900;
-        line-height: 1.25;
-        text-transform: uppercase;
-      }
-
-      .team-card .team-card-credentials {
-        margin-top: 6px;
-        color: var(--ink);
-        text-transform: none;
-      }
-
-      .team-card .team-card-credentials a {
-        color: var(--accent);
-        text-decoration: underline;
-        text-underline-offset: 3px;
-      }
-
-      .team-card-experience {
-        grid-column: 1 / -1;
-        display: flex;
-        align-items: baseline;
-        justify-content: center;
-        gap: 0.38em;
-        flex-wrap: nowrap;
-        margin: 2px 0 0;
-        color: var(--muted);
-        font-size: clamp(0.72rem, 1.05vw, 0.88rem);
-        font-weight: 900;
-        line-height: 1.35;
-        text-align: center;
-        white-space: nowrap;
-      }
-
-      .team-card-experience strong {
-        color: var(--accent);
-      }
-
-      .team-card-experience span + span::before {
-        content: "•";
-        margin: 0 0.62em 0 0.24em;
-        color: var(--accent);
-      }
-
-      .support-details {
-        margin-top: 12px;
-        border: 1px solid var(--line);
-        border-radius: var(--radius);
-        background: var(--panel);
-      }
-
-      .support-details summary {
-        min-height: 66px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-        padding: 0 18px;
-        color: var(--accent);
-        cursor: pointer;
-        font-family: "Space Grotesk", "Inter", sans-serif;
-        font-size: clamp(1.6rem, 3.2vw, 3rem);
-        font-weight: 900;
-        line-height: 0.95;
-        list-style: none;
-        text-transform: uppercase;
-      }
-
-      .support-details summary::-webkit-details-marker {
-        display: none;
-      }
-
-      .support-details summary::after {
-        content: "+";
-        color: var(--ink);
-        font-size: 0.9em;
-      }
-
-      .support-details[open] summary {
-        border-bottom: 1px solid var(--line);
-      }
-
-      .support-details[open] summary::after {
-        content: "-";
-      }
-
-      .team-mini-row {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 12px;
-        padding: 12px;
-      }
-
-      .team-mini-card {
-        min-height: 188px;
-        display: grid;
-        align-content: start;
-        padding: 16px;
-        border: 1px solid var(--line);
-        border-radius: var(--radius);
-        background: rgba(9, 9, 9, 0.32);
-      }
-
-      .team-mini-card strong {
-        display: block;
-        color: var(--accent);
-        font-family: "Space Grotesk", "Inter", sans-serif;
-        font-size: clamp(1.25rem, 2.4vw, 2rem);
-        line-height: 0.95;
-        text-transform: uppercase;
-      }
-
-      .team-mini-card p {
-        margin: 10px 0 0;
-        color: var(--muted);
-        font-weight: 900;
-        line-height: 1.25;
-        text-transform: uppercase;
-      }
-
-      .team-mini-card p a {
-        display: inline-block;
-        color: var(--accent);
-        text-decoration: underline;
-        text-underline-offset: 3px;
-      }
-
-      .team-mini-card p a + br + a {
-        margin-top: 8px;
-      }
-
-      .team-mini-card p a:hover,
-      .team-mini-card p a:focus-visible {
-        color: var(--ink);
-      }
-
-      .blog-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 12px;
-      }
-
-      .blog-card {
-        display: grid;
-        gap: 16px;
-        min-height: 0;
-        padding: 20px;
-        border: 1px solid var(--line);
-        border-radius: var(--radius);
-        background: var(--panel);
-      }
-
-      .blog-card h3 {
-        color: var(--accent);
-        font-family: "Space Grotesk", "Inter", sans-serif;
-        font-size: clamp(1.35rem, 2.8vw, 2.25rem);
-        line-height: 0.95;
-        font-weight: 900;
-        text-transform: uppercase;
-      }
-
-      .blog-prompt {
-        margin: 8px 0 0;
-        color: var(--muted);
-        font-size: clamp(1rem, 2vw, 1.25rem);
-        font-weight: 900;
-        line-height: 1.25;
-      }
-
-      .blog-prompt a {
-        color: var(--accent);
-        text-decoration: underline;
-        text-underline-offset: 3px;
-      }
-
-      .blog-list {
-        display: grid;
-        gap: 14px;
-        margin: 0;
-        padding: 0;
-        list-style: none;
-      }
-
-      .blog-list-item {
-        display: grid;
-        grid-template-columns: 130px minmax(0, 1fr);
-        gap: 14px;
-        padding-top: 14px;
-        border-top: 1px solid var(--line);
-      }
-
-      .blog-date {
-        color: var(--muted);
-        font-size: 0.82rem;
-        font-weight: 900;
-        line-height: 1.2;
-        text-transform: uppercase;
-      }
-
-      .blog-article-title {
-        color: var(--accent);
-        font-weight: 900;
-        line-height: 1.15;
-        text-decoration: underline;
-        text-underline-offset: 3px;
-        text-transform: uppercase;
-      }
-
-      .blog-article-title:hover,
-      .blog-article-title:focus-visible {
-        color: var(--ink);
-      }
-
-      .blog-list-item p {
-        margin: 5px 0 0;
-        color: var(--muted);
-        font-weight: 900;
-        line-height: 1.25;
-      }
-
-      .team-mini-card-advisor {
-        position: relative;
-        display: grid;
-        grid-template-columns: 82px 1fr;
-        gap: 14px;
-        align-items: start;
-      }
-
-      .advisor-tagline {
-        grid-column: 1 / -1;
-        margin-top: 8px;
-      }
-
-      .advisor-link {
-        position: absolute;
-        top: 16px;
-        right: 16px;
-        color: var(--muted);
-        font-size: 0.78rem;
-        font-weight: 900;
-        text-decoration: underline;
-        text-underline-offset: 3px;
-        text-transform: uppercase;
-      }
-
-      .advisor-link:hover,
-      .advisor-link:focus-visible {
-        color: var(--accent);
-      }
-
-      .team-mini-card-advisor img {
-        width: 82px;
-        height: 82px;
-        border: 2px solid var(--line-strong);
-        border-radius: var(--radius);
-        object-fit: cover;
-      }
-
-      .signup {
-        display: grid;
-        place-items: center;
-        min-height: min(72svh, 680px);
-        text-align: center;
-        padding-bottom: 112px;
-      }
-
-      .signup-cta-panel {
-        display: grid;
-        justify-items: center;
-        gap: 28px;
-        width: min(100%, 760px);
-      }
-
-      .signup-main-cta {
-        flex-direction: column;
-        gap: 6px;
-        width: min(100%, 700px);
-        min-height: clamp(112px, 13vw, 156px);
-        padding: 14px 18px;
-        border-width: 2px;
-        font-size: clamp(4rem, 10vw, 7.5rem);
-        line-height: 0.82;
-        text-transform: none;
-        white-space: normal;
-        box-shadow: 0 18px 36px rgba(250, 204, 21, 0.22);
-      }
-
-      .signup-main-cta span {
-        display: block;
-      }
-
-      .signup-main-cta span:first-child {
-        font-size: 1em;
-        line-height: 1;
-        text-transform: uppercase;
-      }
-
-      .signup-main-cta span:last-child {
-        font-size: 0.24em;
-        line-height: 1;
-        text-transform: lowercase;
-      }
-
-      .field {
-        display: grid;
-        gap: 7px;
-      }
-
-      .field span {
-        font-size: 0.78rem;
-        font-weight: 900;
-        text-transform: uppercase;
-      }
-
-      .input,
-      .textarea {
-        width: 100%;
-        border: 1px solid rgba(9, 9, 9, 0.2);
-        border-radius: var(--radius);
-        background: #fff;
-        color: var(--dark);
-        font-weight: 700;
-        outline: none;
-      }
-
-      .input {
-        min-height: 48px;
-        padding: 0 12px;
-      }
-
-      .textarea {
-        min-height: 120px;
-        padding: 12px;
-        resize: vertical;
-      }
-
-      .input:focus,
-      .textarea:focus {
-        border-color: var(--dark);
-        box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.36);
-      }
-
-      .form-status {
-        min-height: 24px;
-        margin: 0;
-        font-weight: 800;
-      }
-
-      .form-status[data-state="error"] {
-        color: #a62a1a;
-      }
-
-      .form-status[data-state="success"] {
-        color: #854d0e;
-      }
-
-      .link-row {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 8px;
-        width: min(100%, 700px);
-      }
-
-      .link-row a {
-        display: inline-flex;
-        min-height: 38px;
-        align-items: center;
-        gap: 8px;
-        padding: 0 10px;
-        border: 1px solid rgba(9, 9, 9, 0.18);
-        border-radius: var(--radius);
-        background: var(--paper);
-        color: var(--dark);
-        font-size: 0.84rem;
-        font-weight: 900;
-        text-decoration: none;
-        text-transform: uppercase;
-      }
-
-      .link-row svg {
-        width: 18px;
-        height: 18px;
-        flex: 0 0 auto;
-        fill: currentColor;
-      }
-
-      .link-row a:hover,
-      .link-row a:focus-visible {
-        background: var(--dark);
-        color: var(--ink);
-      }
-
-      .sticky-cta {
-        position: fixed;
-        right: 18px;
-        bottom: 18px;
-        z-index: 40;
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        min-height: 54px;
-        padding: 8px 10px 8px 8px;
-        border: 1px solid rgba(9, 9, 9, 0.18);
-        border-radius: var(--radius);
-        background: var(--accent);
-        color: var(--accent-ink);
-        font-weight: 900;
-        text-decoration: none;
-        box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
-      }
-
-      .sticky-cta img {
-        width: 38px;
-        height: 38px;
-      }
-
-      footer {
-        width: min(1120px, calc(100% - 36px));
-        margin: 0 auto;
-        padding: 0 0 34px;
-        color: var(--muted);
-        font-size: 0.88rem;
-        font-weight: 700;
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        *,
-        *::before,
-        *::after {
-          animation-duration: 0.01ms !important;
-          animation-iteration-count: 1 !important;
-          scroll-behavior: auto !important;
-          transition-duration: 0.01ms !important;
-        }
-      }
-
-      @media (max-width: 880px) {
-        .topbar {
-          min-height: 64px;
-        }
-
-        .topbar-right {
-          flex: 1;
-          justify-content: flex-end;
-        }
-
-        .nav a:not(.nav-cta) {
-          display: none;
-        }
-
-        .hero {
-          min-height: max(640px, calc(100svh - 64px - var(--ticker-height)));
-        }
-
-        .hero::before {
-          background:
-            linear-gradient(0deg, rgba(9, 9, 9, 0.96) 0%, rgba(9, 9, 9, 0.68) 58%, rgba(9, 9, 9, 0.38) 100%),
-            linear-gradient(90deg, rgba(9, 9, 9, 0.86), rgba(9, 9, 9, 0.18));
-        }
-
-        .hero-picture img {
-          object-position: 63% center;
-        }
-
-        .section {
-          padding: 58px 0;
-        }
-
-        .section-head,
-        .demo-strip,
-        .signup {
-          grid-template-columns: 1fr;
-        }
-
-        .meme-grid,
-        .logo-wall {
-          grid-template-columns: 1fr;
-        }
-
-        .meme-card,
-        .meme-card-wide {
-          min-height: 300px;
-        }
-
-        .meme-card-contain {
-          min-height: 0;
-          aspect-ratio: 1400 / 788;
-        }
-
-        .example-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .example-grid .meme-card,
-        .example-grid .meme-card-wide {
-          min-height: 0;
-          aspect-ratio: 1500 / 844;
-        }
-
-        .lightbox-bar {
-          align-items: flex-start;
-          flex-direction: column;
-        }
-
-        .lightbox-stage {
-          padding: 10px;
-        }
-
-        .team-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .team-mini-row {
-          grid-template-columns: 1fr;
-        }
-
-        .blog-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .team-card {
-          min-height: 180px;
-        }
-
-        .demo-shot img {
-          min-height: 320px;
-        }
-
-        .logo-wall {
-          grid-template-columns: repeat(3, minmax(0, 1fr));
-        }
-
-        .logo-tile {
-          min-height: 112px;
-        }
-
-        .sticky-cta {
-          right: 12px;
-          bottom: 12px;
-          left: auto;
-          width: auto;
-          padding-right: 14px;
-          justify-content: center;
-        }
-      }
-
-      @media (max-width: 520px) {
-        .topbar {
-          align-items: stretch;
-          flex-direction: column;
-          min-height: 56px;
-          padding: 7px 12px;
-        }
-
-        .topbar-right {
-          align-items: stretch;
-          flex-direction: column;
-          gap: 8px;
-          width: 100%;
-        }
-
-        .mood-toggle {
-          width: 100%;
-          min-width: 0;
-        }
-
-        .brand {
-          gap: 8px;
-        }
-
-        .brand img {
-          width: 32px;
-          height: 32px;
-        }
-
-        .brand span {
-          max-width: 96px;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-        }
-
-        .button {
-          width: 100%;
-          min-height: 42px;
-          padding-inline: 14px;
-        }
-
-        .nav-cta {
-          width: auto;
-        }
-
-        .hero-copy,
-        .section,
-        footer {
-          width: min(100% - 24px, 1120px);
-        }
-
-        .hero {
-          min-height: max(560px, calc(100svh - 161px - var(--ticker-height)));
-        }
-
-        .hero-copy {
-          padding: 42px 0 36px;
-        }
-
-        h1 {
-          font-size: clamp(2.75rem, 14vw, 3.65rem);
-          line-height: 0.84;
-        }
-
-        .runes-heading {
-          font-size: clamp(2.45rem, 12vw, 3.35rem);
-        }
-
-        .nowrap-heading {
-          font-size: clamp(2.65rem, 11.5vw, 4rem);
-          white-space: normal;
-        }
-
-        .hero-text {
-          margin-top: 12px;
-          font-size: clamp(1.2rem, 6vw, 1.55rem);
-          white-space: normal;
-        }
-
-        .section-subtitle {
-          font-size: clamp(1rem, 4.2vw, 1.35rem);
-          white-space: normal;
-        }
-
-        .team-intro {
-          white-space: normal;
-        }
-
-        .tagline {
-          gap: 6px;
-          margin-bottom: 12px;
-        }
-
-        .tagline span {
-          min-height: 28px;
-          padding: 0 8px;
-          font-size: 0.68rem;
-        }
-
-        .sauce-details summary {
-          min-height: 58px;
-          padding: 0 16px;
-          font-size: clamp(1.25rem, 8vw, 2.3rem);
-        }
-
-        .sauce-list {
-          gap: 10px;
-          padding: 0 16px 16px;
-        }
-
-        .sauce-list li {
-          grid-template-columns: 34px minmax(0, 1fr);
-          gap: 10px;
-          font-size: 1rem;
-        }
-
-        .sauce-list li::before {
-          width: 34px;
-          height: 34px;
-        }
-
-        .peace-nowrap {
-          white-space: normal;
-        }
-
-        .hero-actions {
-          width: min(100%, 340px);
-          gap: 10px;
-          margin-top: 20px;
-        }
-
-        .signup-main-cta {
-          width: 100%;
-        }
-
-        .team-card {
-          grid-template-columns: 96px 1fr;
-          gap: 14px;
-        }
-
-        .team-card-meta {
-          align-items: flex-start;
-          flex-direction: column;
-          gap: 8px;
-        }
-
-        .team-card-links {
-          justify-content: flex-start;
-        }
-
-        .team-card h3 {
-          font-size: clamp(1.7rem, 10vw, 2.35rem);
-        }
-
-        .team-card-experience {
-          flex-wrap: wrap;
-          justify-content: flex-start;
-          text-align: left;
-          white-space: normal;
-        }
-
-        .blog-card {
-          min-height: 0;
-        }
-
-        .blog-list-item {
-          grid-template-columns: 1fr;
-          gap: 6px;
-        }
-
-        .team-mini-card-advisor {
-          grid-template-columns: 74px 1fr;
-        }
-
-        .team-mini-card-advisor img {
-          width: 74px;
-          height: 74px;
-        }
-
-        .team-card img {
-          width: 96px;
-          height: 96px;
-        }
-
-        .sticky-cta {
-          bottom: calc(var(--ticker-height) + 12px);
-          min-height: 48px;
-          gap: 8px;
-          padding: 6px 10px 6px 6px;
-          font-size: 0.95rem;
-        }
-
-        .sticky-cta img {
-          width: 32px;
-          height: 32px;
-        }
-      }
-    </style>
   </head>
-  <body data-mood="seriously">
-    <header class="topbar">
+  <body class="site-page-shell">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header" id="site-header">
       <a class="brand" href="/" aria-label="OneWill home">
-        <img src="logo/owa.png" width="256" height="256" alt="" />
+        <img src="rebrand/mascot/onewill-hamster-master-64.png" width="64" height="64" alt="" />
         <span>OneWill</span>
       </a>
-      <div class="topbar-right">
-        <nav class="nav" aria-label="Page">
-          <a href="#proof" data-copy="navProof">Product</a>
-          <a href="#team">Team</a>
-          <a href="/blog/" data-copy="navBlog">Blog</a>
-          <a class="nav-cta button button-primary" href="#join" data-copy="navCta">Demo</a>
-        </nav>
-        <div class="mood-toggle" role="group" aria-label="Switch OneWill mood">
-          <button class="mood-option" type="button" data-mood-option="seriously" aria-pressed="true">en-US</button>
-          <button class="mood-option" type="button" data-mood-option="clankers" aria-pressed="false">en-GENZ</button>
-        </div>
-      </div>
+      <nav aria-label="Primary navigation">
+        <a href="/" aria-current="page">Home</a>
+        <a href="/#team">Team</a>
+        <a href="/blog/">Blog</a>
+        <span class="nav-actions">
+          <a class="nav-cta" href="https://demo.onewill.ai/">Demo</a>
+          <a class="nav-talk" href="/contact/">Talk to us</a>
+        </span>
+      </nav>
     </header>
 
-    <main>
-      <section class="hero" aria-label="OneWill Agent Retcons" data-hero-section>
-        <picture class="hero-picture">
-          <img src="seriously/assets/agent-retcon-hero.jpg" width="1672" height="941" alt="" data-hero-image />
-        </picture>
-        <div class="hero-copy">
-          <p class="tagline">
-            <span data-tagline="0">Autosaves</span>
-            <span data-tagline="1">Rewinds</span>
-            <span data-tagline="2">Retcons</span>
-            <span data-tagline="3">Handoffs</span>
-          </p>
-          <h1 data-copy="heroHeading">Agent <span>Retcons.</span></h1>
-          <p class="hero-text" data-copy="heroText">
-            The power of agents.<br />
-            Now with the time-travel of databases.
-          </p>
-          <div class="hero-actions">
-            <a class="button button-primary" href="#join" data-copy="heroPrimary">Demo</a>
-            <a class="button button-secondary" href="#proof" data-copy="heroSecondary">Product</a>
-            <a class="button button-secondary" href="#team" data-copy="heroTeam">Team</a>
-            <a class="button button-serious" href="/?lang=en-GENZ" data-mood-switch-link data-copy="moodLink">add whimsy</a>
-          </div>
-        </div>
-      </section>
+    <main id="main">
+      <section class="dilemma" aria-labelledby="dilemma-title">
+        <h1 id="dilemma-title">
+          Chances are, your <span class="state-term" tabindex="0" aria-describedby="agent-examples">agents<span class="state-tooltip" id="agent-examples" role="tooltip">e.g., codex, claude, claws</span></span> are either locked up or running wild.
+        </h1>
 
-      <div class="ticker" aria-hidden="true">
-        <div class="ticker-track">
-          <span data-ticker="0">Autosave</span>
-          <span data-ticker="1">Rewind</span>
-          <span data-ticker="2">Retcon</span>
-          <span data-ticker="3">Handoff</span>
-        </div>
-        <div class="ticker-track">
-          <span data-ticker="0">Autosave</span>
-          <span data-ticker="1">Rewind</span>
-          <span data-ticker="2">Retcon</span>
-          <span data-ticker="3">Handoff</span>
-        </div>
-      </div>
-
-      <section class="section" id="proof">
-        <div class="section-head">
-          <div>
-            <p class="eyebrow">THE PRODUCT</p>
-            <h2 class="meme-heading product-heading" data-copy="productHeading">Retcon agent actions</h2>
-          </div>
-        </div>
-
-        <div class="meme-grid" aria-label="OneWill product explanation">
-          <div class="peace-copy">
-            <p data-copy="productCopy">
-              OneWill lets you observe, control, handoff, and retcon agent actions. It provides these capabilities through a gaming-inspired overlay for your regular coding agents (codex, claude, agy), no source code changes or agent modifications required.<br /><br />
-              Behind the scenes, OneWill's technology interposes agent actions with database magic (<a href="/blog/2026/stealing-50-years-of-database-ideas-for-ai-agents/">see blog for details</a>) to ensure that before any action runs, it must either be reversible or explicitly approved by you. We provide peace of mind and broaden the scope of work that you can hand off to agents.
-            </p>
-          </div>
-          <article class="meme-card meme-card-wide meme-card-contain">
-            <a class="image-zoom-trigger" href="clankers/assets/agent-retcon-full.png?v=20260630" data-image-zoom data-protector-full-link aria-label="Open a zoomable high resolution version of this image">
-              <picture>
-                <source srcset="clankers/assets/agent-retcon.avif?v=20260630" type="image/avif" data-protector-source-avif />
-                <source srcset="clankers/assets/agent-retcon.webp?v=20260630" type="image/webp" data-protector-source-webp />
-                <img src="clankers/assets/agent-retcon.png?v=20260630" width="1400" height="788" loading="lazy" decoding="async" alt="OneWill gateway filtering unsafe agent actions before they reach users" data-protector-img />
+        <div class="choice-grid">
+          <article class="choice-card choice-jailed">
+            <div class="choice-scene">
+              <picture class="scene-art">
+                <source
+                  type="image/avif"
+                  srcset="
+                    rebrand/mascot/scenes/jailed-tear-640.avif?v=2 640w,
+                    rebrand/mascot/scenes/jailed-tear-960.avif?v=2 960w
+                  "
+                  sizes="(max-width: 980px) calc(100vw - 2.5rem), 24rem"
+                />
+                <img
+                  src="rebrand/mascot/scenes/jailed-tear.png?v=2"
+                  width="1254"
+                  height="1254"
+                  decoding="async"
+                  alt="A sad pixel hamster sits behind heavy black bars with a single blue teardrop."
+                />
               </picture>
-            </a>
-          </article>
-          <details class="sauce-details">
-            <summary data-copy="detailsSummary">Why retcons matter</summary>
-            <ol class="sauce-list">
-              <li>
-                <span data-list-item="0"><strong>Irreversible actions.</strong> The agent assumed a delete API was staging-only. It was not. Our retcon system autosaves before irreversible actions, and forces sign-off when an action would prevent rollback. <a href="https://news.ycombinator.com/item?id=47911524" target="_blank" rel="noreferrer noopener">HN</a></span>
-              </li>
-              <li>
-                <span data-list-item="1"><strong>Catastrophic context amnesia.</strong> The agent was told to never delete emails, but compaction made it forget. <a href="https://techcrunch.com/2026/02/23/a-meta-ai-security-researcher-said-an-openclaw-agent-ran-amok-on-her-inbox/" target="_blank" rel="noreferrer noopener">TechCrunch</a></span>
-              </li>
-              <li>
-                <span data-list-item="2"><strong>Ordinary agent failures.</strong> Even if the agent tells you that "you're absolutely right", it is little condolence for whatever chaos it left behind.</span>
-              </li>
-            </ol>
-          </details>
-          <div class="meme-subhead">
-            <h2 class="meme-heading" data-copy="walkthroughHeading">Retcon in action</h2>
-          </div>
-          <details class="sauce-details example-details">
-            <summary data-copy="walkthroughSummary">TerminalBench2 database task</summary>
-            <div class="example-grid">
-              <article class="meme-card">
-                <picture>
-                  <source srcset="demo/demo1.avif" type="image/avif" />
-                  <source srcset="demo/demo1.webp" type="image/webp" />
-                  <img src="demo/demo1.png" width="1500" height="844" loading="lazy" decoding="async" alt="Agent takes a bad path during a database recovery task" />
-                </picture>
-                <span class="meme-label" data-demo-label="0">Bad Timeline</span>
-              </article>
-              <article class="meme-card">
-                <picture>
-                  <source srcset="demo/demo2.avif" type="image/avif" />
-                  <source srcset="demo/demo2.webp" type="image/webp" />
-                  <img src="demo/demo2.png" width="1500" height="844" loading="lazy" decoding="async" alt="OneWill rewinds the run to an earlier rune" />
-                </picture>
-                <span class="meme-label" data-demo-label="1">Rewind</span>
-              </article>
-              <article class="meme-card">
-                <picture>
-                  <source srcset="demo/demo3.avif" type="image/avif" />
-                  <source srcset="demo/demo3.webp" type="image/webp" />
-                  <img src="demo/demo3.png" width="1500" height="844" loading="lazy" decoding="async" alt="OneWill branches from a rune before retrying" />
-                </picture>
-                <span class="meme-label" data-demo-label="2">Retcon</span>
-              </article>
-              <article class="meme-card">
-                <picture>
-                  <source srcset="demo/demo4.avif" type="image/avif" />
-                  <source srcset="demo/demo4.webp" type="image/webp" />
-                  <img src="demo/demo4.png" width="1500" height="844" loading="lazy" decoding="async" alt="Side-by-side comparison of losing and winning agent runs" />
-                </picture>
-                <span class="meme-label" data-demo-label="3">Good Timeline</span>
-              </article>
-              <article class="meme-card meme-card-wide">
-                <picture>
-                  <source srcset="demo/demo5-full.avif" type="image/avif" />
-                  <source srcset="demo/demo5-full.webp" type="image/webp" />
-                  <img src="demo/demo5-full.png" width="3000" height="1688" loading="lazy" decoding="async" alt="OneWill product interface showing rune history and rewind controls" />
-                </picture>
-                <span class="meme-label meme-label-dark" data-demo-label="4">RETCON EXECUTION</span>
-              </article>
             </div>
-          </details>
+            <div class="choice-caption">
+              <h2>Sandbox</h2>
+              <p>
+                No direct
+                <span class="state-term" tabindex="0" aria-describedby="state-examples">state<span class="state-tooltip" id="state-examples" role="tooltip">e.g., email, calendar, docs</span></span>
+                access<br />
+                Maximum safety<br />
+                Minimal state<br />
+                <strong>Limited use</strong>
+              </p>
+            </div>
+          </article>
+
+          <div class="or" aria-hidden="true">
+            <span>or</span>
+          </div>
+
+          <article class="choice-card choice-free">
+            <div class="choice-scene">
+              <picture class="scene-art">
+                <source
+                  type="image/avif"
+                  srcset="
+                    rebrand/mascot/scenes/free-chaos-640.avif 640w,
+                    rebrand/mascot/scenes/free-chaos-960.avif 960w
+                  "
+                  sizes="(max-width: 980px) calc(100vw - 2.5rem), 24rem"
+                />
+                <img
+                  src="rebrand/mascot/scenes/free-chaos.png"
+                  width="1254"
+                  height="1254"
+                  decoding="async"
+                  alt="A mischievous pixel hamster grins amid torn emails, a knocked-over photo, and orange graffiti."
+                />
+              </picture>
+            </div>
+            <div class="choice-caption">
+              <h2>Free-range</h2>
+              <p>
+                <span class="state-term" tabindex="0" aria-describedby="direct-examples">Direct<span class="state-tooltip" id="direct-examples" role="tooltip">Running in prod, playing with fire.</span></span>
+                access to state<br />
+                Maximum agency<br />
+                Maximum risk<br />
+                <strong>Good luck</strong>
+              </p>
+            </div>
+          </article>
         </div>
+
+        <p class="dilemma-answer">
+          It doesn't have to be this way.
+          <span>OneWill offers you a middle ground.</span>
+        </p>
+        <a class="talk-button" href="/contact/">Talk to us</a>
       </section>
 
-      <section class="section" data-clankers-only>
-        <div class="section-head">
-          <div>
-            <p class="eyebrow">THE DEAL</p>
-            <h2 class="nowrap-heading" data-copy="dealHeading">LEAVE MARKS THE NEXT RUN CAN USE</h2>
-            <p class="section-subtitle" data-copy="dealSubtitle">OneWill adds autosaves, rewinds, retcons, and handoffs around the environments your agents already use.</p>
-          </div>
-        </div>
-
-        <div class="logo-wall" aria-hidden="true">
-          <div class="logo-tile logo-tile-accent"><img src="logo/owa.png" width="256" height="256" loading="lazy" decoding="async" alt="" /></div>
-          <div class="logo-tile"><img src="logo/owa.png" width="256" height="256" loading="lazy" decoding="async" alt="" /></div>
-          <div class="logo-tile"><img src="logo/owa.png" width="256" height="256" loading="lazy" decoding="async" alt="" /></div>
-          <div class="logo-tile logo-tile-accent"><img src="logo/owa.png" width="256" height="256" loading="lazy" decoding="async" alt="" /></div>
-          <div class="logo-tile"><img src="logo/owa.png" width="256" height="256" loading="lazy" decoding="async" alt="" /></div>
-          <div class="logo-tile"><img src="logo/owa.png" width="256" height="256" loading="lazy" decoding="async" alt="" /></div>
-        </div>
+      <section class="interlude" id="boundary" aria-label="The answer">
+        <p>
+          <span>Introducing the Agent-World Boundary</span>
+          <strong>
+            OneWill: Agent Hamsterball<span class="disclaimer-term" tabindex="0" aria-describedby="hamsterball-disclaimer">*<span class="disclaimer-tooltip" id="hamsterball-disclaimer" role="tooltip">Please do not put actual hamsters in hamsterballs, it is <a href="https://en.wikipedia.org/wiki/Hamster_ball#Criticism" target="_blank" rel="noreferrer noopener">not good</a> for them. But agents are OK!</span></span>
+          </strong>
+        </p>
       </section>
 
-      <section class="section" id="team">
-        <div class="section-head">
-          <div>
-            <p class="eyebrow">THE TEAM</p>
-            <h2 class="meme-heading team-heading" data-copy="teamHeading">Built by two Carnegie Mellon CS PhDs in ML for databases.</h2>
-            <p class="team-intro">We met as undergrads in the <a href="https://db.cs.cmu.edu/" target="_blank" rel="noreferrer noopener">CMU Database Group</a> and have worked together since 2018.</p>
+      <section class="reveal" aria-labelledby="hamsterball-caption">
+        <div class="ball-stage">
+          <div class="ball-visual">
+            <picture class="work-scene-wrap">
+              <source
+                type="image/avif"
+                srcset="
+                  rebrand/mascot/scenes/hamsterball-work-v6-landscape-640.avif 640w,
+                  rebrand/mascot/scenes/hamsterball-work-v6-landscape-960.avif?v=2 960w
+                "
+                sizes="(max-width: 980px) 82vw, 26rem"
+              />
+              <img
+                class="work-scene"
+                src="rebrand/mascot/scenes/hamsterball-work-v6-landscape.png"
+                width="1254"
+                height="780"
+                loading="lazy"
+                decoding="async"
+                alt="A focused pixel hamster works inside a transparent ball connected to three smaller bubbles containing an email, a photo, and a document."
+              />
+            </picture>
+            <span class="stage-note stage-note-top">move safely</span>
           </div>
-        </div>
+          <div class="ball-copy">
+            <p class="ball-caption" id="hamsterball-caption">Observe. Mediate. Control.</p>
+            <p class="ball-more">
+              OneWill is the boundary between the agent and the world.<br />
+              Every action is observed. Every effect is mediated.<br />
+              You remain in control with governance, provenance, rollback, and more.<br />
+              Read how it works <a href="/blog/">here</a>; see the animations below for an idea.
+            </p>
 
-        <div class="team-grid">
-          <article class="team-card">
-            <div class="team-card-meta">
-              <span class="team-card-kicker">Cofounder</span>
-              <span class="team-card-links">
-                <a href="https://scholar.google.com/citations?user=eYMS0DUAAAAJ" target="_blank" rel="noreferrer noopener">Scholar</a>
-                <a href="https://www.linkedin.com/in/zhang-william/" target="_blank" rel="noreferrer noopener">LinkedIn</a>
-              </span>
-            </div>
-            <a class="profile-photo-link" href="https://www.linkedin.com/in/zhang-william/" target="_blank" rel="noreferrer noopener" aria-label="Will Zhang on LinkedIn">
-              <img src="profiles/will.png" width="216" height="216" loading="lazy" decoding="async" alt="Photo of Will Zhang" />
-            </a>
-            <div>
-              <h3>Will Zhang</h3>
-              <p>CEO</p>
-              <p class="team-card-credentials">Carnegie Mellon PhD CS 2026<br /><a href="https://www.mongodb.com/company/newsroom/press-releases/mongodb-awards-ph-d-fellowships-to-five-doctoral-students" target="_blank" rel="noreferrer noopener">MongoDB PhD Fellowship</a></p>
-            </div>
-            <p class="team-card-experience"><strong>Experience includes:</strong> <span>Microsoft GSL</span><span>SingleStore</span><span>NVIDIA</span></p>
-          </article>
-          <article class="team-card">
-            <div class="team-card-meta">
-              <span class="team-card-kicker">Cofounder</span>
-              <span class="team-card-links">
-                <a href="https://scholar.google.com/citations?user=g3njfFIAAAAJ" target="_blank" rel="noreferrer noopener">Scholar</a>
-                <a href="https://www.linkedin.com/in/lmwnshn/" target="_blank" rel="noreferrer noopener">LinkedIn</a>
-              </span>
-            </div>
-            <a class="profile-photo-link" href="https://www.linkedin.com/in/lmwnshn/" target="_blank" rel="noreferrer noopener" aria-label="Wan Lim on LinkedIn">
-              <img src="profiles/wan.png" width="216" height="216" loading="lazy" decoding="async" alt="Photo of Wan Lim" />
-            </a>
-            <div>
-              <h3>Wan Lim</h3>
-              <p>CTO</p>
-              <p class="team-card-credentials">Carnegie Mellon PhD CS 2026<br /><a href="https://ctftime.org/event/162" target="_blank" rel="noreferrer noopener">1st Place in National CTF (Brunei)</a></p>
-            </div>
-            <p class="team-card-experience"><strong>Experience includes:</strong> <span>Microsoft Research</span><span>Amazon Aurora</span></p>
-          </article>
-        </div>
-
-        <details class="support-details" open>
-          <summary>BACKED BY</summary>
-          <div class="team-mini-row">
-            <article class="team-mini-card team-mini-card-advisor">
-              <a class="advisor-link" href="https://scholar.google.com/citations?user=u1UDm4wAAAAJ" target="_blank" rel="noreferrer noopener">Scholar</a>
-              <a class="profile-photo-link" href="https://www.cs.cmu.edu/~pavlo/" target="_blank" rel="noreferrer noopener" aria-label="Andy Pavlo's CMU page">
-                <img src="profiles/andy.jpeg" width="216" height="216" loading="lazy" decoding="async" alt="Photo of Andy Pavlo" />
-              </a>
-              <div>
-                <strong>Advisor</strong>
-                <p>Andy Pavlo<br />CMU professor<br />The Databaseologist</p>
+            <section class="action-carousel" id="action-model" data-action-carousel aria-label="Action model examples" aria-roledescription="carousel" tabindex="0">
+              <p class="action-carousel-title">Action Model</p>
+              <div class="action-carousel-stage" aria-live="polite">
+                <figure class="action-slide" data-action-slide>
+                  <video
+                    data-action-video
+                    width="480"
+                    height="720"
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    preload="none"
+                    poster="rebrand/mascot/animations/01-reversible-poster.avif"
+                    aria-label="A hamsterball travels into a branching path and reverses course."
+                  >
+                    <source data-src="rebrand/mascot/animations/01-reversible.webm" type="video/webm; codecs=vp9" />
+                    <source data-src="rebrand/mascot/animations/01-reversible.mp4" type="video/mp4" />
+                  </video>
+                  <figcaption>Reversible</figcaption>
+                </figure>
+                <figure class="action-slide" data-action-slide hidden>
+                  <video
+                    data-action-video
+                    width="480"
+                    height="720"
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    preload="none"
+                    poster="rebrand/mascot/animations/02-compensable-poster.avif"
+                    aria-label="A hamsterball knocks over a bowling pin, illustrating an action that can be compensated for."
+                  >
+                    <source data-src="rebrand/mascot/animations/02-compensable.webm" type="video/webm; codecs=vp9" />
+                    <source data-src="rebrand/mascot/animations/02-compensable.mp4" type="video/mp4" />
+                  </video>
+                  <figcaption>Compensable</figcaption>
+                </figure>
+                <figure class="action-slide" data-action-slide hidden>
+                  <video
+                    data-action-video
+                    width="480"
+                    height="720"
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    preload="none"
+                    poster="rebrand/mascot/animations/03-irreversible-poster.avif"
+                    aria-label="A hamsterball rolls over a ledge, illustrating an irreversible action."
+                  >
+                    <source data-src="rebrand/mascot/animations/03-irreversible.webm" type="video/webm; codecs=vp9" />
+                    <source data-src="rebrand/mascot/animations/03-irreversible.mp4" type="video/mp4" />
+                  </video>
+                  <figcaption>Irreversible</figcaption>
+                </figure>
               </div>
-              <p class="advisor-tagline">DATABASE TECH MEETS AI AGENTS</p>
-            </article>
-            <article class="team-mini-card">
-              <strong>Investors</strong>
-              <p data-copy="investorsCopy"><a href="https://speedrun.a16z.com/" target="_blank" rel="noreferrer noopener">a16z Speedrun</a><br /><a href="https://essencevc.fund/" target="_blank" rel="noreferrer noopener">Essence Venture Capital</a><br /><a href="https://tallvc.com/" target="_blank" rel="noreferrer noopener">Tall VC</a></p>
-            </article>
-            <article class="team-mini-card">
-              <strong>Angels</strong>
-              <p>A co-founder of two major startups (one acquired for $1B).<br /><br />Current/former employees at OpenAI, Citadel Securities, and Bridgewater.</p>
-            </article>
-          </div>
-        </details>
-      </section>
-
-      <section class="section" id="blog">
-        <div class="section-head">
-          <div>
-            <p class="eyebrow">THE BLOG</p>
-            <p class="blog-prompt"><a href="https://onewill.ai/discord/">Join our Discord</a> to vote on blog topics!</p>
-          </div>
-        </div>
-
-        <div class="blog-grid">
-          <article class="blog-card">
-            <h3>Latest Articles</h3>
-            <ul class="blog-list">
-              <li class="blog-list-item">
-                <span class="blog-date">Jul 1, 2026</span>
-                <div>
-                  <a class="blog-article-title" href="/blog/2026/stealing-50-years-of-database-ideas-for-ai-agents/">Stealing 50 Years of Database Ideas for AI Agents</a>
-                  <p>Introducing OneWill, or: why write-ahead logging is better than letting agents rawdog your computer.</p>
+              <div class="action-carousel-controls">
+                <button class="action-carousel-arrow" type="button" data-action-previous aria-label="Previous action model">←</button>
+                <div class="action-carousel-dots" role="group" aria-label="Choose an action model">
+                  <button type="button" data-action-dot aria-label="Show Reversible" aria-pressed="true"></button>
+                  <button type="button" data-action-dot aria-label="Show Compensable" aria-pressed="false"></button>
+                  <button type="button" data-action-dot aria-label="Show Irreversible" aria-pressed="false"></button>
                 </div>
-              </li>
-            </ul>
-          </article>
+                <button class="action-carousel-arrow" type="button" data-action-next aria-label="Next action model">→</button>
+              </div>
+            </section>
+            <a class="talk-button" href="/contact/">Talk to us</a>
+          </div>
         </div>
       </section>
 
-      <section class="section signup" id="join">
-        <div class="signup-cta-panel">
-          <a class="button button-primary signup-main-cta" href="https://demo.onewill.ai">
-            <span>DEMO</span>
-            <span data-copy="signupSubtitle">live now</span>
-          </a>
-          <div class="link-row" aria-label="Social links">
-            <a href="https://onewill.ai/discord/">
-              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M19.54 5.34A17.3 17.3 0 0 0 15.23 4l-.2.4a14 14 0 0 1 3.74 1.88 11.9 11.9 0 0 0-11.54 0A14 14 0 0 1 10.97 4l-.2-.4a17.3 17.3 0 0 0-4.31 1.34C3.73 9.02 3 13 3.37 16.93A17.4 17.4 0 0 0 8.68 19.6l.67-.92a10.8 10.8 0 0 1-1.72-.82l.42-.33a12.4 12.4 0 0 0 7.9 0l.42.33c-.54.32-1.11.6-1.72.82l.67.92a17.4 17.4 0 0 0 5.31-2.67c.44-4.56-.76-8.5-1.09-11.59ZM9.3 14.5c-1.03 0-1.87-.95-1.87-2.12s.82-2.12 1.87-2.12 1.9.96 1.87 2.12c0 1.17-.82 2.12-1.87 2.12Zm5.4 0c-1.03 0-1.87-.95-1.87-2.12s.82-2.12 1.87-2.12 1.9.96 1.87 2.12c0 1.17-.82 2.12-1.87 2.12Z"/></svg>
-              <span>Discord</span>
+      <section class="credibility" id="team" aria-labelledby="team-title">
+        <div class="credibility-panel">
+          <h2 class="team-label" id="team-title">Team: Two CMU CS PhDs in ML for Database Systems</h2>
+
+          <div class="people">
+            <article class="person">
+              <a class="person-photo" href="https://www.linkedin.com/in/zhang-william/" target="_blank" rel="noreferrer noopener">
+                <img src="profiles/will.png" width="160" height="160" loading="lazy" decoding="async" alt="Will Zhang" />
+              </a>
+              <div class="person-details">
+                <h3>Will Zhang</h3>
+                <p>CEO · CMU CS PhD · MongoDB Fellowship</p>
+                <p class="person-links">
+                  <a href="https://scholar.google.com/citations?user=eYMS0DUAAAAJ" target="_blank" rel="noreferrer noopener">Scholar</a>
+                  <a href="https://www.linkedin.com/in/zhang-william/" target="_blank" rel="noreferrer noopener">LinkedIn</a>
+                  <a href="https://x.com/17zhangw/" target="_blank" rel="noreferrer noopener">X</a>
+                </p>
+              </div>
+              <p class="experience">
+                <strong>Experience includes:</strong>
+                <span>Microsoft GSL</span><span>SingleStore</span><span>NVIDIA</span>
+              </p>
+            </article>
+
+            <article class="person">
+              <a class="person-photo" href="https://www.linkedin.com/in/lmwnshn/" target="_blank" rel="noreferrer noopener">
+                <img src="profiles/wan.png" width="160" height="160" loading="lazy" decoding="async" alt="Wan Lim" />
+              </a>
+              <div class="person-details">
+                <h3>Wan Lim</h3>
+                <p>CTO · CMU CS PhD · National CTF Win</p>
+                <p class="person-links">
+                  <a href="https://scholar.google.com/citations?user=g3njfFIAAAAJ" target="_blank" rel="noreferrer noopener">Scholar</a>
+                  <a href="https://www.linkedin.com/in/lmwnshn/" target="_blank" rel="noreferrer noopener">LinkedIn</a>
+                  <a href="https://x.com/lmwnshn/" target="_blank" rel="noreferrer noopener">X</a>
+                </p>
+              </div>
+              <p class="experience">
+                <strong>Experience includes:</strong>
+                <span>Microsoft Research</span><span>Amazon Aurora</span>
+              </p>
+            </article>
+          </div>
+
+          <p class="credibility-note">
+            We met in the <a href="https://db.cs.cmu.edu/" target="_blank" rel="noreferrer noopener">CMU Database Group</a>
+            and have worked together since 2018.
+          </p>
+
+          <h3 class="section-label">Advisor</h3>
+          <article class="advisor-card">
+            <a href="https://www.cs.cmu.edu/~pavlo/" target="_blank" rel="noreferrer noopener">
+              <img src="profiles/andy.jpeg" width="160" height="160" loading="lazy" decoding="async" alt="Andy Pavlo" />
             </a>
-            <a href="https://onewill.ai/github/">
-              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.18-3.37-1.18-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.6 9.6 0 0 1 12 6.99c.85 0 1.7.11 2.5.34 1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.86v2.76c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg>
-              <span>GitHub</span>
-            </a>
-            <a href="https://onewill.ai/x/">
-              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M17.53 3h3.27l-7.15 8.17L22.06 21h-6.59l-5.16-6.76L4.4 21H1.12l7.65-8.74L.7 3h6.75l4.67 6.17L17.53 3Zm-1.15 16.27h1.81L6.46 4.64H4.52l11.86 14.63Z"/></svg>
-              <span>X</span>
-            </a>
-            <a href="https://www.linkedin.com/company/onewillai/">
-              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5.34 8.93H2.23V21h3.11V8.93ZM3.78 7.28A1.8 1.8 0 1 0 3.8 3.7a1.8 1.8 0 0 0-.02 3.58ZM21.77 21h-3.1v-5.87c0-1.4-.03-3.2-1.95-3.2-1.95 0-2.25 1.52-2.25 3.09V21h-3.1V8.93h2.97v1.65h.04a3.26 3.26 0 0 1 2.94-1.62c3.14 0 3.72 2.07 3.72 4.76V21h.73Z"/></svg>
-              <span>LinkedIn</span>
-            </a>
-            <a href="mailto:founders@onewill.ai">
-              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm0 2v.32l8 4.74 8-4.74V7H4Zm0 2.65V17h16V9.65l-7.49 4.44a1 1 0 0 1-1.02 0L4 9.65Z"/></svg>
-              <span>Email</span>
-            </a>
+            <div>
+              <strong>Andy Pavlo</strong>
+              <small>CMU professor · The Databaseologist</small>
+              <div class="advisor-links">
+                <a href="https://scholar.google.com/citations?user=u1UDm4wAAAAJ" target="_blank" rel="noreferrer noopener">Scholar</a>
+                <a href="https://x.com/andy_pavlo/" target="_blank" rel="noreferrer noopener">X</a>
+              </div>
+            </div>
+          </article>
+
+          <div class="backers" aria-label="Backed by">
+            <p class="support-label">Backed by</p>
+            <div class="backer-logos">
+              <a href="https://speedrun.a16z.com/" target="_blank" rel="noreferrer noopener" aria-label="a16z Speedrun">
+                <img src="investors/a16z-speedrun.svg" width="3081" height="427" loading="lazy" decoding="async" alt="" />
+              </a>
+              <a href="https://essencevc.fund/" target="_blank" rel="noreferrer noopener" aria-label="Essence Venture Capital">
+                <img src="investors/essence.svg" width="187" height="35" loading="lazy" decoding="async" alt="" />
+              </a>
+              <a class="tall" href="https://tallvc.com/" target="_blank" rel="noreferrer noopener">Tall Ventures</a>
+            </div>
+          </div>
+
+          <div class="angels">
+            <p class="support-label">Angels</p>
+            <p>
+              Nikita Shamgunov (co-founder of
+              <a href="https://techcrunch.com/2025/05/14/databricks-to-buy-open-source-database-startup-neon-for-1b/" target="_blank" rel="noreferrer noopener">Neon</a>
+              and
+              <a href="https://en.wikipedia.org/wiki/SingleStore" target="_blank" rel="noreferrer noopener">SingleStore</a>).
+            </p>
+            <p>Current/former employees at OpenAI, Citadel Securities, and Bridgewater.</p>
           </div>
         </div>
       </section>
     </main>
 
-    <footer>
-      <p>© 2026 OneWill-AI Society d/b/a OneWill.</p>
+    <footer id="site-footer">
+      <a class="footer-brand" href="/">OneWill</a>
+      <div>
+        <a href="https://onewill.ai/discord/">Discord</a>
+        <a href="https://onewill.ai/github/">GitHub</a>
+        <a href="https://onewill.ai/x/">X</a>
+        <a href="https://onewill.ai/linkedin/">LinkedIn</a>
+        <a href="mailto:founders@onewill.ai">Email</a>
+      </div>
+      <small>© 2026 OneWill-AI Society d/b/a OneWill.</small>
     </footer>
-
-    <a class="sticky-cta" href="#join" aria-label="Open the OneWill demo call to action">
-      <img src="logo/owa.png" width="256" height="256" alt="" />
-      <span data-copy="stickyCta">Demo</span>
-    </a>
-
-    <dialog class="image-lightbox" data-image-lightbox aria-label="Zoomable OneWill Agent Retcon image">
-      <div class="lightbox-bar">
-        <span class="lightbox-title">agent-retcon.png</span>
-        <div class="lightbox-controls">
-          <button class="lightbox-button" type="button" data-lightbox-zoom-out aria-label="Zoom out">-</button>
-          <button class="lightbox-button" type="button" data-lightbox-reset>100%</button>
-          <button class="lightbox-button" type="button" data-lightbox-zoom-in aria-label="Zoom in">+</button>
-          <a class="lightbox-button" href="clankers/assets/agent-retcon-full.png?v=20260630" target="_blank" rel="noreferrer noopener" data-lightbox-open>open</a>
-          <button class="lightbox-button" type="button" data-lightbox-close aria-label="Close image viewer">x</button>
-        </div>
-      </div>
-      <div class="lightbox-stage" data-lightbox-stage>
-        <picture>
-          <source srcset="clankers/assets/agent-retcon-full.avif?v=20260630" type="image/avif" data-lightbox-source-avif />
-          <source srcset="clankers/assets/agent-retcon-full.webp?v=20260630" type="image/webp" data-lightbox-source-webp />
-          <img src="clankers/assets/agent-retcon-full.png?v=20260630" width="1672" height="941" decoding="async" alt="High resolution OneWill gateway diagram filtering unsafe agent actions before they reach users" data-lightbox-img />
-        </picture>
-      </div>
-    </dialog>
-
-    <script>
-      (() => {
-        const moods = {
-          seriously: {
-            title: "OneWill | Agent Retcons",
-            description:
-              "OneWill lets you observe, control, handoff, and retcon agent actions through a gaming-inspired overlay for coding agents, with no source code changes or agent modifications required.",
-            heroImage: "seriously/assets/agent-retcon-hero.jpg",
-            heroLabel: "OneWill Agent Retcons",
-            runesHeading: false,
-            copy: {
-              navProof: "Product",
-              navJoin: "Demo",
-              navBlog: "Blog",
-              navCta: "Demo",
-              heroHeading: "Agent <span>Retcons.</span>",
-              heroText: "The power of agents.<br />Now with the time-travel of databases.",
-              heroPrimary: "Demo",
-              heroSecondary: "Product",
-              heroTeam: "Team",
-              moodLink: "add whimsy",
-              productHeading: "Retcon agent actions",
-              productCopy: "OneWill lets you observe, control, handoff, and retcon agent actions. It provides these capabilities through a gaming-inspired overlay for your regular coding agents (codex, claude, agy), no source code changes or agent modifications required.<br /><br />Behind the scenes, OneWill's technology interposes agent actions with database magic (<a href=\"/blog/2026/stealing-50-years-of-database-ideas-for-ai-agents/\">see blog for details</a>) to ensure that before any action runs, it must either be reversible or explicitly approved by you. We provide peace of mind and broaden the scope of work that you can hand off to agents.",
-              detailsSummary: "Why retcons matter",
-              walkthroughHeading: "Retcon in action",
-              walkthroughSummary: "TerminalBench2 database task",
-              dealHeading: "LEAVE MARKS THE NEXT RUN CAN USE",
-              dealSubtitle: "OneWill adds autosaves, rewinds, retcons, and handoffs around the environments your agents already use.",
-              teamHeading: "Built by two Carnegie Mellon CS PhDs in ML for databases.",
-              investorsCopy: "<a href=\"https://speedrun.a16z.com/\" target=\"_blank\" rel=\"noreferrer noopener\">a16z Speedrun</a><br /><a href=\"https://essencevc.fund/\" target=\"_blank\" rel=\"noreferrer noopener\">Essence Venture Capital</a><br /><a href=\"https://tallvc.com/\" target=\"_blank\" rel=\"noreferrer noopener\">Tall VC</a>",
-              signupSubtitle: "live now",
-              stickyCta: "Demo"
-            },
-            tagline: ["Autosaves", "Rewinds", "Retcons", "Handoffs"],
-            ticker: ["Autosave", "Rewind", "Retcon", "Handoff"],
-            listItems: [
-              "<strong>Irreversible actions.</strong> The agent assumed a delete API was staging-only. It was not. Our retcon system autosaves before irreversible actions, and forces sign-off when an action would prevent rollback. <a href=\"https://news.ycombinator.com/item?id=47911524\" target=\"_blank\" rel=\"noreferrer noopener\">HN</a>",
-              "<strong>Catastrophic context amnesia.</strong> The agent was told to never delete emails, but compaction made it forget. <a href=\"https://techcrunch.com/2026/02/23/a-meta-ai-security-researcher-said-an-openclaw-agent-ran-amok-on-her-inbox/\" target=\"_blank\" rel=\"noreferrer noopener\">TechCrunch</a>",
-              "<strong>Ordinary agent failures.</strong> Even if the agent tells you that \"you're absolutely right\", it is little condolence for whatever chaos it left behind."
-            ],
-            demoLabels: ["Bad Timeline", "Rewind", "Retcon", "Good Timeline", "RETCON EXECUTION"],
-            moodLinkHref: "/?lang=en-GENZ",
-            lightboxTitle: "agent-retcon.png",
-            protector: {
-              fullPng: "clankers/assets/agent-retcon-full.png?v=20260630",
-              fullWebp: "clankers/assets/agent-retcon-full.webp?v=20260630",
-              fullAvif: "clankers/assets/agent-retcon-full.avif?v=20260630",
-              png: "clankers/assets/agent-retcon.png?v=20260630",
-              webp: "clankers/assets/agent-retcon.webp?v=20260630",
-              avif: "clankers/assets/agent-retcon.avif?v=20260630"
-            }
-          },
-          clankers: {
-            title: "OneWill the Clankers",
-            description: "Agent broke the world. Reload the save.",
-            heroImage: "clankers/assets/clankers-hero.jpg",
-            heroLabel: "OneWill the Clankers",
-            runesHeading: false,
-            copy: {
-              navProof: "receipts",
-              navJoin: "Waitlist",
-              navBlog: "blog",
-              navCta: "Lock in",
-              heroHeading: "Clanker <span>fumbled?</span>",
-              heroText: "Agents make mistakes.<br />OneWill lets you run it back.",
-              heroPrimary: "i NEED this",
-              heroSecondary: "receipts",
-              heroTeam: "who?",
-              moodLink: "exit to serious page",
-              productHeading: "but y tho",
-              productCopy: "Guarantee that every agent action is either<br />(1) reversible, so mistakes don't matter, or<br />(2) gated by human or policy approval<br /><br /><span class=\"peace-nowrap\">OneWill structures agent chaos into a semantic action stream.</span><br />No code or agent change required. Just launch with OneWill.",
-              detailsSummary: "clanker lore",
-              walkthroughHeading: "caught in 4k 📸",
-              walkthroughSummary: "a TerminalBench2 task",
-              dealHeading: "LET CLANKERS COOK",
-              dealSubtitle: "OneWill stops the kitchen from burning down",
-              teamHeading: "literally who?",
-              investorsCopy: "<a href=\"https://speedrun.a16z.com/\" target=\"_blank\" rel=\"noreferrer noopener\">a16z Speedrun</a><br /><a href=\"https://essencevc.fund/\" target=\"_blank\" rel=\"noreferrer noopener\">Essence Venture Capital</a><br /><a href=\"https://tallvc.com/\" target=\"_blank\" rel=\"noreferrer noopener\">Tall VC</a>",
-              signupSubtitle: "put me in",
-              stickyCta: "i NEED this"
-            },
-            tagline: ["Autosaves", "Rewinds", "Retcons", "Handoffs"],
-            ticker: ["Autosave", "Fumble", "Rewind", "Run it back"],
-            listItems: [
-              "<strong>NEVER GUESS!</strong> A delete API was guessed to be staging-only. It was not. <a href=\"https://news.ycombinator.com/item?id=47911524\" target=\"_blank\" rel=\"noreferrer noopener\">HN</a>",
-              "<strong>STOP OPENCLAW.</strong> Inbox cleanup request, compaction amnesia, then the agent kept going. <a href=\"https://techcrunch.com/2026/02/23/a-meta-ai-security-researcher-said-an-openclaw-agent-ran-amok-on-her-inbox/\" target=\"_blank\" rel=\"noreferrer noopener\">TechCrunch</a>",
-              "<strong>average coding agent experience</strong>"
-            ],
-            demoLabels: ["L", "Reload", "Patch", "W", "PICK W TIMELINE"],
-            moodLinkHref: "/?lang=en-US",
-            lightboxTitle: "protector.png",
-            protector: {
-              fullPng: "clankers/assets/onewill-protector-full.png?v=20260630",
-              fullWebp: "clankers/assets/onewill-protector-full.webp?v=20260630",
-              fullAvif: "clankers/assets/onewill-protector-full.avif?v=20260630",
-              png: "clankers/assets/onewill-protector.png?v=20260630",
-              webp: "clankers/assets/onewill-protector.webp?v=20260630",
-              avif: "clankers/assets/onewill-protector.avif?v=20260630"
-            }
-          }
-        };
-
-        const moodKeys = new Set(Object.keys(moods));
-        const langToMood = new Map([
-          ["en-US", "seriously"],
-          ["en-GENZ", "clankers"]
-        ]);
-        const moodToLang = {
-          seriously: "en-US",
-          clankers: "en-GENZ"
-        };
-        const moodButtons = Array.from(document.querySelectorAll("[data-mood-option]"));
-        const setHtml = (key, value) => {
-          document.querySelectorAll(`[data-copy="${key}"]`).forEach((node) => {
-            node.innerHTML = value;
-          });
-        };
-
-        const getMoodFromUrl = () => {
-          const requested = new URLSearchParams(window.location.search).get("lang");
-          return langToMood.get(requested) || "seriously";
-        };
-
-        const getMoodUrl = (mood) => {
-          const url = new URL("/", window.location.origin);
-          url.searchParams.set("lang", moodToLang[mood] || "en-US");
-          url.hash = window.location.hash;
-          return url;
-        };
-
-        const applyMood = (mood, options = {}) => {
-          const normalizedMood = moodKeys.has(mood) ? mood : "seriously";
-          const config = moods[normalizedMood];
-          document.body.dataset.mood = normalizedMood;
-          document.title = config.title;
-          document.querySelector('meta[name="description"]')?.setAttribute("content", config.description);
-          document.querySelector('meta[property="og:title"]')?.setAttribute("content", config.title);
-          document.querySelector('meta[property="og:description"]')?.setAttribute("content", config.description);
-          document.querySelector('meta[name="twitter:title"]')?.setAttribute("content", config.title);
-          document.querySelector('meta[name="twitter:description"]')?.setAttribute("content", config.description);
-
-          moodButtons.forEach((button) => {
-            button.setAttribute("aria-pressed", String(button.dataset.moodOption === normalizedMood));
-          });
-
-          Object.entries(config.copy).forEach(([key, value]) => setHtml(key, value));
-          document.querySelectorAll("[data-tagline]").forEach((node) => {
-            node.textContent = config.tagline[Number(node.dataset.tagline)] || "";
-          });
-          document.querySelectorAll("[data-ticker]").forEach((node) => {
-            node.textContent = config.ticker[Number(node.dataset.ticker)] || "";
-          });
-          document.querySelectorAll("[data-list-item]").forEach((node) => {
-            node.innerHTML = config.listItems[Number(node.dataset.listItem)] || "";
-          });
-          document.querySelectorAll("[data-demo-label]").forEach((node) => {
-            node.textContent = config.demoLabels[Number(node.dataset.demoLabel)] || "";
-          });
-
-          const heroImage = document.querySelector("[data-hero-image]");
-          if (heroImage instanceof HTMLImageElement) {
-            heroImage.src = config.heroImage;
-          }
-          document.querySelector("[data-hero-section]")?.setAttribute("aria-label", config.heroLabel);
-          document.querySelector("[data-copy='heroHeading']")?.classList.toggle("runes-heading", config.runesHeading);
-          document.querySelector("[data-copy='teamHeading']")?.classList.toggle("team-heading", normalizedMood === "seriously");
-          document.querySelector("[data-mood-switch-link]")?.setAttribute("href", config.moodLinkHref);
-          document.querySelector(".lightbox-title") && (document.querySelector(".lightbox-title").textContent = config.lightboxTitle);
-          document.querySelector("[data-protector-full-link]")?.setAttribute("href", config.protector.fullPng);
-          document.querySelector("[data-protector-source-avif]")?.setAttribute("srcset", config.protector.avif);
-          document.querySelector("[data-protector-source-webp]")?.setAttribute("srcset", config.protector.webp);
-          document.querySelector("[data-protector-img]")?.setAttribute("src", config.protector.png);
-          document.querySelector("[data-lightbox-open]")?.setAttribute("href", config.protector.fullPng);
-          document.querySelector("[data-lightbox-source-avif]")?.setAttribute("srcset", config.protector.fullAvif);
-          document.querySelector("[data-lightbox-source-webp]")?.setAttribute("srcset", config.protector.fullWebp);
-          document.querySelector("[data-lightbox-img]")?.setAttribute("src", config.protector.fullPng);
-
-          if (!options.replaceUrl) {
-            window.history.pushState({ mood: normalizedMood }, "", getMoodUrl(normalizedMood));
-          } else {
-            window.history.replaceState({ mood: normalizedMood }, "", getMoodUrl(normalizedMood));
-          }
-        };
-
-        moodButtons.forEach((button) => {
-          button.addEventListener("click", () => applyMood(button.dataset.moodOption));
-        });
-        document.querySelector("[data-mood-switch-link]")?.addEventListener("click", (event) => {
-          event.preventDefault();
-          applyMood(document.body.dataset.mood === "clankers" ? "seriously" : "clankers");
-        });
-        window.addEventListener("popstate", () => applyMood(getMoodFromUrl(), { replaceUrl: true }));
-        applyMood(getMoodFromUrl(), { replaceUrl: true });
-      })();
-
-      (() => {
-        const trigger = document.querySelector("[data-image-zoom]");
-        const dialog = document.querySelector("[data-image-lightbox]");
-        const stage = document.querySelector("[data-lightbox-stage]");
-        const image = document.querySelector("[data-lightbox-img]");
-        const closeButton = document.querySelector("[data-lightbox-close]");
-        const zoomInButton = document.querySelector("[data-lightbox-zoom-in]");
-        const zoomOutButton = document.querySelector("[data-lightbox-zoom-out]");
-        const resetButton = document.querySelector("[data-lightbox-reset]");
-
-        if (
-          !(trigger instanceof HTMLAnchorElement) ||
-          !(dialog instanceof HTMLDialogElement) ||
-          !(stage instanceof HTMLElement) ||
-          !(image instanceof HTMLImageElement) ||
-          !(closeButton instanceof HTMLButtonElement) ||
-          !(zoomInButton instanceof HTMLButtonElement) ||
-          !(zoomOutButton instanceof HTMLButtonElement) ||
-          !(resetButton instanceof HTMLButtonElement)
-        ) return;
-
-        let zoom = 1;
-        let isDragging = false;
-        let dragStartX = 0;
-        let dragStartY = 0;
-        let scrollStartLeft = 0;
-        let scrollStartTop = 0;
-
-        const renderZoom = () => {
-          const availableWidth = Math.max(320, stage.clientWidth - 36);
-          const fitWidth = Math.min(image.naturalWidth || 1672, availableWidth);
-          image.style.width = `${Math.round(fitWidth * zoom)}px`;
-          resetButton.textContent = `${Math.round(zoom * 100)}%`;
-        };
-
-        const setZoom = (nextZoom) => {
-          zoom = Math.min(3, Math.max(1, nextZoom));
-          renderZoom();
-        };
-
-        const openLightbox = () => {
-          zoom = 1;
-          dialog.showModal();
-          document.documentElement.style.overflow = "hidden";
-          requestAnimationFrame(() => {
-            renderZoom();
-            stage.scrollTo({ left: 0, top: 0 });
-            closeButton.focus();
-          });
-        };
-
-        trigger.addEventListener("click", (event) => {
-          if (typeof dialog.showModal !== "function") return;
-          event.preventDefault();
-          openLightbox();
-        });
-
-        closeButton.addEventListener("click", () => dialog.close());
-        zoomInButton.addEventListener("click", () => setZoom(zoom + 0.25));
-        zoomOutButton.addEventListener("click", () => setZoom(zoom - 0.25));
-        resetButton.addEventListener("click", () => setZoom(1));
-        window.addEventListener("resize", renderZoom);
-
-        dialog.addEventListener("close", () => {
-          document.documentElement.style.overflow = "";
-          stage.dataset.dragging = "false";
-          isDragging = false;
-        });
-
-        stage.addEventListener("pointerdown", (event) => {
-          if (event.button !== 0) return;
-          isDragging = true;
-          stage.dataset.dragging = "true";
-          dragStartX = event.clientX;
-          dragStartY = event.clientY;
-          scrollStartLeft = stage.scrollLeft;
-          scrollStartTop = stage.scrollTop;
-          stage.setPointerCapture(event.pointerId);
-        });
-
-        stage.addEventListener("pointermove", (event) => {
-          if (!isDragging) return;
-          stage.scrollLeft = scrollStartLeft - (event.clientX - dragStartX);
-          stage.scrollTop = scrollStartTop - (event.clientY - dragStartY);
-        });
-
-        stage.addEventListener("pointerup", (event) => {
-          isDragging = false;
-          stage.dataset.dragging = "false";
-          stage.releasePointerCapture(event.pointerId);
-        });
-      })();
-
-    </script>
   </body>
 </html>

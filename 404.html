@@ -5,25 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex" />
     <meta name="copyright" content="© 2026 OneWill-AI Society d/b/a OneWill" />
+    <link rel="icon" href="/rebrand/mascot/onewill-hamster-master-64.png" type="image/png" />
+    <link rel="stylesheet" href="/brand-pages.css" />
+    <link rel="stylesheet" href="/site-chrome.css" />
     <title>OneWill</title>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KT4BRPL2KG"></script>
     <script>
-      (() => {
-        const path = window.location.pathname;
-        const query = new URLSearchParams(window.location.search);
-        const cleanSegments = path.split("/").filter(Boolean);
-        const isMeetupPath = cleanSegments[0] === "m" && cleanSegments.length >= 2;
-        const isWanShortPath = window.location.hostname.startsWith("wan.") && cleanSegments.length === 1;
-
-        if (!isMeetupPath && !isWanShortPath) return;
-
-        const eventId = isMeetupPath ? cleanSegments[1] : cleanSegments[0];
-        query.set("event", eventId);
-        window.location.replace(`/m/?${query.toString()}`);
-      })();
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        window.dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-KT4BRPL2KG");
     </script>
   </head>
-  <body>
-    <p>Page not found. <a href="/">Go to OneWill</a>.</p>
-    <footer><small>© 2026 OneWill-AI Society d/b/a OneWill</small></footer>
+  <body class="brand-page brand-fallback">
+    <header class="topbar" id="site-header">
+      <a class="brand" href="/" aria-label="OneWill home">
+        <img src="/rebrand/mascot/onewill-hamster-master-64.png" width="64" height="64" alt="" />
+        <span>OneWill</span>
+      </a>
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="/">Home</a>
+        <a href="/#team">Team</a>
+        <a href="/blog/">Blog</a>
+        <span class="nav-actions">
+          <a class="nav-cta" href="https://demo.onewill.ai/">Demo</a>
+          <a class="nav-talk" href="/contact/">Talk to us</a>
+        </span>
+      </nav>
+    </header>
+    <main>
+      <img src="/rebrand/mascot/onewill-hamster-master-64.png" width="64" height="64" alt="" />
+      <p>Page not found. <a href="/">Go to OneWill</a>.</p>
+      <footer><small>© 2026 OneWill-AI Society d/b/a OneWill</small></footer>
+    </main>
   </body>
 </html>

@@ -13,19 +13,19 @@
     <meta property="og:description" content="OneWill blog." />
     <meta property="og:url" content="https://onewill.ai/blog/" />
     <meta property="og:site_name" content="OneWill" />
-    <meta property="og:image" content="https://onewill.ai/logo/owa_title_og_1200x630.png" />
+    <meta property="og:image" content="https://onewill.ai/logo/onewill-agent-hamsterball-og.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="OneWill blog." />
+    <meta property="og:image:alt" content="OneWill Agent Hamsterball. Observe. Mediate. Control. Agent-World Boundary." />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="OneWill Blog" />
     <meta name="twitter:description" content="OneWill blog." />
-    <meta name="twitter:image" content="https://onewill.ai/logo/owa_title_og_1200x630.png" />
-    <meta name="twitter:image:alt" content="OneWill blog." />
+    <meta name="twitter:image" content="https://onewill.ai/logo/onewill-agent-hamsterball-og.png" />
+    <meta name="twitter:image:alt" content="OneWill Agent Hamsterball. Observe. Mediate. Control. Agent-World Boundary." />
     <link rel="canonical" href="https://onewill.ai/blog/" />
-    <link rel="icon" href="/logo/owa.png" type="image/png" />
-    <title>OneWill Blog</title>
+    <link rel="icon" href="/rebrand/mascot/onewill-hamster-master-64.png" type="image/png" />
+    <title>OneWill blog</title>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-KT4BRPL2KG"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -68,71 +68,7 @@
         color: inherit;
       }
 
-      .topbar {
-        position: sticky;
-        top: 0;
-        z-index: 10;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 18px;
-        min-height: 70px;
-        padding: 12px max(18px, calc((100vw - 1120px) / 2));
-        border-bottom: 1px solid var(--line);
-        background: rgba(9, 9, 9, 0.86);
-        backdrop-filter: blur(18px);
-      }
-
-      .brand {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        font-weight: 800;
-        text-decoration: none;
-      }
-
-      .brand img {
-        width: 38px;
-        height: 38px;
-      }
-
-      .nav {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        color: var(--muted);
-        font-size: 0.84rem;
-        font-weight: 700;
-        text-transform: uppercase;
-      }
-
-      .nav a {
-        padding: 9px 10px;
-        text-decoration: none;
-      }
-
-      .nav a:hover,
-      .nav a:focus-visible {
-        color: var(--accent);
-      }
-
-      .button {
-        display: inline-flex;
-        min-height: 52px;
-        align-items: center;
-        justify-content: center;
-        padding: 0 20px;
-        border: 1px solid var(--accent);
-        border-radius: var(--radius);
-        background: var(--accent);
-        color: var(--accent-ink);
-        font-weight: 900;
-        text-decoration: none;
-        text-transform: uppercase;
-      }
-
-      main,
-      footer {
+      main {
         width: min(1120px, calc(100% - 36px));
         margin: 0 auto;
       }
@@ -247,41 +183,30 @@
         line-height: 1.25;
       }
 
-      footer {
-        padding: 0 0 34px;
-        color: var(--muted);
-        font-size: 0.88rem;
-        font-weight: 600;
-      }
-
       @media (max-width: 720px) {
-        .topbar {
-          align-items: flex-start;
-          flex-direction: column;
-        }
-
-        .nav {
-          flex-wrap: wrap;
-        }
-
         .post-list-item {
           grid-template-columns: 1fr;
           gap: 6px;
         }
       }
     </style>
+    <link rel="stylesheet" href="/brand-pages.css" />
+    <link rel="stylesheet" href="/site-chrome.css" />
   </head>
-  <body>
-    <header class="topbar">
+  <body class="brand-page brand-blog site-page-shell">
+    <header class="topbar" id="site-header">
       <a class="brand" href="/" aria-label="OneWill home">
-        <img src="/logo/owa.png" width="256" height="256" alt="" />
+        <img src="/rebrand/mascot/onewill-hamster-master-64.png" width="64" height="64" alt="" />
         <span>OneWill</span>
       </a>
-      <nav class="nav" aria-label="Blog">
-        <a href="/?lang=en-US#proof">Product</a>
-        <a href="/?lang=en-US#team">Team</a>
-        <a href="/blog/">Blog</a>
-        <a class="button" href="https://demo.onewill.ai">Demo</a>
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="/">Home</a>
+        <a href="/#team">Team</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+        <span class="nav-actions">
+          <a class="nav-cta" href="https://demo.onewill.ai/">Demo</a>
+          <a class="nav-talk" href="/contact/">Talk to us</a>
+        </span>
       </nav>
     </header>
 
@@ -309,8 +234,16 @@
       </section>
     </main>
 
-    <footer>
-      <p>© 2026 OneWill-AI Society d/b/a OneWill.</p>
+    <footer id="site-footer">
+      <a class="footer-brand" href="/">OneWill</a>
+      <div>
+        <a href="https://onewill.ai/discord/">Discord</a>
+        <a href="https://onewill.ai/github/">GitHub</a>
+        <a href="https://onewill.ai/x/">X</a>
+        <a href="https://onewill.ai/linkedin/">LinkedIn</a>
+        <a href="mailto:founders@onewill.ai">Email</a>
+      </div>
+      <small>© 2026 OneWill-AI Society d/b/a OneWill.</small>
     </footer>
   </body>
 </html>
